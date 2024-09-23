@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/09/05 11:36:03 by emichels         ###   ########.fr        #
+#    Updated: 2024/09/23 12:32:31 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,10 @@ LIBMLX	:= ./MLX42/
 HEADERS	:= -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
 SRCS	:= main.c \
+			errors/error_handling.c \
+			map_parsing/map_information.c \
+			map_parsing/read_map.c \
+			map_parsing/valid_map.c \
 
 OBJS	:= ${SRCS:.c=.o}
 
