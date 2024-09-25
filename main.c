@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/25 12:17:44 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:46:42 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,14 @@ static void	assign_map(t_map *map)
 		struct_error("Error\nstring split failed\n", map);
 }
 
-// static void	free_map_struct(t_map map)
-// {
-// 	free(map.str);
-// 	ft_free(map.arr);
-// 	free_images(&map);
-// }
+static void	free_map_struct(t_map map)
+{
+	if (map.str)
+		free(map.str);
+	if (map.arr)
+		ft_free(map.arr);
+	//free_images(&map);
+}
 
 int32_t	main(int argc, char **argv)
 {
@@ -73,7 +75,7 @@ int32_t	main(int argc, char **argv)
 	//display_map(&map);
 	//mlx_key_hook(map.mlx, &wasd_keyhook, &map);
 	mlx_loop(map.mlx);
-	//free_map_struct(map);
+	free_map_struct(map);
 	mlx_terminate(map.mlx);
 	//zero_map_struct(&map);
 	return (0);
