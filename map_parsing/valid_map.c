@@ -6,17 +6,51 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/25 11:29:44 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:47:35 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+static void	last_line(t_map *map)
+{
+	if (map->arr[map->y][map->x] == '0')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'N')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'S')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'W')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'E')
+		struct_error("Error\nmap not walled\n", map);
+}
+
+static void	first_line(t_map *map)
+{
+	if (map->arr[map->y][map->x] == '0')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'N')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'S')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'W')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][map->x] == 'E')
+		struct_error("Error\nmap not walled\n", map);
+}
+
 static void	middle_map(t_map *map, int len)
 {
-	if (map->arr[map->y][0] == '0')
+	if (map->arr[map->y][0] == '0' || map->arr[map->y][len - 1] == '0')
 		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][len - 1] == '0')
+	if (map->arr[map->y][0] == 'N' || map->arr[map->y][len - 1] == 'N')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][0] == 'S' || map->arr[map->y][len - 1] == 'S')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][0] == 'W' || map->arr[map->y][len - 1] == 'W')
+		struct_error("Error\nmap not walled\n", map);
+	if (map->arr[map->y][0] == 'E' || map->arr[map->y][len - 1] == 'E')
 		struct_error("Error\nmap not walled\n", map);
 	if ((map->arr[map->y][map->x] == ' ' || map->arr[map->y][map->x] == '\t')
 		&& map->arr[map->y][map->x + 1] == '0')
@@ -24,7 +58,8 @@ static void	middle_map(t_map *map, int len)
 	if ((map->arr[map->y][map->x] == ' ' || map->arr[map->y][map->x] == '\t')
 		&& map->arr[map->y][map->x - 1] == '0')
 		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == '0' && (map->x >= (int)ft_strlen(map->arr[map->y + 1])))
+	if (map->arr[map->y][map->x] == '0'
+		&& (map->x >= (int)ft_strlen(map->arr[map->y + 1])))
 		struct_error("Error\nmap not walled\n", map);
 }
 
@@ -38,11 +73,11 @@ static void	is_walled(t_map *map)
 		len = ft_strlen(map->arr[map->y]);
 		while (map->arr[map->y][map->x])
 		{
-			if (map->y == 0 && ((map->arr[map->y][map->x] == '0'))) // first
-				struct_error("Error\nmap not walled\n", map);
-			if (map->y == map->max_y && map->arr[map->y][map->x] == '0') // last
-				struct_error("Error\nmap not walled\n", map);
-			if (map->y != 0 && map->y != map->max_y) //middle
+			if (map->y == 0)
+				first_line(map);
+			if (map->y == map->max_y)
+				last_line(map);
+			if (map->y > 0 && map->y < map->max_y)
 				middle_map(map, len);
 			map->x++;
 		}
