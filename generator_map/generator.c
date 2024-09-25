@@ -6,23 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:42:21 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/25 14:16:37 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:28:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-#define MW 50  // map width
-#define MH 25 // map height
-
-typedef struct s_player
-{
-	int		player_x;
-	int		player_y;
-	char	player_direction;
-}	t_player;
+#include "generator.h"
 
 void	generate_map(char map[MH][MW])
 {
