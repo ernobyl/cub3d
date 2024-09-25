@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/23 15:09:28 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/09/25 11:02:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ void	is_valid_character(t_map *map)
 			struct_error("Error\nduplicate start positions\n", map);
 		i++;
 	}
-	// if (!ft_strchr(map->str, '1') || !ft_strchr(map->str, 'N')
-	// 	|| !ft_strchr(map->str, 'S') || !ft_strchr(map->str, 'E')
-	// 	|| !ft_strchr(map->str, 'W'))
-	// 	struct_error("Error\nmap elements missing\n", map);
+	if (!ft_strchr(map->str, 'N') && !ft_strchr(map->str, 'S')
+		&& !ft_strchr(map->str, 'E') && !ft_strchr(map->str, 'W'))
+		struct_error("Error\nmap elements missing\n", map);
 }

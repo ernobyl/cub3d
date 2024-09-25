@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/23 15:18:18 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/09/25 10:50:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	is_walled(t_map *map)
 				if ((map->arr[map->y][map->x] == ' ' || map->arr[map->y][map->x] == '\t')
 					&& map->arr[map->y][map->x - 1] == '0')
 					struct_error("Error\nmap not walled\n", map);
-				if (map->arr[map->y][map->x] == '0' && (map->x > (int)ft_strlen(map->arr[map->y + 1])))
+				if (map->arr[map->y][map->x] == '0' && (map->x >= (int)ft_strlen(map->arr[map->y + 1])))
 					struct_error("Error\nmap not walled\n", map);
 			}
 			map->x++;
