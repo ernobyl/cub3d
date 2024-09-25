@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/23 15:06:15 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:17:44 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,16 @@ int32_t	main(int argc, char **argv)
 	assign_map(&map);
 	for (int i = 0; map.arr[i]; i++)
 		printf("%s\n", map.arr[i]);
-
-	/* THIS PART IS HERE FOR REFERENCE (USED IN MY SO LONG)
-
-	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	//mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	map.mlx = mlx_init((map.max_x + 1) * WIDTH, (map.max_y + 1) * HEIGHT,
-			"so long", true);
+			"cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
-	display_map(&map);
-	mlx_key_hook(map.mlx, &wasd_keyhook, &map);
+	//display_map(&map);
+	//mlx_key_hook(map.mlx, &wasd_keyhook, &map);
 	mlx_loop(map.mlx);
-	free_map_struct(map);
+	//free_map_struct(map);
 	mlx_terminate(map.mlx);
-	zero_map_struct(&map);
-
-	*/
-
+	//zero_map_struct(&map);
 	return (0);
 }
