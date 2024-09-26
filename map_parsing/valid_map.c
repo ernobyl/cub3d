@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 12:17:02 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 12:51:21 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,32 +130,32 @@ void	traverse_path(char **arr, t_map *cur, int y, int x)
 	search_unfilled(arr, cur);
 }
 
-static void	valid_path(t_map *begin)
+static void	valid_path(t_map *p)
 {
 	int		found;
 
 	found = 0;
-	begin->y = 1;
-	while (begin->y < begin->max_y)
+	p->y = 1;
+	while (p->y < p->max_y)
 	{
-		begin->x = 1;
-		while (begin->arr[begin->y][begin->x])
+		p->x = 1;
+		while (p->arr[p->y][p->x])
 		{
-			if (begin->arr[begin->y][begin->x] == 'N'
-				|| begin->arr[begin->y][begin->x] == 'S'
-				|| begin->arr[begin->y][begin->x] == 'E'
-				|| begin->arr[begin->y][begin->x] == 'W')
+			if (p->arr[p->y][p->x] == 'N' || p->arr[p->y][p->x] == 'S'
+				|| p->arr[p->y][p->x] == 'E' || p->arr[p->y][p->x] == 'W')
 			{
+				p->plr_y = p->y;
+				p->plr_x = p->x;
 				found = 1;
 				break ;
 			}
-			begin->x++;
+			p->x++;
 		}
 		if (found)
 			break ;
-		begin->y++;
+		p->y++;
 	}
-	traverse_path(begin->arr, begin, begin->y, begin->x);
+	traverse_path(p->arr, p, p->y, p->x);
 }
 
 void	is_rectangle(t_map *map)

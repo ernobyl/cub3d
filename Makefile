@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/09/23 12:32:31 by emichels         ###   ########.fr        #
+#    Updated: 2024/09/26 13:14:32 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS	:= main.c \
 			map_parsing/map_information.c \
 			map_parsing/read_map.c \
 			map_parsing/valid_map.c \
+			game/minimap.c \
 
 OBJS	:= ${SRCS:.c=.o}
 

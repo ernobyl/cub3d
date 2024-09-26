@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 11:40:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:12:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ typedef struct s_texture
 
 typedef struct s_image
 {
-	mlx_image_t		*w_img;
-	mlx_image_t		*f_img;
+	mlx_image_t	*mini_p;	
+	mlx_image_t	*w_img;
+	mlx_image_t	*f_img;
 }	t_image;
 
 typedef struct s_map
@@ -45,13 +46,14 @@ typedef struct s_map
 	int		x;
 	int		max_y;
 	int		max_x;
-	int		plr_y;
-	int		plr_x;
+	float	plr_y;
+	float	plr_x;
 	char	*str;
 	char	**arr;
 	t_image	*images;
 }	t_map;
 
+	// indented prototypes are unmodified from so_long
 // error handling
 void	struct_error(char *msg, t_map *map);
 //void	texture_error(char *msg, t_map *map, t_texture *textures);
@@ -60,16 +62,17 @@ void	free_images(t_map *map);
 void	simple_error(char *msg);
 
 // player movement & status
-void	wasd_keyhook(mlx_key_data_t keydata, void *param);
-void	count_steps(t_map *map);
-void	count_collectibles(t_map *map);
-void	exit_open(t_map *map);
+	void	wasd_keyhook(mlx_key_data_t keydata, void *param);
+	void	count_steps(t_map *map);
+	void	count_collectibles(t_map *map);
+	void	exit_open(t_map *map);
 
 // display
-void	resize_images(t_map *map);
-void	load_textures(t_map *map);
-void	load_images(t_map *map, t_texture *textures);
-void	display_map(t_map *map);
+	void	resize_images(t_map *map);
+	void	load_textures(t_map *map);
+	void	load_images(t_map *map, t_texture *textures);
+	void	display_map(t_map *map);
+void	display_player(t_map *map);
 
 // map handling
 void	read_map(t_map *map);

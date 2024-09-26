@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 11:40:42 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 13:16:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ static void	zero_map_struct(t_map *map)
 	map->x = 0;
 	map->max_y = 0;
 	map->max_x = 0;
-	map->plr_y = 0;
-	map->plr_x = 0;
+	map->plr_y = 0.0f;
+	map->plr_x = 0.0f;
 	map->str = NULL;
 	map->arr = NULL;
 	map->images = NULL;
@@ -73,6 +73,7 @@ int32_t	main(int argc, char **argv)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
 	//mlx_key_hook(map.mlx, &wasd_keyhook, &map);
+	display_player(&map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);
