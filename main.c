@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 13:16:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:11:52 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,17 @@ int32_t	main(int argc, char **argv)
 	assign_map(&map);
 	for (int i = 0; map.arr[i]; i++)
 		printf("%s\n", map.arr[i]);
-	//mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	map.mlx = mlx_init((map.max_x + 1) * WIDTH, (map.max_y + 1) * HEIGHT,
-			"cub3d", true);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
+	map.mlx = mlx_init((32 * WIDTH), (32 * HEIGHT), "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
-	//mlx_key_hook(map.mlx, &wasd_keyhook, &map);
+	mlx_key_hook(map.mlx, &wasd_keyhook, &map);
 	display_player(&map);
+	printf("plr x: %f\n", map.plr_x);
+	printf("plr y: %f\n", map.plr_y);
+	mlx_image_to_window(map.mlx, map.images->mini_p, map.plr_x * WIDTH, map.plr_y * HEIGHT);
+	mlx_loop_hook(map.mlx, draw_player, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);

@@ -3,17 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 13:15:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:07:09 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+/* void	draw_player(void *param)
+{
+	t_map *map;
+	uint32_t	i;
+	uint32_t	j;
+
+	i = -1;
+	j = -1;
+	map = (t_map *)param;
+	while (++i < map->images->mini_p->width)
+	{
+		while (++j < map->images->mini_p->height)
+			mlx_put_pixel(map->images->mini_p, i, j, map->images->player);
+	}
+}  */
+
 void	display_player(t_map *map)
 {
+	printf("before calloc\n");
 	map->images = ft_calloc(1, sizeof(t_image));
-	mlx_put_pixel(map->images->mini_p, map->plr_x, map->plr_y, 24);
+	if (!map->images)
+		struct_error("Calloc Image failed\n", map);
+	map->images->player = 0xFFE0;
+	map->images->mini_p = mlx_new_image(map->mlx, 16, 16);
+	printf("after calloc\n");
+	printf("mlx_image_to_window success\n");
+}
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+{
+    return (r << 24 | g << 16 | b << 8 | a);
+}
+
+void draw_player(void* param)
+{
+	t_map *map;
+	
+	map = (t_map *)param;
+	for (uint32_t i = 0; i < map->images->mini_p->width; ++i)
+	{
+		for (uint32_t y = 0; y < map->images->mini_p->height; ++y)
+		{
+			uint32_t color = map->images->player;
+			mlx_put_pixel(map->images->mini_p, i, y, color);
+		}
+	}
 }

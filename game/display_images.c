@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   display_images.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:16:17 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/16 13:16:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:33:26 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../so_long.h"
+#include "../"
 
 static void	safe_img_to_window(t_map *map, mlx_image_t *img)
 {
