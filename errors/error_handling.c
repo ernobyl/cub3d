@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:23:58 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/23 12:29:18 by emichels         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:47:13 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@
 // 	mlx_delete_texture(textures->wall);
 // 	mlx_delete_texture(textures->floor);
 // }
+
+static void	debug_map(t_map *map)
+{
+	printf("Invalid map element at x: %i y: %i\n", map->x + 1, map->y + 1);
+}
 
 void	free_images(t_map *map)
 {
@@ -29,6 +34,8 @@ void	free_images(t_map *map)
 
 void	struct_error(char *msg, t_map *map)
 {
+	if (ft_strcmp(msg, "Error\nmap not walled\n") == 0)
+		debug_map(map);
 	if (map->str)
 		free(map->str);
 	if (map->arr)
