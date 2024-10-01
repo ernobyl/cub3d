@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/26 16:05:29 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:23:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ typedef struct s_texture
 typedef struct s_image
 {
 	mlx_image_t	*mini_p;
-	uint32_t	player;
+	mlx_image_t	*mini_m;
+	uint32_t	color_player;
+	uint32_t	color_map;
 	mlx_image_t	*w_img;
 	mlx_image_t	*f_img;
 }	t_image;
@@ -72,9 +74,10 @@ void	simple_error(char *msg);
 	void	resize_images(t_map *map);
 	void	load_textures(t_map *map);
 	void	load_images(t_map *map, t_texture *textures);
-	void	display_map(t_map *map);
+void	display_map(t_map *map);
 void	display_player(t_map *map);
 void	draw_player(void *param);
+void	draw_map(void* param);
 
 // map handling
 void	read_map(t_map *map);
