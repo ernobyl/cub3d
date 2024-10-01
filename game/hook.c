@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/01 15:09:45 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:17:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,55 @@
 
 void    ft_hook(void *param)
 {
-    t_map   *map;
-    mlx_t   *mlx;
-    double  factor;
+	t_map   *map;
+	mlx_t   *mlx;
+	float	speed;
+	//double  factor;
 
-    map = (void *)param;
-    mlx = map->mlx;
-    factor = 0.2;
-    if (mlx_is_key_down(mlx, MLX_KEY_W))
-       map->images->mini_p->instances->y -= 1;
-    else if (mlx_is_key_down(mlx, MLX_KEY_S))
-       map->images->mini_p->instances->y += 1;
-    else if (mlx_is_key_down(mlx, MLX_KEY_D))
-       map->images->mini_p->instances->x += 1;
-    else if (mlx_is_key_down(mlx, MLX_KEY_A))
-       map->images->mini_p->instances->x -= 1;
-    else if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+	map = (void *)param;
+	mlx = map->mlx;
+	speed = 1.0f;
+	//factor = 0.2;
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+	{
+		map->plr_y -= (speed / (float)MINIHEIGHT);
+		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+			map->plr_y += (speed / (float)MINIHEIGHT);
+		else
+			map->images->mini_p->instances->y -= speed;
+		printf("plr x: %f\n", map->plr_x);
+		printf("plr y: %f\n", map->plr_y);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+	{
+		map->plr_y += (speed / (float)MINIHEIGHT);
+		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+			map->plr_y -= (speed / (float)MINIHEIGHT);
+		else
+			map->images->mini_p->instances->y += speed;
+		printf("plr x: %f\n", map->plr_x);
+		printf("plr y: %f\n", map->plr_y);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	{
+		map->plr_x += (speed / (float)MINIWIDTH);
+		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+			map->plr_x -= (speed / (float)MINIWIDTH);
+		else
+			map->images->mini_p->instances->x += speed;
+		printf("plr x: %f\n", map->plr_x);
+		printf("plr y: %f\n", map->plr_y);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+	{
+		map->plr_x -= (speed / (float)MINIWIDTH);
+		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+			map->plr_x += (speed / (float)MINIWIDTH);
+		else
+			map->images->mini_p->instances->x -= speed;
+		printf("plr x: %f\n", map->plr_x);
+		printf("plr y: %f\n", map->plr_y);
+	}
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 14:21:45 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:50:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	init_miniplayer(t_map *map)
 	map->images = ft_calloc(1, sizeof(t_image));
 	if (!map->images)
 		struct_error("Calloc Image failed\n", map);
-	map->images->color_player = 0xFFE0;
-	map->images->mini_p = mlx_new_image(map->mlx, 8, 8);
+	map->images->color_player = 0xFFFF00FF;
+	map->images->mini_p = mlx_new_image(map->mlx, MINIWIDTH, MINIHEIGHT);
 	printf("after calloc\n");
 	printf("mlx_image_to_window success\n");
 }
@@ -50,9 +50,9 @@ void draw_player(void* param)
 	t_map *map;
 	
 	map = (t_map *)param;
-	for (uint32_t i = 0; i < map->images->mini_p->width; ++i)
+	for (uint32_t i = 0; i < 3; ++i)
 	{
-		for (uint32_t y = 0; y < map->images->mini_p->height; ++y)
+		for (uint32_t y = 0; y < 3; ++y)
 		{
 			uint32_t color = map->images->color_player;
 			mlx_put_pixel(map->images->mini_p, i, y, color);
@@ -60,7 +60,7 @@ void draw_player(void* param)
 	}
 }
 
-void draw_walls(void* param)
+void	draw_walls(void* param)
 {
 	t_map *map;
 	
@@ -75,11 +75,28 @@ void draw_walls(void* param)
 	}
 }
 
+void	draw_floor(void* param)
+{
+	t_map *map;
+	
+	map = (t_map *)param;
+	for (uint32_t i = 0; i < map->images->mini_f->width; ++i)
+	{
+		for (uint32_t y = 0; y < map->images->mini_f->height; ++y)
+		{
+			uint32_t color = map->images->color_floor;
+			mlx_put_pixel(map->images->mini_f, i, y, color);
+		}
+	}
+}
+
 void	init_minimap(t_map *map)
 {
 	// map->images = ft_calloc(1, sizeof(t_image));
 	// if (!map->images)
 	// 	struct_error("Calloc Image failed\n", map);
-	map->images->color_wall = 0x07E0;
+	map->images->color_wall = 0xFFFFFFFF;
 	map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
+	map->images->color_floor = 0x000000FF;
+	map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 }

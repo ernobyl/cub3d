@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:16:17 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 14:21:30 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:49:15 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ static void	display_images(t_map *map, int i)
 	{
 		safe_img_to_window(map, map->images->mini_w);
 	}
+	if (map->str[i] == '0' || map->str[i] == 'N'
+		|| map->str[i] == 'S' || map->str[i] == 'E' || map->str[i] == 'W')
+	{
+		safe_img_to_window(map, map->images->mini_f);
+	}
 	if (map->str[i] == '\n')
 	{
 		map->y++;
@@ -31,13 +36,6 @@ static void	display_images(t_map *map, int i)
 	}
 	else
 		map->x++;
-	// else if (map->str[i] == '0' || map->str[i] == 'P' || map->str[i] == 'C')
-	// {
-	// 	safe_img_to_window(map, map->images->f_img);
-	// 	if (map->str[i] == 'C')
-	// 		safe_img_to_window(map, map->images->c_img);
-	// 	map->x++;
-	// }
 	// else if (map->str[i] == 'E')
 	// {
 	// 	safe_img_to_window(map, map->images->dc_img);
