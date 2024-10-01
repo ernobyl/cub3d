@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 12:23:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:56:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define BUFFERSIZE 25
 # define WIDTH 64
 # define HEIGHT 64
+# define MINIWIDTH 16
+# define MINIHEIGHT 16
 
 typedef struct s_texture
 {
@@ -34,11 +36,11 @@ typedef struct s_texture
 typedef struct s_image
 {
 	mlx_image_t	*mini_p;
-	mlx_image_t	*mini_m;
-	uint32_t	color_player;
-	uint32_t	color_map;
+	mlx_image_t	*mini_w;
 	mlx_image_t	*w_img;
 	mlx_image_t	*f_img;
+	uint32_t	color_player;
+	uint32_t	color_wall;
 }	t_image;
 
 typedef struct s_map
@@ -74,10 +76,12 @@ void	simple_error(char *msg);
 	void	resize_images(t_map *map);
 	void	load_textures(t_map *map);
 	void	load_images(t_map *map, t_texture *textures);
-void	display_map(t_map *map);
-void	display_player(t_map *map);
+void	init_minimap(t_map *map);
+void	init_miniplayer(t_map *map);
 void	draw_player(void *param);
-void	draw_map(void* param);
+void	draw_walls(void* param);
+void	display_map(t_map *map);
+void	safe_img_to_window(t_map *map, mlx_image_t *img);
 
 // map handling
 void	read_map(t_map *map);

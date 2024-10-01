@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/09/26 16:12:20 by msilfver         ###   ########.fr        #
+#    Updated: 2024/10/01 13:38:12 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ SRCS	:= main.c \
 			map_parsing/valid_map.c \
 			game/minimap.c \
 			game/movement.c \
+			game/display_images.c \
+
 
 OBJS	:= ${SRCS:.c=.o}
 
