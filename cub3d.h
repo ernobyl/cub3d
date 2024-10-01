@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 13:56:45 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:31:46 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	simple_error(char *msg);
 	void	count_steps(t_map *map);
 	void	count_collectibles(t_map *map);
 	void	exit_open(t_map *map);
+	void    ft_hook(void *param);
 
 // display
 	void	resize_images(t_map *map);

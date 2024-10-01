@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/10/01 13:38:12 by emichels         ###   ########.fr        #
+#    Updated: 2024/10/01 14:26:37 by msilfver         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS	:= main.c \
 			game/minimap.c \
 			game/movement.c \
 			game/display_images.c \
+			game/hook.c \
 
 
 OBJS	:= ${SRCS:.c=.o}
