@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/01 17:17:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:36:42 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,10 @@ void    ft_hook(void *param)
 	t_map   *map;
 	mlx_t   *mlx;
 	float	speed;
-	//double  factor;
 
 	map = (void *)param;
 	mlx = map->mlx;
 	speed = 1.0f;
-	//factor = 0.2;
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		map->plr_y -= (speed / (float)MINIHEIGHT);

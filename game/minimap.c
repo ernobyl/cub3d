@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 17:50:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/02 14:41:11 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,20 @@ void	init_miniplayer(t_map *map)
 void draw_player(void* param)
 {
 	t_map *map;
-	
+	int	x;
+	int	y;
+
+	x = MINIWIDTH / 2;
+	y = MINIHEIGHT / 2;
 	map = (t_map *)param;
-	for (uint32_t i = 0; i < 3; ++i)
-	{
-		for (uint32_t y = 0; y < 3; ++y)
-		{
-			uint32_t color = map->images->color_player;
-			mlx_put_pixel(map->images->mini_p, i, y, color);
-		}
-	}
+	uint32_t color = map->images->color_player;
+	mlx_put_pixel(map->images->mini_p, x, y, color);
 }
 
 void	draw_walls(void* param)
 {
 	t_map *map;
-	
+
 	map = (t_map *)param;
 	for (uint32_t i = 0; i < map->images->mini_w->width; ++i)
 	{

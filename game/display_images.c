@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display_images.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:16:17 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 17:49:15 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/02 12:29:56 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static void	display_images(t_map *map, int i)
 		map->y++;
 		map->x = 0;
 	}
+	else if (map->str[i] == '\t')
+		map->x += 4;
 	else
 		map->x++;
 	// else if (map->str[i] == 'E')
