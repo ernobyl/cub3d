@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/01 17:40:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/08 15:14:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_image
 	mlx_image_t	*mini_f;
 	mlx_image_t	*w_img;
 	mlx_image_t	*f_img;
+	mlx_image_t	*minimap;
 	uint32_t	color_player;
 	uint32_t	color_wall;
 	uint32_t	color_floor;
@@ -82,7 +83,7 @@ void	simple_error(char *msg);
 void	init_minimap(t_map *map);
 void	init_miniplayer(t_map *map);
 void	draw_player(void *param);
-void	draw_walls(void* param);
+void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
 void	safe_img_to_window(t_map *map, mlx_image_t *img);

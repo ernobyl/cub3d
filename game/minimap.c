@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/02 14:41:11 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:03:33 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	init_miniplayer(t_map *map)
 	if (!map->images)
 		struct_error("Calloc Image failed\n", map);
 	map->images->color_player = 0xFFFF00FF;
-	map->images->mini_p = mlx_new_image(map->mlx, MINIWIDTH, MINIHEIGHT);
+	//map->images->mini_p = mlx_new_image(map->mlx, MINIWIDTH, MINIHEIGHT);
 	printf("after calloc\n");
 	printf("mlx_image_to_window success\n");
 }
@@ -58,19 +58,65 @@ void draw_player(void* param)
 	mlx_put_pixel(map->images->mini_p, x, y, color);
 }
 
-void	draw_walls(void* param)
+void	put_wall(t_map	*map)
 {
-	t_map *map;
-
-	map = (t_map *)param;
-	for (uint32_t i = 0; i < map->images->mini_w->width; ++i)
+	uint32_t	color;
+	
+	color = map->images->color_wall;
+	for (uint32_t i = 0; i < MINIWIDTH; ++i)
 	{
-		for (uint32_t y = 0; y < map->images->mini_w->height; ++y)
+		for (uint32_t y = 0; y < MINIHEIGHT; ++y)
 		{
-			uint32_t color = map->images->color_wall;
-			mlx_put_pixel(map->images->mini_w, i, y, color);
+			mlx_put_pixel(map->images->minimap, i, y, color);
 		}
 	}
+}
+
+void	put_floor(t_map	*map)
+{
+	uint32_t	color;
+	
+	color = map->images->color_floor;
+	for (uint32_t i = 0; i < MINIWIDTH; ++i)
+	{
+		for (uint32_t y = 0; y < MINIHEIGHT; ++y)
+		{
+			mlx_put_pixel(map->images->minimap, i, y, color);
+		}
+	}
+}
+
+void	draw_minimap(void *param)
+{
+	t_map		*map;
+	int			x;
+	int			y;
+
+	map = (t_map *)param;
+	y = 0;
+	while (y < map->max_y)
+	{
+		x = 0;
+		while (x < (int)ft_strlen(map->arr[y]))
+		{
+			mlx_image_to_window(map->mlx, map->images->minimap, x * MINIWIDTH, y * MINIHEIGHT);
+			if (map->arr[y][x] == '1')
+				put_wall(map);
+			else if (map->arr[y][x] == '0')
+				put_floor(map);
+			else
+			x++;
+		}
+		y++;
+	}
+	// for (uint32_t i = 0; i < map->images->mini_w->width; ++i)
+	// {
+	// 	for (uint32_t y = 0; y < map->images->mini_w->height; ++y)
+	// 	{
+	// 		uint32_t color = map->images->color_wall;
+	// 		mlx_put_pixel(map->images->mini_w, i, y, color);
+	// 	}
+	// }
 }
 
 void	draw_floor(void* param)
@@ -90,11 +136,12 @@ void	draw_floor(void* param)
 
 void	init_minimap(t_map *map)
 {
-	// map->images = ft_calloc(1, sizeof(t_image));
+	map->images = ft_calloc(1, sizeof(t_image));
 	// if (!map->images)
 	// 	struct_error("Calloc Image failed\n", map);
 	map->images->color_wall = 0xFFFFFFFF;
-	map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
+	//map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 	map->images->color_floor = 0x000000FF;
-	map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
+	//map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
+	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH, map->max_y * MINIHEIGHT);
 }
