@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/08 16:03:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:26:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,30 +58,30 @@ void draw_player(void* param)
 	mlx_put_pixel(map->images->mini_p, x, y, color);
 }
 
-void	put_wall(t_map	*map)
+void	put_wall(t_map	*map, int x, int y)
 {
 	uint32_t	color;
 	
 	color = map->images->color_wall;
 	for (uint32_t i = 0; i < MINIWIDTH; ++i)
 	{
-		for (uint32_t y = 0; y < MINIHEIGHT; ++y)
+		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
 		{
-			mlx_put_pixel(map->images->minimap, i, y, color);
+			mlx_put_pixel(map->images->minimap, x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
 		}
 	}
 }
 
-void	put_floor(t_map	*map)
+void	put_floor(t_map	*map, int x, int y)
 {
 	uint32_t	color;
 	
 	color = map->images->color_floor;
 	for (uint32_t i = 0; i < MINIWIDTH; ++i)
 	{
-		for (uint32_t y = 0; y < MINIHEIGHT; ++y)
+		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
 		{
-			mlx_put_pixel(map->images->minimap, i, y, color);
+			mlx_put_pixel(map->images->minimap, x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
 		}
 	}
 }
@@ -94,21 +94,22 @@ void	draw_minimap(void *param)
 
 	map = (t_map *)param;
 	y = 0;
+	printf("maxy is %i\n", map->max_y);
 	while (y < map->max_y)
 	{
+		printf("y is %i\n", y);
 		x = 0;
 		while (x < (int)ft_strlen(map->arr[y]))
 		{
-			mlx_image_to_window(map->mlx, map->images->minimap, x * MINIWIDTH, y * MINIHEIGHT);
 			if (map->arr[y][x] == '1')
-				put_wall(map);
-			else if (map->arr[y][x] == '0')
-				put_floor(map);
-			else
+				put_wall(map, x, y);
+			if (map->arr[y][x] == '0')
+				put_floor(map, x, y);
 			x++;
 		}
 		y++;
 	}
+	mlx_image_to_window(map->mlx, map->images->minimap, 0, 0);
 	// for (uint32_t i = 0; i < map->images->mini_w->width; ++i)
 	// {
 	// 	for (uint32_t y = 0; y < map->images->mini_w->height; ++y)
