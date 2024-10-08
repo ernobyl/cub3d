@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/08 16:26:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/08 18:22:24 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,10 @@ void	draw_minimap(void *param)
 
 	map = (t_map *)param;
 	y = 0;
-	printf("maxy is %i\n", map->max_y);
-	while (y < map->max_y)
+	while (y <= map->max_y)
 	{
-		printf("y is %i\n", y);
 		x = 0;
-		while (x < (int)ft_strlen(map->arr[y]))
+		while (map->arr[y] && x < (int)ft_strlen(map->arr[y]))
 		{
 			if (map->arr[y][x] == '1')
 				put_wall(map, x, y);
@@ -110,14 +108,6 @@ void	draw_minimap(void *param)
 		y++;
 	}
 	mlx_image_to_window(map->mlx, map->images->minimap, 0, 0);
-	// for (uint32_t i = 0; i < map->images->mini_w->width; ++i)
-	// {
-	// 	for (uint32_t y = 0; y < map->images->mini_w->height; ++y)
-	// 	{
-	// 		uint32_t color = map->images->color_wall;
-	// 		mlx_put_pixel(map->images->mini_w, i, y, color);
-	// 	}
-	// }
 }
 
 void	draw_floor(void* param)
@@ -144,5 +134,5 @@ void	init_minimap(t_map *map)
 	//map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 	map->images->color_floor = 0x000000FF;
 	//map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
-	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH, map->max_y * MINIHEIGHT);
+	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/08 15:49:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/08 16:49:55 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int32_t	main(int argc, char **argv)
 	for (int i = 0; map.arr[i]; i++)
 		printf("%s\n", map.arr[i]);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	map.mlx = mlx_init(((map.max_x + 1) * MINIWIDTH), ((map.max_y + 1) * MINIHEIGHT), "cub3d", true);
+	map.mlx = mlx_init(((map.max_x + 2) * MINIWIDTH), ((map.max_y + 2) * MINIHEIGHT), "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
@@ -80,7 +80,7 @@ int32_t	main(int argc, char **argv)
 	//mlx_loop_hook(map.mlx, draw_walls, &map);
 	//mlx_loop_hook(map.mlx, draw_floor, &map);
 	//mlx_loop_hook(map.mlx, draw_player, &map);
-	safe_img_to_window(&map, map.images->minimap);
+	//safe_img_to_window(&map, map.images->minimap);
 	//mlx_loop_hook(map.mlx, draw_minimap, &map);
 	draw_minimap(&map);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
