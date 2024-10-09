@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/08 16:49:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/09 11:08:04 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,12 @@ int32_t	main(int argc, char **argv)
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
-	//init_miniplayer(&map);
 	init_minimap(&map);
+	//init_miniplayer(&map);
 	printf("plr x: %f\n", map.plr_x);
 	printf("plr y: %f\n", map.plr_y);
-	//display_map(&map);
-	//mlx_image_to_window(map.mlx, map.images->mini_p, map.plr_x * MINIWIDTH, map.plr_y * MINIHEIGHT);
-	//mlx_loop_hook(map.mlx, draw_walls, &map);
-	//mlx_loop_hook(map.mlx, draw_floor, &map);
-	//mlx_loop_hook(map.mlx, draw_player, &map);
-	//safe_img_to_window(&map, map.images->minimap);
-	//mlx_loop_hook(map.mlx, draw_minimap, &map);
 	draw_minimap(&map);
+	put_player(&map);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
