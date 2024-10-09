@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/09 11:08:04 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:03:28 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	zero_map_struct(t_map *map)
 	map->max_x = 0;
 	map->plr_y = 0.0f;
 	map->plr_x = 0.0f;
+	map->plr_angle = 0.0f;
 	map->str = NULL;
 	map->arr = NULL;
 	map->images = NULL;

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/09 10:48:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/09 12:02:53 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_map
 	int		max_x;
 	float	plr_y;
 	float	plr_x;
+	float	plr_angle;
 	char	*str;
 	char	**arr;
 	t_image	*images;
