@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/09 11:50:12 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:59:03 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,16 +67,72 @@ void	put_floor(t_map *map, int x, int y)
 	}
 }
 
-void	put_player(t_map *map)
+void	draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, uint32_t color)
 {
-	int	offset;
+	int	dx = abs(x1 - x0);
+	int	dy = abs(y1 - y0);
+	int	sx = (x0 < x1) ? 1 : -1;
+	int	sy = (y0 < y1) ? 1 : -1;
+	int	err = dx - dy;
+	int	e2;
 
+	while (1)
+	{
+		// Draw the pixel at the current position
+		mlx_put_pixel(img, x0, y0, color);
+
+		// Check if we've reached the end of the line
+		if (x0 == x1 && y0 == y1)
+			break;
+
+		// Update error and adjust x and y accordingly
+		e2 = 2 * err;
+		if (e2 > -dy)
+		{
+			err -= dy;
+			x0 += sx;
+		}
+		if (e2 < dx)
+		{
+			err += dx;
+			y0 += sy;
+		}
+	}
+}
+
+// void    draw_player_direction(t_map *map)
+// {
+//     int start_x = (map->plr_x) * MINIWIDTH + (MINIWIDTH / 2) - (256 / 2);
+//     int start_y = (map->plr_y) * MINIHEIGHT + (MINIHEIGHT / 2) - (256 / 2);
+
+//     // Length of the direction line
+//     int length = 10;
+
+//     // End point of the direction line, based on player's angle
+//     int end_x = start_x + (cos(map->plr_angle) * length);
+//     int end_y = start_y + (sin(map->plr_angle) * length);
+
+//     // Draw the line indicating player direction
+//     draw_line(map->images->mini_p, start_x, start_y, end_x, end_y, RED);
+// }
+
+void	put_player(void *param)
+{
+	t_map	*map;
+	int		offset;
+	int 	end_x;
+    int 	end_y;
+
+	map = (t_map *)param;
+	end_x = (256 / 2) + (cos(map->plr_angle) * 10);
+	end_y = (256 / 2) + (sin(map->plr_angle) * 10);
 	map->plr_x += 0.5f;
 	map->plr_y += 0.5f;
 	offset = 256 / 2;
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	map->images->color_player = RED;
 	mlx_put_pixel(map->images->mini_p, 256 / 2, 256 / 2, RED);
+	draw_line(map->images->mini_p, 256 / 2, 256 / 2, end_x, end_y, RED);
 	mlx_image_to_window(map->mlx, map->images->mini_p, ((map->plr_x - 0.5f) * MINIWIDTH) + (MINIWIDTH / 2) - offset, ((map->plr_y - 0.5f) * MINIHEIGHT) + (MINIHEIGHT / 2) - offset);
 }
 

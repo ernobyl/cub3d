@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/09 12:02:53 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/10 12:57:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	simple_error(char *msg);
 	void	load_images(t_map *map, t_texture *textures);
 void	init_minimap(t_map *map);
 void	init_miniplayer(t_map *map);
-void	put_player(t_map *map);
+void	put_player(void *param);
 void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
