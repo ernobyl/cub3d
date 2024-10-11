@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/10 12:59:03 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/11 12:50:17 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,23 +116,40 @@ void	draw_line(mlx_image_t *img, int x0, int y0, int x1, int y1, uint32_t color)
 //     draw_line(map->images->mini_p, start_x, start_y, end_x, end_y, RED);
 // }
 
-void	put_player(void *param)
+void	draw_arrow(mlx_image_t *img, int center_x, int center_y, float angle, uint32_t color)
 {
-	t_map	*map;
-	int		offset;
-	int 	end_x;
-    int 	end_y;
+	int	length;
+	int	width;
 
-	map = (t_map *)param;
-	end_x = (256 / 2) + (cos(map->plr_angle) * 10);
-	end_y = (256 / 2) + (sin(map->plr_angle) * 10);
+	length = 6;
+	width = 3;
+	// Calculate the tip of the arrow (forward direction)
+	int tip_x = center_x + (int)(cos(angle) * length);
+	int tip_y = center_y + (int)(sin(angle) * length);
+
+	// Calculate the two base points of the arrow (forming the base of the triangle)
+	int base_left_x = center_x + (int)(cos(angle + (PI / 2)) * width / 2);
+	int base_left_y = center_y + (int)(sin(angle + (PI / 2)) * width / 2);
+
+	int base_right_x = center_x + (int)(cos(angle - (PI / 2)) * width / 2);
+	int base_right_y = center_y + (int)(sin(angle - (PI / 2)) * width / 2);
+
+	// Draw the three sides of the triangle (arrow)
+	draw_line(img, base_left_x, base_left_y, tip_x, tip_y, color);   // Left side
+	draw_line(img, base_right_x, base_right_y, tip_x, tip_y, color); // Right side
+	draw_line(img, base_left_x, base_left_y, base_right_x, base_right_y, color); // Base
+}
+
+void	put_player(t_map *map)
+{
+	int		offset;
+
 	map->plr_x += 0.5f;
 	map->plr_y += 0.5f;
 	offset = 256 / 2;
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	map->images->color_player = RED;
-	mlx_put_pixel(map->images->mini_p, 256 / 2, 256 / 2, RED);
-	draw_line(map->images->mini_p, 256 / 2, 256 / 2, end_x, end_y, RED);
+	draw_arrow(map->images->mini_p, 256 / 2, 256 / 2, map->plr_angle ,RED);
 	mlx_image_to_window(map->mlx, map->images->mini_p, ((map->plr_x - 0.5f) * MINIWIDTH) + (MINIWIDTH / 2) - offset, ((map->plr_y - 0.5f) * MINIHEIGHT) + (MINIHEIGHT / 2) - offset);
 }
 
