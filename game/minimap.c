@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/11 15:09:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:13:20 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,61 @@ void	draw_arrow(t_map *map, float angle)
 	tri.base_right_y = tri.center_y + (int)(sin(angle - (PI / 2)) * width / 2);
 
 	// draw arrow
-	draw_line(map, tri.base_left_x, tri.base_left_y, tri.tip_x, tri.tip_y);   // left side
-	draw_line(map, tri.base_right_x, tri.base_right_y, tri.tip_x, tri.tip_y); // right side
-	draw_line(map, tri.base_left_x, tri.base_left_y, tri.base_right_x, tri.base_right_y); // base
+	draw_line(map, tri.base_left_x, tri.base_left_y, tri.tip_x, tri.tip_y);
+	draw_line(map, tri.base_right_x, tri.base_right_y, tri.tip_x, tri.tip_y);
+	draw_line(map, tri.base_left_x, tri.base_left_y, tri.base_right_x, tri.base_right_y);
+	draw_ray(map, map->plr_angle, 0);
+	draw_ray(map, map->plr_angle - (PI / 6), 1);
+	draw_ray(map, map->plr_angle + (PI / 6), 2);
 }
+
+void draw_ray(t_map *map, float ray_angle, int ray_index)
+{
+	float ray_x;
+	float ray_y;
+	float step_size;
+	int hit;
+	float ray_distance;
+	int max_distance;
+	int pixel_x; 
+	int pixel_y;
+	int map_x;
+	int map_y;
+
+	ray_x = map->plr_x;
+	ray_y = map->plr_y;
+	step_size = 0.1f;
+	hit = 0;
+	ray_distance = 0.0f;
+	max_distance = 128;
+	map->rays[ray_index].angle = ray_angle;
+	while (!hit && ray_distance < max_distance)
+	{
+		ray_x += cos(ray_angle) * step_size;
+		ray_y += sin(ray_angle) * step_size;
+		ray_distance += step_size;
+		map_x = (int)floor(ray_x);
+		map_y = (int)floor(ray_y);
+		if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
+		{
+			if (map->arr[map_y][map_x] == '1')
+			{
+				hit = 1;
+				map->rays[ray_index].hit_x = map_x;
+				map->rays[ray_index].hit_y = map_y;
+				map->rays[ray_index].distance = ray_distance;
+			}
+		}
+		pixel_x = (int)((ray_x - map->plr_x) * MINIWIDTH + 128);
+		pixel_y = (int)((ray_y - map->plr_y) * MINIHEIGHT + 128);
+		if (pixel_x >= 0 && pixel_x < 256 && pixel_y >= 0 && pixel_y < 256)
+			mlx_put_pixel(map->images->mini_p, pixel_x, pixel_y, YELLOW);
+		else
+			break;
+	}
+}
+
+
 
 void	put_player(t_map *map)
 {
@@ -120,7 +171,9 @@ void	put_player(t_map *map)
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	map->images->color_player = RED;
 	draw_arrow(map, map->plr_angle);
-	mlx_image_to_window(map->mlx, map->images->mini_p, ((map->plr_x - 0.5f) * MINIWIDTH) + (MINIWIDTH / 2) - offset, ((map->plr_y - 0.5f) * MINIHEIGHT) + (MINIHEIGHT / 2) - offset);
+	mlx_image_to_window(map->mlx, map->images->mini_p,
+		((map->plr_x - 0.5f) * MINIWIDTH) + (MINIWIDTH / 2) - offset,
+		((map->plr_y - 0.5f) * MINIHEIGHT) + (MINIHEIGHT / 2) - offset);
 }
 
 void	draw_minimap(void *param)

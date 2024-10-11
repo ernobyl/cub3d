@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/11 15:05:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/11 18:11:35 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
 # define RED 0xFF0000FF
+# define YELLOW 0xFFFF00FF
 
 typedef struct s_tri
 {
@@ -62,6 +63,14 @@ typedef struct s_image
 	uint32_t	color_floor;
 }	t_image;
 
+typedef	struct s_ray
+{
+	float	angle;
+	float	distance;
+	int		hit_x;
+	int		hit_y;
+} t_ray;
+
 typedef struct s_map
 {
 	int		fd;
@@ -76,6 +85,7 @@ typedef struct s_map
 	char	*str;
 	char	**arr;
 	t_image	*images;
+	t_ray 	rays[3];
 }	t_map;
 
 	// indented prototypes are unmodified from so_long
@@ -105,6 +115,7 @@ void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
 void	safe_img_to_window(t_map *map, mlx_image_t *img);
+void	draw_ray(t_map *map, float ray_angle, int ray_index);
 
 // map handling
 void	read_map(t_map *map);
