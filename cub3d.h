@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/11 12:49:01 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/11 15:05:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
 # define RED 0xFF0000FF
+
+typedef struct s_tri
+{
+	int	tip_x;
+	int	tip_y;
+	int	base_left_x;
+	int	base_left_y;
+	int	base_right_x;
+	int	base_right_y;
+	int	center_x;
+	int	center_y;
+}	t_tri;
 
 typedef struct s_texture
 {
@@ -87,7 +99,7 @@ void	simple_error(char *msg);
 	void	load_images(t_map *map, t_texture *textures);
 void	init_minimap(t_map *map);
 void	init_miniplayer(t_map *map);
-void	draw_arrow(mlx_image_t *img, int center_x, int center_y, float angle, uint32_t color);
+void	draw_arrow(t_map *map, float angle);
 void	put_player(t_map *map);
 void	draw_minimap(void* param);
 void	draw_floor(void* param);
