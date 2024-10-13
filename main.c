@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/10 15:23:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:16:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	inspect_map(t_map *map)
 static void	assign_map(t_map *map)
 {
 	read_map(map);
+	tabs_to_spaces(map);
 	inspect_map(map);
 	map->arr = ft_split(map->str, '\n');
 	if (!map->arr)

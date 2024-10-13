@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/11 18:11:35 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:16:04 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ void	draw_ray(t_map *map, float ray_angle, int ray_index);
 // map handling
 void	read_map(t_map *map);
 void	valid_extension(char *str);
+void	tabs_to_spaces(t_map *map);
 void	set_map_limits(t_map *map);
 void	is_rectangle(t_map *map);
 void	is_valid_character(t_map *map);

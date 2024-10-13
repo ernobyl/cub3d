@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/25 11:02:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:33:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,54 @@
 	if (!map->arr)
 		struct_error("Calloc error\n", map);
 } */
+static char	*replace_tabs(t_map *map, char *new)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	while (map->str[i])
+	{
+		if (map->str[i] == '\t')
+		{
+			new[j] = ' ';
+			new[j + 1] = ' ';
+			new[j + 2] = ' ';
+			new[j + 3] = ' ';
+			j += 4;
+		}
+		else
+		{
+			new[j] = map->str[i];
+			j++;
+		}
+		i++;
+	}
+	free(map->str);
+	return (new);
+}
+
+void	tabs_to_spaces(t_map *map)
+{
+	int		i;
+	int		tabs;
+	char	*new;
+
+	i = 0;
+	tabs = 0;
+	while (map->str[i])
+	{
+		if (map->str[i] == '\t')
+			tabs++;
+		i++;
+	}
+	new = ft_calloc(i + (tabs * 3) + 1, sizeof(char));
+	if (!new)
+		struct_error("Calloc error\n", map);
+	new = replace_tabs(map, new);
+	map->str = new;
+}
 
 void	set_map_limits(t_map *map)
 {
@@ -47,6 +95,7 @@ void	set_map_limits(t_map *map)
 		len++;
 	}
 	map->max_y = y;
+	printf("max x: %i\nmax y: %i\n", map->max_x, map->max_y);
 	if (map->max_x < 2 || map->max_y < 2)
 		struct_error("Error\nempty line or invalid map dimensions\n", map);
 	//init_arr(map);
