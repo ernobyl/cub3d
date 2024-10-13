@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/13 10:33:16 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/13 10:43:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static char	*replace_tabs(t_map *map, char *new)
 {
 	int	i;
 	int	j;
+	int	count;
 	
 	i = 0;
 	j = 0;
@@ -29,11 +30,9 @@ static char	*replace_tabs(t_map *map, char *new)
 	{
 		if (map->str[i] == '\t')
 		{
-			new[j] = ' ';
-			new[j + 1] = ' ';
-			new[j + 2] = ' ';
-			new[j + 3] = ' ';
-			j += 4;
+			count = 4;
+			while (count--)
+				new[j++] = ' ';
 		}
 		else
 		{
@@ -75,8 +74,6 @@ void	set_map_limits(t_map *map)
 
 	x = 0;
 	len = 0;
-/* 	while (map->str[x + 1] != '\n')
-		x++; */
 	map->max_x = 0;
 	y = 0;
 	x = 0;
@@ -95,7 +92,6 @@ void	set_map_limits(t_map *map)
 		len++;
 	}
 	map->max_y = y;
-	printf("max x: %i\nmax y: %i\n", map->max_x, map->max_y);
 	if (map->max_x < 2 || map->max_y < 2)
 		struct_error("Error\nempty line or invalid map dimensions\n", map);
 	//init_arr(map);
