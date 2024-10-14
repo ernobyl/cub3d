@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/11 18:13:20 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/14 19:05:05 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,27 @@ void	init_triangle(t_tri *tri)
 	tri ->center_y = 256 / 2;
 }
 
+void raycasting_rays(t_map *map)
+{
+    int num_rays;
+    float fov;
+    float angle_step;
+    float start_angle;
+	int	i;
+
+	num_rays = 20;
+	fov = PI / 3;
+	angle_step = fov / num_rays;
+	start_angle = map->plr_angle - fov / 2;
+    i = 0;
+	while (i < num_rays)
+    {
+        float ray_angle = start_angle + i * angle_step;
+        draw_ray(map, ray_angle, i);
+		i++;
+    }
+}
+
 void	draw_arrow(t_map *map, float angle)
 {
 	int		length;
@@ -108,9 +129,7 @@ void	draw_arrow(t_map *map, float angle)
 	draw_line(map, tri.base_left_x, tri.base_left_y, tri.tip_x, tri.tip_y);
 	draw_line(map, tri.base_right_x, tri.base_right_y, tri.tip_x, tri.tip_y);
 	draw_line(map, tri.base_left_x, tri.base_left_y, tri.base_right_x, tri.base_right_y);
-	draw_ray(map, map->plr_angle, 0);
-	draw_ray(map, map->plr_angle - (PI / 6), 1);
-	draw_ray(map, map->plr_angle + (PI / 6), 2);
+	raycasting_rays(map);
 }
 
 void draw_ray(t_map *map, float ray_angle, int ray_index)
