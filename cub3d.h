@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/13 10:16:04 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:58:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,12 @@ typedef struct s_image
 	mlx_image_t	*w_img;
 	mlx_image_t	*f_img;
 	mlx_image_t	*minimap;
+	uint32_t	color_miniwall;
+	uint32_t	color_minifloor;
 	uint32_t	color_player;
 	uint32_t	color_wall;
 	uint32_t	color_floor;
+	uint32_t	color_ceiling;
 }	t_image;
 
 typedef	struct s_ray

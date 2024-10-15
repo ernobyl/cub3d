@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/14 19:05:05 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/15 13:59:37 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_wall(t_map	*map, int x, int y)
 {
 	uint32_t	color;
 	
-	color = map->images->color_wall;
+	color = map->images->color_miniwall;
 	for (uint32_t i = 0; i < MINIWIDTH; ++i)
 	{
 		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
@@ -30,7 +30,7 @@ void	put_floor(t_map *map, int x, int y)
 {
 	uint32_t	color;
 	
-	color = map->images->color_floor;
+	color = map->images->color_minifloor;
 	for (uint32_t i = 0; i < MINIWIDTH; ++i)
 	{
 		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
@@ -227,9 +227,9 @@ void	init_minimap(t_map *map)
 	map->images = ft_calloc(1, sizeof(t_image));
 	// if (!map->images)
 	// 	struct_error("Calloc Image failed\n", map);
-	map->images->color_wall = WHITE;
+	map->images->color_miniwall = WHITE;
 	//map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
-	map->images->color_floor = BLACK;
+	map->images->color_minifloor = BLACK;
 	//map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
 }

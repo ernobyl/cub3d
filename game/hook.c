@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/11 18:14:31 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/15 11:55:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void    ft_hook(void *param)
 		map->plr_angle -= rot_spd;
 		if (map->plr_angle < 0.0f)
 			map->plr_angle += 2 * PI;
-		printf("Player angle: %f\n", map->plr_angle);
+		//printf("Player angle: %f\n", map->plr_angle);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
 		map->plr_angle += rot_spd;
 		if (map->plr_angle >= 2 * PI)
 			map->plr_angle -= 2 * PI;
-		printf("Player angle: %f\n", map->plr_angle);
+		//printf("Player angle: %f\n", map->plr_angle);
 	}
 	// forward
 	if (mlx_is_key_down(mlx, MLX_KEY_W))
@@ -54,7 +54,7 @@ void    ft_hook(void *param)
 			map->images->mini_p->instances->x = (map->plr_x - 0.5f) * MINIWIDTH;
 			map->images->mini_p->instances->y = (map->plr_y - 0.5f) * MINIHEIGHT;
 		}
-		printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
+		//printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
 	}
 	// backward
 	if (mlx_is_key_down(mlx, MLX_KEY_S))
@@ -72,7 +72,7 @@ void    ft_hook(void *param)
 			map->images->mini_p->instances->x = (map->plr_x - 0.5f) * MINIWIDTH;
 			map->images->mini_p->instances->y = (map->plr_y - 0.5f) * MINIHEIGHT;
 		}
-		printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
+		//printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
 
 	}
 	// redraw rotated arrow
