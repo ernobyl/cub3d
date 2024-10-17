@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 14:22:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 16:55:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,14 +108,21 @@ int	check_line(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != ' ' && str[i] != '\n')
+		if (str[i] == '1')
 			return (1);
-		if (str[i] == '\n')
-			break;
 		i++;
 	}
 	return (0);
 }
+
+bool	wall_check(char *str)
+{
+	if (ft_strchr(str, '1') != NULL)
+		return (true);
+	else
+		return (false);
+}
+
 int	map_color_specs(t_map *map)
 {
 	int	i;
@@ -128,17 +135,28 @@ int	map_color_specs(t_map *map)
 		{
 			// set texture (path = from this point until newline);
 			map_set_texture(map, "path to texture\n");
+			while (map->str[i] != '\n' && map->str[i])
+				i++;
 		}
 		else if (map->str[i] == 'F')
+		{	
 			map_set_color(map, map->str, i + 1, map->images->color_floor);
+			while (map->str[i] != '\n' && map->str[i])
+				i++;
+		}
 		else if (map->str[i] == 'C')
+		{	
 			map_set_color(map, map->str, i + 1, map->images->color_ceiling);
-		else if (map->str[i] == '\n' && map->str[i + 1] == '1')
-			break ;
-		i++;
+			while (map->str[i] != '\n' && map->str[i])
+				i++;
+		}
+ 		else if (map->str[i] == '\n')
+			i++;
+		else if (check_line(map->str + i) == 1)
+			break;
 	}
-	while (map->str[i] == '\n' && check_line(map->str + i) == 0)
-		i++;
+	// while (map->str[i] == '\n' && check_line(map->str + i) == 0)
+	// 	i++;
 	return (i);
 }
 
@@ -155,7 +173,6 @@ void	set_map_limits(t_map *map)
 	x = map_color_specs(map); // start from where the color / texture specifications ended
 	temp = ft_strdup(map->str + x);
 	map->str = temp;
-	printf("map without color info:\n%s\n", map->str);
 	x = 0;
 	while (map->str[x + 1] != '\0')
 	{
