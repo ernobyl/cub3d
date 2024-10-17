@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 10:40:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 14:22:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t color)
 	int	g;
 	int	b;
 	
-	printf("in map set color function\n");
     while (line[i] == ' ')
         i++;
     r = ft_atoi(line + i);
@@ -89,6 +88,7 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t color)
     if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
         color = (r << 24) | (g << 16) | (b << 8) | 255;
+		printf("r: %i\ng: %i\nb: %i\n", r, g, b);
 	}
     else
         struct_error("Invalid color values\n", map);
@@ -101,6 +101,21 @@ void	map_set_texture(t_map *map, char *path)
 	printf("%s", path);
 }
 
+int	check_line(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != ' ' && str[i] != '\n')
+			return (1);
+		if (str[i] == '\n')
+			break;
+		i++;
+	}
+	return (0);
+}
 int	map_color_specs(t_map *map)
 {
 	int	i;
@@ -118,12 +133,12 @@ int	map_color_specs(t_map *map)
 			map_set_color(map, map->str, i + 1, map->images->color_floor);
 		else if (map->str[i] == 'C')
 			map_set_color(map, map->str, i + 1, map->images->color_ceiling);
-		else if (map->str[i] == '1')
+		else if (map->str[i] == '\n' && map->str[i + 1] == '1')
 			break ;
-		while (map->str[i] != '\n' && map->str[i] != '\0')
-            i++;
 		i++;
 	}
+	while (map->str[i] == '\n' && check_line(map->str + i) == 0)
+		i++;
 	return (i);
 }
 
@@ -132,12 +147,16 @@ void	set_map_limits(t_map *map)
 	int		x;
 	int		y;
 	int		len;
+	char	*temp;
 
 	len = 0;
 	map->max_x = 0;
 	y = 0;
-	//x = 0;
 	x = map_color_specs(map); // start from where the color / texture specifications ended
+	temp = ft_strdup(map->str + x);
+	map->str = temp;
+	printf("map without color info:\n%s\n", map->str);
+	x = 0;
 	while (map->str[x + 1] != '\0')
 	{
 		if (map->str[x] == '\n')

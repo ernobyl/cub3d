@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmatjuhi <kmatjuhi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:22:39 by emichels          #+#    #+#             */
-/*   Updated: 2024/04/26 22:40:20 by kmatjuhi         ###   ########.fr       */
+/*   Updated: 2024/10/17 13:38:48 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_strdup(const char *s1);
+char	*ft_strdup_index(const char *src, int start);
 
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
