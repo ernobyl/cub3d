@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/15 13:59:37 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:06:39 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ void raycasting_rays(t_map *map)
     float angle_step;
     float start_angle;
 	int	i;
+	float ray_angle;
 
-	num_rays = 20;
+	num_rays = 30;
 	fov = PI / 3;
 	angle_step = fov / num_rays;
 	start_angle = map->plr_angle - fov / 2;
     i = 0;
 	while (i < num_rays)
     {
-        float ray_angle = start_angle + i * angle_step;
+        ray_angle = start_angle + i * angle_step;
         draw_ray(map, ray_angle, i);
 		i++;
     }

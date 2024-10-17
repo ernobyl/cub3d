@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 09:37:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:07:25 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_map
 	char	*str;
 	char	**arr;
 	t_image	*images;
-	t_ray 	rays[3];
+	t_ray 	rays[30];
 }	t_map;
 
 	// indented prototypes are unmodified from so_long

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/13 10:16:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 17:07:10 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static void	zero_map_struct(t_map *map)
 	map->str = NULL;
 	map->arr = NULL;
 	map->images = NULL;
+	map->rays->angle = 0;
+	map->rays->distance = 0;
+	map->rays->hit_x = 0;
+	map->rays->hit_y = 0;
 }
 
 static void	inspect_map(t_map *map)
