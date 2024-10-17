@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/15 13:58:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 09:37:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,6 @@ void	set_map_limits(t_map *map);
 void	is_rectangle(t_map *map);
 void	is_valid_character(t_map *map);
 void	traverse_path(char **arr, t_map *cur, int y, int x);
+int		map_color_specs(t_map *map);
 
 #endif

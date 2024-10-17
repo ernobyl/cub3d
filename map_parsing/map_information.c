@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/15 14:02:12 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:05:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,63 +66,69 @@ void	tabs_to_spaces(t_map *map)
 	map->str = new;
 }
 
-// void	map_set_color(t_map *map, int i, uint32_t color)
-// {
-// 	int	r;
-// 	int	g;
-// 	int	b;
+void	map_set_color(t_map *map, int i, uint32_t color)
+{
+	int	r;
+	int	g;
+	int	b;
 	
-// 	r = -1;
-// 	g = -1;
-// 	b = -1;
-// 	while (map->str[i])
-// 	{
-// 		while (map->str[i] == ' ')
-// 			i++;
-// 		if (ft_isdigit(map->str[i]))
-// 			r = ft_atoi(map->str + i);
-// 		else if (r != -1 && ft_isdigit(map->str[i]))
-// 			g = ft_atoi(map->str + i);
-// 		else if (g != -1 && ft_isdigit(map->str[i]))
-// 		{
-// 			b = ft_atoi(map->str + i);
-// 			break ;
-// 		}
-// 		else
-// 			i++;
-// 	}
-// 	if ((r >= 0 && r <= 255) && (g >= 0 && r <= 255) && (b >= 0 && r <= 255))
-// 		color = (r << 24) | (g << 16) | (b << 8) | 255;
-// 	else
-// 		return ;
-// }
+	r = -1;
+	g = -1;
+	b = -1;
+	while (map->str[i])
+	{
+		while (map->str[i] == ' ')
+			i++;
+		if (ft_isdigit(map->str[i]))
+			r = ft_atoi(map->str + i);
+		else if (r != -1 && ft_isdigit(map->str[i]))
+			g = ft_atoi(map->str + i);
+		else if (g != -1 && ft_isdigit(map->str[i]))
+		{
+			b = ft_atoi(map->str + i);
+			break ;
+		}
+		else
+			i++;
+	}
+	if ((r >= 0 && r <= 255) && (g >= 0 && r <= 255) && (b >= 0 && r <= 255))
+		color = (r << 24) | (g << 16) | (b << 8) | 255;
+	else
+		return ;
+}
 
-// int	map_color_specs(t_map *map)
-// {
-// 	int	i;
+void	map_set_texture(t_map *map, char *path)
+{
+	// placeholder function
+	(void)map;
+	printf("%s", path);
+}
 
-// 	i = 0;
-// 	while (map->str[i])
-// 	{
-// 		if (ft_strncmp(map->str + i, "NO", 2) == 0)
-// 			// set texture (path = from this point until newline);
-// 		else if (ft_strncmp(map->str + i, "SO", 2) == 0)
-// 			// set texture;
-// 		else if (ft_strncmp(map->str + i, "WE", 2) == 0)
-// 			// set texture;
-// 		else if (ft_strncmp(map->str + i, "EA", 2) == 0)
-// 			// set texture;
-// 		else if (map->str[i] == 'F')
-// 			map_set_color(map, i, map->images->color_floor);
-// 		else if (map->str[i] == 'C')
-// 			map_set_color(map, i, map->images->color_ceiling);
-// 		else if (map->str[i] == ' ' || '\n')
-// 			// check if next char is 1, if 1 then break
-// 		else
-// 			i++;
-// 	}
-// 	return (i);
-// }
+int	map_color_specs(t_map *map)
+{
+	int	i;
+
+	i = 0;
+	while (map->str[i])
+	{
+		if (ft_strncmp(map->str + i, "NO", 2) == 0 || ft_strncmp(map->str + i, "SO", 2) == 0
+			|| ft_strncmp(map->str + i, "WE", 2) == 0 || ft_strncmp(map->str + i, "EA", 2) == 0)
+		{
+			// set texture (path = from this point until newline);
+			map_set_texture(map, "path to texture\n");
+		}
+		else if (map->str[i] == 'F')
+			map_set_color(map, i, map->images->color_floor);
+		else if (map->str[i] == 'C')
+			map_set_color(map, i, map->images->color_ceiling);
+		else if (map->str[i] == '1')
+			break ;
+		while (map->str && (map->str[i] == ' ' || map->str[i] == '\n'))
+			i++;
+		i++;
+	}
+	return (i);
+}
 
 void	set_map_limits(t_map *map)
 {
@@ -133,8 +139,8 @@ void	set_map_limits(t_map *map)
 	len = 0;
 	map->max_x = 0;
 	y = 0;
-	x = 0;
-	//x = map_color_specs(map); // start from where the color / texture specifications ended
+	//x = 0;
+	x = map_color_specs(map); // start from where the color / texture specifications ended
 	while (map->str[x + 1] != '\0')
 	{
 		if (map->str[x] == '\n')
