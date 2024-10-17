@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 10:05:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/17 10:40:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,32 @@ void	tabs_to_spaces(t_map *map)
 	map->str = new;
 }
 
-void	map_set_color(t_map *map, int i, uint32_t color)
+void	map_set_color(t_map *map, char *line, int i, uint32_t color)
 {
 	int	r;
 	int	g;
 	int	b;
 	
-	r = -1;
-	g = -1;
-	b = -1;
-	while (map->str[i])
+	printf("in map set color function\n");
+    while (line[i] == ' ')
+        i++;
+    r = ft_atoi(line + i);
+    while (ft_isdigit(line[i]))
+        i++;
+    while (line[i] == ',' || line[i] == ' ')
+        i++;
+    g = ft_atoi(line + i);
+    while (ft_isdigit(line[i]))
+        i++;
+    while (line[i] == ',' || line[i] == ' ')
+        i++;
+    b = ft_atoi(line + i);
+    if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
-		while (map->str[i] == ' ')
-			i++;
-		if (ft_isdigit(map->str[i]))
-			r = ft_atoi(map->str + i);
-		else if (r != -1 && ft_isdigit(map->str[i]))
-			g = ft_atoi(map->str + i);
-		else if (g != -1 && ft_isdigit(map->str[i]))
-		{
-			b = ft_atoi(map->str + i);
-			break ;
-		}
-		else
-			i++;
+        color = (r << 24) | (g << 16) | (b << 8) | 255;
 	}
-	if ((r >= 0 && r <= 255) && (g >= 0 && r <= 255) && (b >= 0 && r <= 255))
-		color = (r << 24) | (g << 16) | (b << 8) | 255;
-	else
-		return ;
+    else
+        struct_error("Invalid color values\n", map);
 }
 
 void	map_set_texture(t_map *map, char *path)
@@ -118,13 +115,13 @@ int	map_color_specs(t_map *map)
 			map_set_texture(map, "path to texture\n");
 		}
 		else if (map->str[i] == 'F')
-			map_set_color(map, i, map->images->color_floor);
+			map_set_color(map, map->str, i + 1, map->images->color_floor);
 		else if (map->str[i] == 'C')
-			map_set_color(map, i, map->images->color_ceiling);
+			map_set_color(map, map->str, i + 1, map->images->color_ceiling);
 		else if (map->str[i] == '1')
 			break ;
-		while (map->str && (map->str[i] == ' ' || map->str[i] == '\n'))
-			i++;
+		while (map->str[i] != '\n' && map->str[i] != '\0')
+            i++;
 		i++;
 	}
 	return (i);
