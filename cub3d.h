@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 17:07:25 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:48:34 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ typedef struct s_tri
 
 typedef struct s_texture
 {
-	mlx_texture_t	*wall;
+	mlx_texture_t	*wall_no;
+	mlx_texture_t	*wall_so;
+	mlx_texture_t	*wall_we;
+	mlx_texture_t	*wall_ea;
+	mlx_texture_t	*ceiling;
 	mlx_texture_t	*floor;
 }	t_texture;
 
@@ -94,7 +98,7 @@ typedef struct s_map
 	// indented prototypes are unmodified from so_long
 // error handling
 void	struct_error(char *msg, t_map *map);
-//void	texture_error(char *msg, t_map *map, t_texture *textures);
+void	texture_error(char *msg, t_map *map, t_texture *textures);
 //void	free_textures(t_texture *textures);
 void	free_images(t_map *map);
 void	simple_error(char *msg);
@@ -108,8 +112,8 @@ void	simple_error(char *msg);
 
 // display
 	void	resize_images(t_map *map);
-	void	load_textures(t_map *map);
-	void	load_images(t_map *map, t_texture *textures);
+void	load_textures(t_map *map, mlx_texture_t *texture, char *path, t_texture *textures);
+void	load_images(t_map *map, t_texture *textures);
 void	init_minimap(t_map *map);
 void	init_miniplayer(t_map *map);
 void	draw_arrow(t_map *map, float angle);

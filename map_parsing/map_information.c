@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 16:55:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:47:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,6 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t color)
         struct_error("Invalid color values\n", map);
 }
 
-void	map_set_texture(t_map *map, char *path)
-{
-	// placeholder function
-	(void)map;
-	printf("%s", path);
-}
-
 int	check_line(char *str)
 {
 	int	i;
@@ -115,30 +108,54 @@ int	check_line(char *str)
 	return (0);
 }
 
-bool	wall_check(char *str)
+int	set_texture_wall(t_map *map, mlx_texture_t *texture, int i, t_texture *textures)
 {
-	if (ft_strchr(str, '1') != NULL)
-		return (true);
-	else
-		return (false);
+	int		path_start;
+	int		j;
+	char	*path;
+
+	while (map->str[i] != '.' && map->str[i])
+		i++;
+	path_start = i;
+	while (map->str[i] != '\n' && map->str[i])
+		i++;
+	path = ft_calloc(i - path_start + 1, sizeof(char));
+	j = 0;
+	while (path_start <= i)
+		path[j++] = map->str[path_start++];
+	load_textures(map, texture, path, textures);
+	free(path);
+	i++;
+	return (i);
+}
+
+int	map_set_texture(t_map *map, int i)
+{
+	t_texture	*textures;
+
+	textures = ft_calloc(1, sizeof(t_texture));
+	if (!textures)
+		struct_error("Error\nmalloc failed\n", map);
+	if (ft_strncmp(map->str + i, "NO", 2) == 0)
+		i = set_texture_wall(map, textures->wall_no, i, textures);
+	if (ft_strncmp(map->str + i, "SO", 2) == 0)
+		i = set_texture_wall(map, textures->wall_so, i, textures);
+	if (ft_strncmp(map->str + i, "WE", 2) == 0)
+		i = set_texture_wall(map, textures->wall_we, i, textures);
+	if (ft_strncmp(map->str + i, "EA", 2) == 0)
+		i = set_texture_wall(map, textures->wall_ea, i, textures);
+	return (i);
 }
 
 int	map_color_specs(t_map *map)
 {
-	int	i;
-
+	int			i;
+	
 	i = 0;
+	i = map_set_texture(map, i);
 	while (map->str[i])
 	{
-		if (ft_strncmp(map->str + i, "NO", 2) == 0 || ft_strncmp(map->str + i, "SO", 2) == 0
-			|| ft_strncmp(map->str + i, "WE", 2) == 0 || ft_strncmp(map->str + i, "EA", 2) == 0)
-		{
-			// set texture (path = from this point until newline);
-			map_set_texture(map, "path to texture\n");
-			while (map->str[i] != '\n' && map->str[i])
-				i++;
-		}
-		else if (map->str[i] == 'F')
+		if (map->str[i] == 'F')
 		{	
 			map_set_color(map, map->str, i + 1, map->images->color_floor);
 			while (map->str[i] != '\n' && map->str[i])
@@ -170,7 +187,7 @@ void	set_map_limits(t_map *map)
 	len = 0;
 	map->max_x = 0;
 	y = 0;
-	x = map_color_specs(map); // start from where the color / texture specifications ended
+	x = map_color_specs(map);
 	temp = ft_strdup(map->str + x);
 	map->str = temp;
 	x = 0;
