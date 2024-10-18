@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 17:06:39 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:23:03 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,9 @@ void	draw_line(t_map *map, int x0, int y0, int x1, int y1)
 
 	while (1)
 	{
-		// Draw the pixel at the current position
 		mlx_put_pixel(map->images->mini_p, x0, y0, RED);
-
-		// Check if we've reached the end of the line
 		if (x0 == x1 && y0 == y1)
 			break;
-
-		// Update error and adjust x and y accordingly
 		err2 = 2 * err;
 		if (err2 > -dy)
 		{
@@ -83,28 +78,6 @@ void	init_triangle(t_tri *tri)
 	tri->base_right_y = 0;
 	tri->center_x = 256 / 2;
 	tri ->center_y = 256 / 2;
-}
-
-void raycasting_rays(t_map *map)
-{
-    int num_rays;
-    float fov;
-    float angle_step;
-    float start_angle;
-	int	i;
-	float ray_angle;
-
-	num_rays = 30;
-	fov = PI / 3;
-	angle_step = fov / num_rays;
-	start_angle = map->plr_angle - fov / 2;
-    i = 0;
-	while (i < num_rays)
-    {
-        ray_angle = start_angle + i * angle_step;
-        draw_ray(map, ray_angle, i);
-		i++;
-    }
 }
 
 void	draw_arrow(t_map *map, float angle)
@@ -132,54 +105,6 @@ void	draw_arrow(t_map *map, float angle)
 	draw_line(map, tri.base_left_x, tri.base_left_y, tri.base_right_x, tri.base_right_y);
 	raycasting_rays(map);
 }
-
-void draw_ray(t_map *map, float ray_angle, int ray_index)
-{
-	float ray_x;
-	float ray_y;
-	float step_size;
-	int hit;
-	float ray_distance;
-	int max_distance;
-	int pixel_x; 
-	int pixel_y;
-	int map_x;
-	int map_y;
-
-	ray_x = map->plr_x;
-	ray_y = map->plr_y;
-	step_size = 0.1f;
-	hit = 0;
-	ray_distance = 0.0f;
-	max_distance = 128;
-	map->rays[ray_index].angle = ray_angle;
-	while (!hit && ray_distance < max_distance)
-	{
-		ray_x += cos(ray_angle) * step_size;
-		ray_y += sin(ray_angle) * step_size;
-		ray_distance += step_size;
-		map_x = (int)floor(ray_x);
-		map_y = (int)floor(ray_y);
-		if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
-		{
-			if (map->arr[map_y][map_x] == '1')
-			{
-				hit = 1;
-				map->rays[ray_index].hit_x = map_x;
-				map->rays[ray_index].hit_y = map_y;
-				map->rays[ray_index].distance = ray_distance;
-			}
-		}
-		pixel_x = (int)((ray_x - map->plr_x) * MINIWIDTH + 128);
-		pixel_y = (int)((ray_y - map->plr_y) * MINIHEIGHT + 128);
-		if (pixel_x >= 0 && pixel_x < 256 && pixel_y >= 0 && pixel_y < 256)
-			mlx_put_pixel(map->images->mini_p, pixel_x, pixel_y, YELLOW);
-		else
-			break;
-	}
-}
-
-
 
 void	put_player(t_map *map)
 {

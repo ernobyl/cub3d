@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 17:07:25 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/18 10:18:25 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define HEIGHT 32
 # define MINIWIDTH 16
 # define MINIHEIGHT 16
+# define SCREENWIDTH 640
 # define PI 3.141592f
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
@@ -66,12 +67,15 @@ typedef struct s_image
 	uint32_t	color_ceiling;
 }	t_image;
 
-typedef	struct s_ray
+typedef struct s_ray
 {
-	float	angle;
-	float	distance;
-	int		hit_x;
-	int		hit_y;
+	float angle;
+	float distance;
+	float ray_x;
+	float ray_y;
+	int hit_x;
+	int hit_y;
+	int hit;
 } t_ray;
 
 typedef struct s_map
@@ -88,7 +92,7 @@ typedef struct s_map
 	char	*str;
 	char	**arr;
 	t_image	*images;
-	t_ray 	rays[30];
+	t_ray 	rays[640];
 }	t_map;
 
 	// indented prototypes are unmodified from so_long
@@ -118,7 +122,10 @@ void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
 void	safe_img_to_window(t_map *map, mlx_image_t *img);
-void	draw_ray(t_map *map, float ray_angle, int ray_index);
+
+// Raycasting rays
+void draw_ray(t_map *map, float ray_angle, int ray_index);
+void raycasting_rays(t_map *map);
 
 // map handling
 void	read_map(t_map *map);
