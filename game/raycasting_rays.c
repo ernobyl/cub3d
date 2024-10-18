@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/18 10:21:10 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/18 11:48:12 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,9 @@ static void update_ray_position(t_ray *ray, float step_size)
 
 static int check_hit(t_map *map, t_ray *ray)
 {
-	int map_x;
-	int map_y;
+	int map_x = (int)floor(ray->ray_x);
+	int map_y = (int)floor(ray->ray_y);
 
-	map_x = (int)floor(ray->ray_x);
-	map_y = (int)floor(ray->ray_y);
 	if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
 	{
 		if (map->arr[map_y][map_x] == '1')
