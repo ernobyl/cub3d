@@ -6,9 +6,10 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/10/18 09:46:23 by emichels         ###   ########.fr        #
+#    Updated: 2024/10/18 11:57:16 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME	:= cub3d
 CC		:= cc
@@ -27,6 +28,7 @@ SRCS	:= main.c \
 			game/display_images.c \
 			game/hook.c \
 			game/load_images.c \
+			game/raycasting_rays.c \
 
 
 OBJS	:= ${SRCS:.c=.o}
