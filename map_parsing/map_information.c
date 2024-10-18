@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 11:58:42 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/18 12:26:23 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,9 @@ int	set_texture_wall(t_map *map, mlx_texture_t *texture, int i, t_texture *textu
 		i++;
 	path = ft_calloc(i - path_start + 1, sizeof(char));
 	j = 0;
-	while (path_start <= i)
+	while (path_start < i)
 		path[j++] = map->str[path_start++];
+	printf("%s\n", path);
 	load_textures(map, texture, path, textures);
 	free(path);
 	i++;
