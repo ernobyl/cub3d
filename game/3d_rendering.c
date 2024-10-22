@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 15:21:40 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 15:34:37 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,62 +70,84 @@ uint32_t apply_shading(uint32_t color, float shading_factor)
 	return (r << 24) | (g << 16) | (b << 8) | a;
 }
 
-void draw_3d_scene(t_map *map)
-{   
+static void draw_ceiling(t_map *map, int ray_index, int wall_top)
+{
+	int	y;
+
+	y = 0;
+	while(y < wall_top)
+	{
+		mlx_put_pixel(map->images->screen, ray_index, y, BLUE);
+		y++;
+	}
+}
+
+static void draw_walls(t_map *map, int ray_index, int wall_top, int wall_bottom, uint32_t wall_color)
+{
+	int	y;
+
+	y = wall_top;
+	while (y < wall_bottom)
+	{
+		mlx_put_pixel(map->images->screen, ray_index, y, wall_color);
+		y++;
+	}
+}
+
+static void draw_floors(t_map *map, int ray_index, int wall_bottom)
+{
+	int	y;
+
+	y = wall_bottom;
+	while (y < SCREEN_HEIGHT)
+	{
+		mlx_put_pixel(map->images->screen, ray_index, y, GREEN);
+		y++;
+	}
+}
+
+static void draw_ray_slice(t_map *map, t_ray *ray, int ray_index)
+{
 	float perpendicular_distance;
 	int wall_height;
 	int wall_top;
 	int wall_bottom;
 	float shading_factor;
 	uint32_t wall_color;
-	int y;
-	int ray_index;
+
+	perpendicular_distance = ray->distance * cos(ray->angle - map->plr_angle);
+	if (perpendicular_distance < 0.1f)
+		perpendicular_distance = 0.1f;
+	wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
+	wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
+	wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
+	if (wall_top < 0)
+		wall_top = 0;
+	if (wall_bottom > SCREEN_HEIGHT)
+		wall_bottom = SCREEN_HEIGHT;
+	shading_factor = 1.0f / (perpendicular_distance * 0.5f);
+	shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
+	wall_color = apply_shading(RED, shading_factor);
+	draw_ceiling(map, ray_index, wall_top);
+	draw_walls(map, ray_index, wall_top, wall_bottom, wall_color);
+	draw_floors(map, ray_index, wall_bottom);
+}
+
+void draw_3d_scene(t_map *map)
+{
+	int	ray_index;
+	t_ray *ray;
 	
 	ray_index = 0;
 	while (ray_index < SCREEN_WIDTH)
 	{
-		t_ray *ray;
-		
 		ray = &map->rays[ray_index];
-		if (ray->distance <= 0)
-			continue;
-		perpendicular_distance = ray->distance * cos(ray->angle - map->plr_angle); // to avoid fisheye
-		if (perpendicular_distance < 0.1f)
-			perpendicular_distance = 0.1f;
-		wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
-		wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2); // Define where the wall starts and ends on the screen
-		wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2); // ...
-		if (wall_top < 0) // Ensure no out-of-bounds screen rendering
-			wall_top = 0;
-		if (wall_bottom > SCREEN_HEIGHT)
-			wall_bottom = SCREEN_HEIGHT;
-		shading_factor = 1.0f / (perpendicular_distance * 0.5f); // Apply shading based on distance to the wall
-		if (shading_factor > 1.0f)
-			shading_factor = 1.0f;
-		if (shading_factor < 0.2f)
-			shading_factor = 0.2f;
-		wall_color = apply_shading(RED, shading_factor);
-		y = 0;
-		while (y < wall_top) // Draw ceiling (above the wall)
-		{
-			mlx_put_pixel(map->images->screen, ray_index, y, BLUE);
-			y++;
-		}
-		y = wall_top;
-		while (y < wall_bottom) // Draw the wall slice with shading
-		{
-			mlx_put_pixel(map->images->screen, ray_index, y, wall_color);
-			y++;
-		}
-		y = wall_bottom;
-		while (y < SCREEN_HEIGHT) // Draw the floor (below the wall)
-		{
-			mlx_put_pixel(map->images->screen, ray_index, y, GREEN);
-			y++;
-		}
+		if (ray->distance > 0)
+			draw_ray_slice(map, ray, ray_index);
 		ray_index++;
 	}
 }
+
 
 
 
