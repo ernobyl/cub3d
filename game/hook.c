@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 15:04:11 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:16:00 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void    ft_hook(void *param)
 	rot_spd = 0.08f;
 	plr_size = 0.1f;
 	// rotation
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
 	{
 		map->plr_angle -= rot_spd;
 		if (map->plr_angle < 0.0f)
 			map->plr_angle += 2 * PI;	
 		//printf("Player angle: %f\n", map->plr_angle);
 	}
-	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		map->plr_angle += rot_spd;
 		if (map->plr_angle >= 2 * PI)
@@ -81,7 +81,46 @@ void    ft_hook(void *param)
 			map->images->mini_p->instances->y = (map->plr_y - 0.5f) * MINIHEIGHT;
 		}
 		//printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
-
+	}
+	// strafe left
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+	{
+			map->plr_x -= (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
+			map->plr_y -= (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
+			// wall collision
+			if ((map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x + plr_size)] == '1')
+				|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x + plr_size)] == '1')
+				|| (map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x - plr_size)] == '1')
+				|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x - plr_size)] == '1'))
+			{
+				map->plr_x += (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
+				map->plr_y += (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
+			}
+			else
+			{
+				map->images->mini_p->instances->x = (map->plr_x - 0.5f) * MINIWIDTH;
+				map->images->mini_p->instances->y = (map->plr_y - 0.5f) * MINIHEIGHT;
+			}
+	}
+	// strafe right
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	{
+		map->plr_x += (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
+		map->plr_y += (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
+		// wall collision
+		if ((map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x - plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x - plr_size)] == '1'))
+		{
+			map->plr_x -= (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
+			map->plr_y -= (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
+		}
+		else
+		{
+			map->images->mini_p->instances->x = (map->plr_x - 0.5f) * MINIWIDTH;
+			map->images->mini_p->instances->y = (map->plr_y - 0.5f) * MINIHEIGHT;
+		}
 	}
 	// redraw rotated arrow
 	mlx_delete_image(mlx, map->images->mini_p);
@@ -96,3 +135,26 @@ void    ft_hook(void *param)
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);
 }
+
+void mousehook(double xpos, double ypos, void *param)
+{
+	t_map *map;
+	static double last_x = 0.0;
+	double sensitivity;
+	double delta_x;
+	
+	(void)ypos;
+	map = (t_map *)param;
+	sensitivity = 0.005;
+	if (last_x == 0.0)
+		last_x = xpos;
+	delta_x = xpos - last_x;
+	last_x = xpos;
+	map->plr_angle += delta_x * sensitivity;
+	if (map->plr_angle < 0)
+		map->plr_angle += 2 * PI;
+	if (map->plr_angle >= 2 * PI)
+		map->plr_angle -= 2 * PI;
+}
+
+

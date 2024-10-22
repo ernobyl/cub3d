@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 13:49:41 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 16:17:23 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int32_t	main(int argc, char **argv)
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
+	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
 	init_minimap(&map);
 	init_3d_screen(&map);
 	//init_miniplayer(&map);
@@ -86,6 +87,7 @@ int32_t	main(int argc, char **argv)
 	put_player(&map);
 	//mlx_loop_hook(map.mlx, put_player, &map);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
+	mlx_cursor_hook(map.mlx, &mousehook, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);
