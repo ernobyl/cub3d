@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 13:58:39 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:23:24 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,36 +55,60 @@ float	cast_ray(t_map *map, float ray_angle)
     return ray_distance * cos(ray_angle - map->plr_angle);
 }
 
-void	draw_3d_scene(t_map *map)
+uint32_t apply_shading(uint32_t color, float shading_factor)
+{
+    // Extract RGBA components from the color
+    int r = (color >> 24) & 0xFF;
+    int g = (color >> 16) & 0xFF;
+    int b = (color >> 8) & 0xFF;
+    int a = color & 0xFF;
+
+    // Apply shading factor
+    r = (int)(r * shading_factor);
+    g = (int)(g * shading_factor);
+    b = (int)(b * shading_factor);
+
+    // Reconstruct color with shaded values
+    return (r << 24) | (g << 16) | (b << 8) | a;
+}
+
+void draw_3d_scene(t_map *map)
 {
     for (int ray_index = 0; ray_index < SCREEN_WIDTH; ray_index++)
     {
-        // Calculate the current ray's angle based on the player's direction and field of view
         float ray_angle = map->plr_angle + (ray_index - SCREEN_WIDTH / 2) * (FOV / SCREEN_WIDTH);
         
-        // Cast the ray and get the distance to the first wall hit
+        // Cast the ray and get distance to the wall
         float perpendicular_distance = cast_ray(map, ray_angle);
 
-        // Avoid division by zero or small values causing large wall heights
-        if (perpendicular_distance <= 0.1)
-            perpendicular_distance = 0.1;
+        // Avoid division by zero
+        if (perpendicular_distance < 0.1f)
+            perpendicular_distance = 0.1f;
 
-        // Calculate the height of the wall slice to draw based on distance
+        // Calculate wall height based on distance
         int wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
 
-        // Calculate where the top and bottom of the wall slice should be drawn
+        // Determine where to draw the wall slice on screen
         int wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
         int wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
 
-        // Render ceiling above the wall
+        // Calculate a shading factor based on the distance
+        float shading_factor = 1.0f / (perpendicular_distance * 0.5f);  // tune the 0.1 to adjust the shading intensity
+        if (shading_factor > 1.0f) shading_factor = 1.0f;  // clamp to avoid over-brightening
+        if (shading_factor < 0.2f) shading_factor = 0.2f;  // prevent total darkness
+
+        // Calculate color with shading
+        uint32_t wall_color = apply_shading(RED, shading_factor);
+
+        // Render ceiling (just black or other color)
         for (int y = 0; y < wall_top; y++)
             mlx_put_pixel(map->images->screen, ray_index, y, BLUE);
 
-        // Render the wall slice
+        // Render wall slice with shading
         for (int y = wall_top; y < wall_bottom; y++)
-            mlx_put_pixel(map->images->screen, ray_index, y, RED);
+            mlx_put_pixel(map->images->screen, ray_index, y, wall_color);
 
-        // Render floor below the wall
+        // Render floor (just a constant color for now)
         for (int y = wall_bottom; y < SCREEN_HEIGHT; y++)
             mlx_put_pixel(map->images->screen, ray_index, y, GREEN);
     }

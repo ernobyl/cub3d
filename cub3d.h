@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 13:56:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:20:55 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define MINIHEIGHT 16
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
-# define FOV 60
+# define FOV 90
 # define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
 # define WHITE 0xFFFFFFFF
