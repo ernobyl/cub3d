@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/15 11:55:45 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:33:16 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void    ft_hook(void *param)
 	{
 		map->plr_angle -= rot_spd;
 		if (map->plr_angle < 0.0f)
-			map->plr_angle += 2 * PI;
+			map->plr_angle += 2 * PI;	
 		//printf("Player angle: %f\n", map->plr_angle);
 	}
 	if (mlx_is_key_down(mlx, MLX_KEY_D))

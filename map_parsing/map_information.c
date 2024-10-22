@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 12:26:23 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:23:38 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,17 @@ void	set_map_limits(t_map *map)
 		struct_error("Error\nempty line or invalid map dimensions\n", map);
 	//init_arr(map);
 }
+void	init_plr_angle(t_map *map, char direction)
+{
+	if (direction == 'N')
+		map->plr_angle = (3 * PI) / 2;
+	else if (direction == 'S')
+		map->plr_angle = PI / 2;
+	else if (direction == 'W')
+		map->plr_angle = PI;
+	else if (direction == 'E')
+		map->plr_angle = 0.0f;
+}
 
 void	is_valid_character(t_map *map)
 {
@@ -227,7 +238,10 @@ void	is_valid_character(t_map *map)
 			struct_error("Error\nmap contains invalid character\n", map);
 		if (map->str[i] == 'N' || map->str[i] == 'S' || map->str[i] == 'E'
 			|| map->str[i] == 'W')
+		{	
+			init_plr_angle(map, map->str[i]);
 			duplicate++;
+		}
 		if (duplicate > 1) // was 2 before
 			struct_error("Error\nduplicate start positions\n", map);
 		i++;
