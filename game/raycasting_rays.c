@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 13:19:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 14:59:46 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 	int	pixel_y;
 
 	ray = &map->rays[ray_index];
-	step_size = 0.1f;
+	step_size = 0.01f;
 	max_distance = 128;
 	init_ray(map, ray, ray_angle);
 	while (!ray->hit && ray->distance < max_distance)
@@ -114,7 +114,7 @@ void raycasting_rays(t_map *map)
 	float ray_angle;
 
 	num_rays = 640;
-	fov = PI / 3; // 90 degrees, PI / 3 would be 60
+	fov = PI / 3; // PI / 3 would be 60 deg, PI / 2 is 90 deg
 	angle_step = fov / num_rays;
 	start_angle = map->plr_angle - fov / 2;
 	i = 0;
