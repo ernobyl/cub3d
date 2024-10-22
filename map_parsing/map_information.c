@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 10:11:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:40:28 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,13 +223,15 @@ void	is_valid_character(t_map *map)
 	{
 		if (map->str[i] != '\n' && map->str[i] != '1' && map->str[i] != '0'
 			&& map->str[i] != 'N' && map->str[i] != 'S' && map->str[i] != 'E'
-			&& map->str[i] != 'W' && map->str[i] != ' ' && map->str[i] != '\t')
+			&& map->str[i] != 'W' && map->str[i] != ' ')
 			struct_error("Error\nmap contains invalid character\n", map);
 		if (map->str[i] == 'N' || map->str[i] == 'S' || map->str[i] == 'E'
 			|| map->str[i] == 'W')
 			duplicate++;
-		if (duplicate > 1) // was 2 before
+		if (duplicate > 1)
 			struct_error("Error\nduplicate start positions\n", map);
+		if (map->str[i] == ' ')
+			map->str[i] = '1';
 		i++;
 	}
 	if (!ft_strchr(map->str, 'N') && !ft_strchr(map->str, 'S')
