@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 11:22:16 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:27:28 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void init_ray(t_map *map, t_ray *ray, float ray_angle)
 	ray->hit = 0;
 	ray->hit_x = 0;
 	ray->hit = 0;
+	ray->ray_dir_x = cos(ray->angle);
+	ray->ray_dir_y = sin(ray->angle);
 }
 
 static void update_ray_position(t_ray *ray, float step_size)
@@ -32,30 +34,25 @@ static void update_ray_position(t_ray *ray, float step_size)
 
 static int check_diagonal(t_map *map, int map_x, int map_y, t_ray *ray)
 {
-	float ray_dir_x;
-	float ray_dir_y;
-
-	ray_dir_x = cos(ray->angle);
-	ray_dir_y = sin(ray->angle);
 	// Down Right
 	if (map_x > 0 && map_y > 0 && 
 		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y - 1][map_x] == '1') &&
-		(map->arr[map_y - 1][map_x - 1] == '0') && ray_dir_x > 0 && ray_dir_y > 0)
+		(map->arr[map_y - 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y > 0)
 		return (1);
 	// Down Left
 	if (map_x < map->max_x - 1 && map_y > 0 &&
 		(map->arr[map_y - 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y - 1][map_x + 1] == '0') && ray_dir_x < 0 && ray_dir_y > 0)
+		(map->arr[map_y - 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y > 0)
 		return (1);
 	// Up Left
 	if (map_x < map->max_x - 1 && map_y < map->max_y - 1 &&
 		(map->arr[map_y + 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y + 1][map_x + 1] == '0') && ray_dir_x < 0 && ray_dir_y < 0)
+		(map->arr[map_y + 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y < 0)
 		return (1);
 	// Up Right
 	if (map_x > 0 && map_y < map->max_y - 1 &&
 		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y + 1][map_x] == '1') &&
-		(map->arr[map_y + 1][map_x - 1] == '0') && ray_dir_x > 0 && ray_dir_y < 0)
+		(map->arr[map_y + 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
 		return (1);
 	return (0);
 }

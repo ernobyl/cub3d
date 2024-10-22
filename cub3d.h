@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 08:54:05 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:26:05 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,15 @@ typedef struct s_image
 
 typedef struct s_ray
 {
-    float angle;
-    float distance;
-    float ray_x;
-    float ray_y;
-    int hit_x;
-    int hit_y;
-    int hit;
+    float 	angle;
+    float 	distance;
+    float 	ray_x;
+    float 	ray_y;
+	float 	ray_dir_x;
+	float	ray_dir_y;
+    int 	hit_x;
+    int 	hit_y;
+    int 	hit;
 } t_ray;
 
 typedef struct s_map
