@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 09:01:09 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:27:28 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static void init_ray(t_map *map, t_ray *ray, float ray_angle)
 	ray->hit = 0;
 	ray->hit_x = 0;
 	ray->hit = 0;
+	ray->ray_dir_x = cos(ray->angle);
+	ray->ray_dir_y = sin(ray->angle);
 }
 
 static void update_ray_position(t_ray *ray, float step_size)
@@ -30,27 +32,27 @@ static void update_ray_position(t_ray *ray, float step_size)
 	ray->distance += step_size;
 }
 
-static int check_diagonal(t_map *map, int map_x, int map_y)
+static int check_diagonal(t_map *map, int map_x, int map_y, t_ray *ray)
 {
-	//down right
-	if (map_x > 0 && map_y < map->max_y - 1 &&
+	// Down Right
+	if (map_x > 0 && map_y > 0 && 
 		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y - 1][map_x] == '1') &&
-		(map->arr[map_y - 1][map_x - 1] == '0') && (map->plr_angle >= ((3 * PI) / 2) && map->plr_angle <= (2 * PI)))
+		(map->arr[map_y - 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y > 0)
 		return (1);
-	// down left
+	// Down Left
 	if (map_x < map->max_x - 1 && map_y > 0 &&
 		(map->arr[map_y - 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y - 1][map_x + 1] == '0') && (map->plr_angle >= PI && map->plr_angle <= ((3 * PI) / 2)))
+		(map->arr[map_y - 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y > 0)
 		return (1);
-	// up left
-	if (map_x > 0 && map_y > 0 &&
-		(map->arr[map_y + 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y + 1][map_x + 1] == '0') && (map->plr_angle >= (PI / 2) && map->plr_angle <= (PI)))
-		return (1);
-	// up right
+	// Up Left
 	if (map_x < map->max_x - 1 && map_y < map->max_y - 1 &&
-		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y - 1][map_x] == '1') &&
-		(map->arr[map_y - 1][map_x - 1] == '0') && (map->plr_angle >= 0 && map->plr_angle <= (PI / 2)))
+		(map->arr[map_y + 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
+		(map->arr[map_y + 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y < 0)
+		return (1);
+	// Up Right
+	if (map_x > 0 && map_y < map->max_y - 1 &&
+		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y + 1][map_x] == '1') &&
+		(map->arr[map_y + 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
 		return (1);
 	return (0);
 }
@@ -64,7 +66,7 @@ static int check_hit(t_map *map, t_ray *ray)
 	map_y = (int)floor(ray->ray_y);
 	if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
 	{
-		if (map->arr[map_y][map_x] == '1' || check_diagonal(map, map_x, map_y))
+		if (map->arr[map_y][map_x] == '1' || check_diagonal(map, map_x, map_y, ray))
 		{
 			ray->hit_x = map_x;
 			ray->hit_y = map_y;
