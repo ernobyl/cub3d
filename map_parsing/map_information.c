@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 13:03:28 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 17:16:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	tabs_to_spaces(t_map *map)
 	map->str = new;
 }
 
-void	map_set_color(t_map *map, char *line, int i, uint32_t color)
+void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
 {
 	int	r;
 	int	g;
@@ -87,7 +87,7 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t color)
     b = ft_atoi(line + i);
     if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
-        color = (r << 24) | (g << 16) | (b << 8) | 255;
+        *color = (r << 24) | (g << 16) | (b << 8) | 255;
 		printf("r: %i\ng: %i\nb: %i\n", r, g, b);
 	}
     else
@@ -160,13 +160,13 @@ int	map_color_specs(t_map *map)
 			i = map_set_texture(map, i);
 		else if (map->str[i] == 'F')
 		{	
-			map_set_color(map, map->str, i + 1, map->images->color_floor);
+			map_set_color(map, map->str, i + 1, &map->images->color_floor);
 			while (map->str[i] != '\n' && map->str[i])
 				i++;
 		}
 		else if (map->str[i] == 'C')
 		{	
-			map_set_color(map, map->str, i + 1, map->images->color_ceiling);
+			map_set_color(map, map->str, i + 1, &map->images->color_ceiling);
 			while (map->str[i] != '\n' && map->str[i])
 				i++;
 		}
