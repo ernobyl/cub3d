@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/15 11:55:45 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 11:27:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void    ft_hook(void *param)
 	mlx_t   *mlx;
 	float   speed;
 	float   rot_spd;
+	float	plr_size;
 
 	map = (t_map *)param;
 	mlx = map->mlx;
 	speed = 1.0f;
 	rot_spd = 0.08f;
+	plr_size = 0.1f;
 	// rotation
 	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
@@ -44,7 +46,10 @@ void    ft_hook(void *param)
 		map->plr_x += (cos(map->plr_angle) * speed / MINIWIDTH);
 		map->plr_y += (sin(map->plr_angle) * speed / MINIHEIGHT);
 		// wall collision
-		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+		if ((map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x - plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x - plr_size)] == '1'))
 		{
 			map->plr_x -= (cos(map->plr_angle) * speed / MINIWIDTH);
 			map->plr_y -= (sin(map->plr_angle) * speed / MINIHEIGHT);
@@ -62,7 +67,10 @@ void    ft_hook(void *param)
 		map->plr_x -= (cos(map->plr_angle) * speed / MINIWIDTH);
 		map->plr_y -= (sin(map->plr_angle) * speed / MINIHEIGHT);
 		// wall collision
-		if (map->arr[(int)map->plr_y][(int)map->plr_x] == '1')
+		if ((map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x + plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y + plr_size)][(int)(map->plr_x - plr_size)] == '1')
+			|| (map->arr[(int)(map->plr_y - plr_size)][(int)(map->plr_x - plr_size)] == '1'))
 		{
 			map->plr_x += (cos(map->plr_angle) * speed / MINIWIDTH);
 			map->plr_y += (sin(map->plr_angle) * speed / MINIHEIGHT);
