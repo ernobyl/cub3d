@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 12:26:23 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 10:11:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,10 +153,12 @@ int	map_color_specs(t_map *map)
 	int			i;
 	
 	i = 0;
-	i = map_set_texture(map, i);
 	while (map->str[i])
 	{
-		if (map->str[i] == 'F')
+		if (ft_strncmp(map->str + i, "NO", 2) == 0 || ft_strncmp(map->str + i, "SO", 2) == 0
+			|| ft_strncmp(map->str + i, "WE", 2) == 0 || ft_strncmp(map->str + i, "EA", 2) == 0)
+			i = map_set_texture(map, i);
+		else if (map->str[i] == 'F')
 		{	
 			map_set_color(map, map->str, i + 1, map->images->color_floor);
 			while (map->str[i] != '\n' && map->str[i])
@@ -173,8 +175,6 @@ int	map_color_specs(t_map *map)
 		else if (check_line(map->str + i) == 1)
 			break;
 	}
-	// while (map->str[i] == '\n' && check_line(map->str + i) == 0)
-	// 	i++;
 	return (i);
 }
 
