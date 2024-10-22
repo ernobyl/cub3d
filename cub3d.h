@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 11:56:33 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 08:54:05 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,7 @@ typedef struct s_ray
     int hit_x;
     int hit_y;
     int hit;
-    float dir_x;    // Direction of the ray in the X-axis
-    float dir_y;    // Direction of the ray in the Y-axis
-    float ddx;      // Delta distance in X-axis
-    float ddy;      // Delta distance in Y-axis
-    float sdx;      // Side distance in X-axis (initial)
-    float sdy;      // Side distance in Y-axis (initial)
-    int step_x;     // Step direction in X-axis (-1 or 1)
-    int step_y;     // Step direction in Y-axis (-1 or 1)
 } t_ray;
-
 
 typedef struct s_map
 {
