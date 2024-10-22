@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 10:46:39 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:09:46 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	draw_arrow(t_map *map, float angle)
 	t_tri	tri;
 
 	init_triangle(&tri);
-	length = 6;
-	width = 3;
+	length = 10;
+	width = 5;
 	// arrow tip
 	tri.tip_x = tri.center_x + (int)(cos(angle) * length);
 	tri.tip_y = tri.center_y + (int)(sin(angle) * length);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 11:26:05 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:56:33 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,21 @@
 # include "MLX42/MLX42.h"
 
 # define BUFFERSIZE 25
-# define WIDTH 32
-# define HEIGHT 32
+# define WINDOW_WIDTH 1280
+# define WINDOW_HEIGHT 720
 # define MINIWIDTH 16
 # define MINIHEIGHT 16
-# define SCREENWIDTH 640
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
+# define FOV 60
+# define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
 # define WHITE 0xFFFFFFFF
 # define BLACK 0x000000FF
 # define RED 0xFF0000FF
 # define YELLOW 0xFFFF00FF
+# define BLUE 0x0000FFFF
+# define GREEN 0x00FF00FF
 
 typedef struct s_tri
 {
@@ -63,6 +68,7 @@ typedef struct s_image
 	mlx_image_t	*mini_f;
 	mlx_image_t	*w_img;
 	mlx_image_t	*f_img;
+	mlx_image_t *screen;
 	mlx_image_t	*minimap;
 	uint32_t	color_miniwall;
 	uint32_t	color_minifloor;
@@ -129,6 +135,8 @@ void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
 void	safe_img_to_window(t_map *map, mlx_image_t *img);
+void	init_3d_screen(t_map *map);
+void	draw_3d_scene(t_map *map);
 
 // Raycasting rays
 void draw_ray(t_map *map, float ray_angle, int ray_index);

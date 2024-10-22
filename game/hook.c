@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 11:37:50 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:51:57 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void    ft_hook(void *param)
 	mlx_image_to_window(map->mlx, map->images->mini_p, 
 		(map->plr_x * MINIWIDTH) - 256 / 2, 
 		(map->plr_y * MINIHEIGHT) - 256 / 2);
+	draw_3d_scene(map);
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);

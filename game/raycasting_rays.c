@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 11:27:28 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:19:57 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ void raycasting_rays(t_map *map)
 	int	i;
 	float ray_angle;
 
-	num_rays = SCREENWIDTH;
-	fov = PI / 2; // 90 degrees, PI / 3 would be 60
+	num_rays = 640;
+	fov = PI / 3; // 90 degrees, PI / 3 would be 60
 	angle_step = fov / num_rays;
 	start_angle = map->plr_angle - fov / 2;
 	i = 0;

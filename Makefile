@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/10/18 11:57:16 by emichels         ###   ########.fr        #
+#    Updated: 2024/10/22 13:47:25 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRCS	:= main.c \
 			game/hook.c \
 			game/load_images.c \
 			game/raycasting_rays.c \
+			game/3d_rendering.c \
 
 
 OBJS	:= ${SRCS:.c=.o}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 11:33:05 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:03:28 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,6 @@ void	is_valid_character(t_map *map)
 			init_plr_angle(map, map->str[i]);
 			duplicate++;
 		}
-		if (duplicate > 1) // was 2 before
 		if (duplicate > 1)
 			struct_error("Error\nduplicate start positions\n", map);
 		if (map->str[i] == ' ')

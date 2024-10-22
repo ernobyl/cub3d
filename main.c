@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 17:07:10 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/22 13:49:41 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,12 @@ int32_t	main(int argc, char **argv)
 	for (int i = 0; map.arr[i]; i++)
 		printf("%s\n", map.arr[i]);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	map.mlx = mlx_init(((map.max_x + 2) * MINIWIDTH), ((map.max_y + 2) * MINIHEIGHT), "cub3d", true);
+	map.mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
 	init_minimap(&map);
+	init_3d_screen(&map);
 	//init_miniplayer(&map);
 	printf("plr x: %f\n", map.plr_x);
 	printf("plr y: %f\n", map.plr_y);
