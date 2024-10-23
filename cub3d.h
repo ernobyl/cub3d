@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 16:11:04 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/23 13:32:55 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define BUFFERSIZE 25
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
-# define MINIWIDTH 16
-# define MINIHEIGHT 16
+# define MINIWIDTH 8
+# define MINIHEIGHT 8
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 # define FOV 90
