@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 15:51:22 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:47:09 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static void draw_ceiling(t_map *map, int ray_index, int wall_top)
 	y = 0;
 	while(y < wall_top)
 	{
-		mlx_put_pixel(map->images->screen, ray_index, y, BLUE);
+		mlx_put_pixel(map->images->screen, ray_index, y, map->images->color_ceiling);
 		y++;
 	}
 }
@@ -101,7 +101,7 @@ static void draw_floors(t_map *map, int ray_index, int wall_bottom)
 	y = wall_bottom;
 	while (y < SCREEN_HEIGHT)
 	{
-		mlx_put_pixel(map->images->screen, ray_index, y, GREEN);
+		mlx_put_pixel(map->images->screen, ray_index, y, map->images->color_floor);
 		y++;
 	}
 }
@@ -139,6 +139,8 @@ void draw_3d_scene(t_map *map)
 	t_ray *ray;
 	
 	ray_index = 0;
+	//printf("ceiling color in draw_3d_scene: 0x%08X\n", map->images->color_ceiling);
+	//printf("floor color in draw_3d_scene: 0x%08X\n", map->images->color_floor);
 	while (ray_index < SCREEN_WIDTH)
 	{
 		ray = &map->rays[ray_index];

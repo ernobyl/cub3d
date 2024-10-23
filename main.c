@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 16:17:23 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:51:11 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int32_t	main(int argc, char **argv)
 	if (map.fd == -1)
 		struct_error("Error\nfile open error\n", &map);
 	assign_map(&map);
+	printf("ceiling color after assign_map: 0x%08X\n", map.images->color_ceiling);
+	printf("floor color after assign_map: 0x%08X\n", map.images->color_floor);
 	for (int i = 0; map.arr[i]; i++)
 		printf("%s\n", map.arr[i]);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
@@ -78,7 +80,11 @@ int32_t	main(int argc, char **argv)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	//display_map(&map);
 	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
+	//printf("ceiling color before init_minimap: 0x%08X\n", map.images->color_ceiling);
+	//printf("floor color before init_minimap: 0x%08X\n", map.images->color_floor);
 	init_minimap(&map);
+	printf("ceiling color after init_minimap: 0x%08X\n", map.images->color_ceiling);
+	printf("floor color after init_minimap: 0x%08X\n", map.images->color_floor);
 	init_3d_screen(&map);
 	//init_miniplayer(&map);
 	printf("plr x: %f\n", map.plr_x);

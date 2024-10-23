@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 13:09:46 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/23 09:56:42 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	draw_minimap(void *param)
 
 void	init_minimap(t_map *map)
 {
-	map->images = ft_calloc(1, sizeof(t_image));
 	// if (!map->images)
 	// 	struct_error("Calloc Image failed\n", map);
 	map->images->color_miniwall = WHITE;

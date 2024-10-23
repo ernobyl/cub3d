@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/22 17:16:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:06:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
 	{
         *color = (r << 24) | (g << 16) | (b << 8) | 255;
 		printf("r: %i\ng: %i\nb: %i\n", r, g, b);
+		printf("color in map_set_color: 0x%08X\n", *color);
 	}
     else
         struct_error("Invalid color values\n", map);
@@ -153,6 +154,7 @@ int	map_color_specs(t_map *map)
 	int			i;
 	
 	i = 0;
+	map->images = ft_calloc(1, sizeof(t_image));
 	while (map->str[i])
 	{
 		if (ft_strncmp(map->str + i, "NO", 2) == 0 || ft_strncmp(map->str + i, "SO", 2) == 0
@@ -175,6 +177,8 @@ int	map_color_specs(t_map *map)
 		else if (check_line(map->str + i) == 1)
 			break;
 	}
+	printf("ceiling color in map_color_specs: 0x%08X\n", map->images->color_ceiling);
+	printf("floor color in map_color_specs: 0x%08X\n", map->images->color_floor);
 	return (i);
 }
 
