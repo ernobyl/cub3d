@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 15:49:01 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/23 10:43:24 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,22 @@ static void update_ray_position(t_ray *ray, float step_size)
 static int check_diagonal(t_map *map, int map_x, int map_y, t_ray *ray)
 {
 	// Down Right
-	if (map_x > 0 && map_y > 0 && 
+	if (map_x > 0 && map_y > 0 && ((int)map->plr_x < map_x) &&
 		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y - 1][map_x] == '1') &&
 		(map->arr[map_y - 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y > 0)
 		return (1);
 	// Down Left
-	if (map_x < map->max_x - 1 && map_y > 0 &&
+	if (map_x < map->max_x - 1 && map_y > 0 && ((int)map->plr_x > map_x) &&
 		(map->arr[map_y - 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
 		(map->arr[map_y - 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y > 0)
 		return (1);
 	// Up Left
-	if (map_x < map->max_x - 1 && map_y < map->max_y - 1 &&
+	if (map_x < map->max_x - 1 && map_y < map->max_y - 1 && ((int)map->plr_x > map_x) &&
 		(map->arr[map_y + 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
 		(map->arr[map_y + 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y < 0)
 		return (1);
 	// Up Right
-	if (map_x > 0 && map_y < map->max_y - 1 &&
+	if (map_x > 0 && map_y < map->max_y - 1 && ((int)map->plr_x < map_x) &&
 		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y + 1][map_x] == '1') &&
 		(map->arr[map_y + 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
 		return (1);
