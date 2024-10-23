@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 13:32:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:26:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define BUFFERSIZE 25
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
-# define MINIWIDTH 8
-# define MINIHEIGHT 8
+# define MINIWIDTH 4
+# define MINIHEIGHT 4
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
 # define FOV 90
@@ -38,6 +38,10 @@
 # define YELLOW 0xFFFF00FF
 # define BLUE 0x0000FFFF
 # define GREEN 0x00FF00FF
+# define WHITE_TP 0xFFFFFF80
+# define BLACK_TP 0x00000080
+# define RED_TP 0xFF000080
+# define YELLOW_TP 0xFFFF0080
 
 typedef struct s_tri
 {

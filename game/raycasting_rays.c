@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/23 10:43:24 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/23 18:12:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 		pixel_y = (int)((ray->ray_y - map->plr_y) * MINIHEIGHT + 128);
 
 		if (pixel_x >= 0 && pixel_x < 256 && pixel_y >= 0 && pixel_y < 256)
-			mlx_put_pixel(map->images->mini_p, pixel_x, pixel_y, YELLOW);
+			mlx_put_pixel(map->images->mini_p, pixel_x, pixel_y, YELLOW_TP);
 		else
 			break;
 	}
