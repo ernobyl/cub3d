@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 09:47:09 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:16:59 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_3d_screen(t_map *map)
 {
-	map->images->screen = mlx_new_image(map->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	map->images->screen = mlx_new_image(map->mlx, WINDOW_HEIGHT, WINDOW_HEIGHT);
 	mlx_image_to_window(map->mlx, map->images->screen, 320, 240);
 }
 

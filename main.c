@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 09:51:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/23 12:17:32 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,22 @@ static void	free_map_struct(t_map map)
 		ft_free(map.arr);
 	//free_images(&map);
 }
+/* void	set_background(t_map *map, mlx_image_t *bg_image)
+{
+	mlx_texture_t *background;
+	
+
+	background = mlx_load_png("./textures/test.png");
+	bg_image = mlx_texture_to_image(map->mlx, background);
+	mlx_delete_texture(background);
+	mlx_resize_image(bg_image, WINDOW_HEIGHT, WINDOW_HEIGHT);
+	mlx_image_to_window(map->mlx, bg_image, 0, 0);
+} */
 
 int32_t	main(int argc, char **argv)
 {
 	t_map	map;
+	//mlx_image_t		bg_image;
 
 	if (argc != 2)
 		simple_error("Error\ninvalid argument count\n");
@@ -78,6 +90,7 @@ int32_t	main(int argc, char **argv)
 	map.mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
+	//set_background(&map, &bg_image);
 	//display_map(&map);
 	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
 	//printf("ceiling color before init_minimap: 0x%08X\n", map.images->color_ceiling);
@@ -89,10 +102,10 @@ int32_t	main(int argc, char **argv)
 	//init_miniplayer(&map);
 	printf("plr x: %f\n", map.plr_x);
 	printf("plr y: %f\n", map.plr_y);
+	mlx_loop_hook(map.mlx, ft_hook, &map);
 	draw_minimap(&map);
 	put_player(&map);
 	//mlx_loop_hook(map.mlx, put_player, &map);
-	mlx_loop_hook(map.mlx, ft_hook, &map);
 	mlx_cursor_hook(map.mlx, &mousehook, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
