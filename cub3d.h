@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 18:26:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:39:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ typedef struct s_texture
 	mlx_texture_t	*wall_so;
 	mlx_texture_t	*wall_we;
 	mlx_texture_t	*wall_ea;
-	mlx_texture_t	*ceiling;
-	mlx_texture_t	*floor;
 }	t_texture;
 
 typedef struct s_image
@@ -93,29 +91,31 @@ typedef struct s_ray
     int 	hit_x;
     int 	hit_y;
     int 	hit;
+	int		hit_vertical;
 } t_ray;
 
 typedef struct s_map
 {
-	int		fd;
-	mlx_t	*mlx;
-	int		y;
-	int		x;
-	int		max_y;
-	int		max_x;
-	float	plr_y;
-	float	plr_x;
-	float	plr_angle;
-	char	*str;
-	char	**arr;
-	t_image	*images;
-	t_ray 	rays[640];
+	int			fd;
+	mlx_t		*mlx;
+	int			y;
+	int			x;
+	int			max_y;
+	int			max_x;
+	float		plr_y;
+	float		plr_x;
+	float		plr_angle;
+	char		*str;
+	char		**arr;
+	t_image		*images;
+	t_texture	*textures;
+	t_ray 		rays[640];
 }	t_map;
 
 	// indented prototypes are unmodified from so_long
 // error handling
 void	struct_error(char *msg, t_map *map);
-void	texture_error(char *msg, t_map *map, t_texture *textures);
+void	texture_error(char *msg, t_map *map);
 //void	free_textures(t_texture *textures);
 void	free_images(t_map *map);
 void	simple_error(char *msg);
@@ -130,7 +130,7 @@ void	simple_error(char *msg);
 
 // display
 	void	resize_images(t_map *map);
-void	load_textures(t_map *map, mlx_texture_t *texture, char *path, t_texture *textures);
+void	load_textures(t_map *map, mlx_texture_t **texture, char *path);
 void	load_images(t_map *map, t_texture *textures);
 void	init_minimap(t_map *map);
 void	init_miniplayer(t_map *map);

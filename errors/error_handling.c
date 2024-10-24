@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:23:58 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 10:50:34 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:28:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,23 +48,19 @@ void	struct_error(char *msg, t_map *map)
 	exit(EXIT_FAILURE);
 }
 
-void	texture_error(char *msg, t_map *map, t_texture *textures)
+void	texture_error(char *msg, t_map *map)
 {
 	if (map->arr)
 		ft_free(map->arr);
-	if (textures->wall_no)
-		mlx_delete_texture(textures->wall_no);
-	if (textures->wall_so)
-		mlx_delete_texture(textures->wall_so);
-	if (textures->wall_we)
-		mlx_delete_texture(textures->wall_we);
-	if (textures->wall_ea)
-		mlx_delete_texture(textures->wall_ea);
-	if (textures->floor)
-		mlx_delete_texture(textures->floor);
-	if (textures->ceiling)
-		mlx_delete_texture(textures->ceiling);
-	free(textures);
+	if (map->textures->wall_no)
+		mlx_delete_texture(map->textures->wall_no);
+	if (map->textures->wall_so)
+		mlx_delete_texture(map->textures->wall_so);
+	if (map->textures->wall_we)
+		mlx_delete_texture(map->textures->wall_we);
+	if (map->textures->wall_ea)
+		mlx_delete_texture(map->textures->wall_ea);
+	free(map->textures);
 	if (map->images)
 		free_images(map);
 	ft_putstr_fd(msg, 2);

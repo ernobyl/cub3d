@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/23 18:12:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:15:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ static void init_ray(t_map *map, t_ray *ray, float ray_angle)
 	ray->hit = 0;
 	ray->ray_dir_x = cos(ray->angle);
 	ray->ray_dir_y = sin(ray->angle);
+	ray->hit_vertical = 0;
 }
 
 static void update_ray_position(t_ray *ray, float step_size)

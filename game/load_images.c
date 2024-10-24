@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:10:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/18 11:00:21 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:37:52 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@
 // 	free(textures);
 // }
 
-void	load_textures(t_map *map, mlx_texture_t *texture, char *path, t_texture *textures)
+void	load_textures(t_map *map, mlx_texture_t **texture, char *path)
 {
-	texture = mlx_load_png(path);
-	if (texture == NULL)
-		texture_error("Error\ntexture load failed\n", map, textures);
+	*texture = mlx_load_png(path);
+	if (*texture == NULL)
+		texture_error("Error\ntexture load failed\n", map);
 	//load_images(map, textures);
 }
 

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 10:06:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/24 11:52:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
     if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 	{
         *color = (r << 24) | (g << 16) | (b << 8) | 255;
-		printf("r: %i\ng: %i\nb: %i\n", r, g, b);
-		printf("color in map_set_color: 0x%08X\n", *color);
 	}
     else
         struct_error("Invalid color values\n", map);
@@ -109,7 +107,7 @@ int	check_line(char *str)
 	return (0);
 }
 
-int	set_texture_wall(t_map *map, mlx_texture_t *texture, int i, t_texture *textures)
+int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 {
 	int		path_start;
 	int		j;
@@ -125,7 +123,14 @@ int	set_texture_wall(t_map *map, mlx_texture_t *texture, int i, t_texture *textu
 	while (path_start < i)
 		path[j++] = map->str[path_start++];
 	printf("%s\n", path);
-	load_textures(map, texture, path, textures);
+	printf("Before loading: wall_no address: %p\n", (void*)map->textures->wall_no);
+	load_textures(map, texture, path);
+	if (*texture == NULL)
+    {
+        printf("Error: after setting texture: texture is NULL.\n");
+        exit(1);
+    }
+	printf("After loading: wall_no address: %p\n", (void*)map->textures->wall_no);
 	free(path);
 	i++;
 	return (i);
@@ -133,19 +138,14 @@ int	set_texture_wall(t_map *map, mlx_texture_t *texture, int i, t_texture *textu
 
 int	map_set_texture(t_map *map, int i)
 {
-	t_texture	*textures;
-
-	textures = ft_calloc(1, sizeof(t_texture));
-	if (!textures)
-		struct_error("Error\nmalloc failed\n", map);
 	if (ft_strncmp(map->str + i, "NO", 2) == 0)
-		i = set_texture_wall(map, textures->wall_no, i, textures);
+		i = set_texture_wall(map, &map->textures->wall_no, i);
 	if (ft_strncmp(map->str + i, "SO", 2) == 0)
-		i = set_texture_wall(map, textures->wall_so, i, textures);
+		i = set_texture_wall(map, &map->textures->wall_so, i);
 	if (ft_strncmp(map->str + i, "WE", 2) == 0)
-		i = set_texture_wall(map, textures->wall_we, i, textures);
+		i = set_texture_wall(map, &map->textures->wall_we, i);
 	if (ft_strncmp(map->str + i, "EA", 2) == 0)
-		i = set_texture_wall(map, textures->wall_ea, i, textures);
+		i = set_texture_wall(map, &map->textures->wall_ea, i);
 	return (i);
 }
 
@@ -155,6 +155,11 @@ int	map_color_specs(t_map *map)
 	
 	i = 0;
 	map->images = ft_calloc(1, sizeof(t_image));
+	if (!map->images)
+		struct_error("Error\nmalloc failed\n", map);
+	map->textures = ft_calloc(1, sizeof(t_texture));
+	if (!map->textures)
+		struct_error("Error\nmalloc failed\n", map);
 	while (map->str[i])
 	{
 		if (ft_strncmp(map->str + i, "NO", 2) == 0 || ft_strncmp(map->str + i, "SO", 2) == 0
