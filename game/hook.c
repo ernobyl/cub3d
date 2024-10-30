@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/22 16:16:00 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:57:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void    ft_hook(void *param)
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	draw_arrow(map, map->plr_angle);
 	// update arrow at current location
-	mlx_image_to_window(map->mlx, map->images->mini_p, 
+	safe_img_to_window(map, map->images->mini_p, 
 		(map->plr_x * MINIWIDTH) - 256 / 2, 
 		(map->plr_y * MINIHEIGHT) - 256 / 2);
 	draw_3d_scene(map);

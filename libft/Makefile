@@ -43,6 +43,7 @@ SRCS = ft_memset.c \
 		ft_putnbr_fd.c \
 		ft_free.c \
 		ft_atol.c \
+		ft_abs.c \
 		ft_lstnew_bonus.c \
 		ft_lstadd_front_bonus.c \
 		ft_lstsize_bonus.c \

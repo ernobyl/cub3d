@@ -6,17 +6,11 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:16:17 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/08 15:40:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:41:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	safe_img_to_window(t_map *map, mlx_image_t *img)
-{
-	if (mlx_image_to_window(map->mlx, img, 0, 0 ) < 0)
-		struct_error((char *)mlx_strerror(mlx_errno), map);
-}
 
 // static void	display_images(t_map *map, int i)
 // {

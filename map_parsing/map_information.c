@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/24 11:52:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:32:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,14 +123,7 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 	while (path_start < i)
 		path[j++] = map->str[path_start++];
 	printf("%s\n", path);
-	printf("Before loading: wall_no address: %p\n", (void*)map->textures->wall_no);
 	load_textures(map, texture, path);
-	if (*texture == NULL)
-    {
-        printf("Error: after setting texture: texture is NULL.\n");
-        exit(1);
-    }
-	printf("After loading: wall_no address: %p\n", (void*)map->textures->wall_no);
 	free(path);
 	i++;
 	return (i);
@@ -182,8 +175,6 @@ int	map_color_specs(t_map *map)
 		else if (check_line(map->str + i) == 1)
 			break;
 	}
-	printf("ceiling color in map_color_specs: 0x%08X\n", map->images->color_ceiling);
-	printf("floor color in map_color_specs: 0x%08X\n", map->images->color_floor);
 	return (i);
 }
 

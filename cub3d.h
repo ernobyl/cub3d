@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/24 11:39:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:31:47 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,21 @@
 # define RED_TP 0xFF000080
 # define YELLOW_TP 0xFFFF0080
 
+typedef struct s_point
+{
+	int x;
+	int y;
+}	t_point;
+
+typedef struct s_line
+{
+	int dx;
+	int dy;
+	int sx;
+	int sy;
+	int err;
+}	t_line;
+
 typedef struct s_tri
 {
 	int	tip_x;
@@ -53,6 +68,10 @@ typedef struct s_tri
 	int	base_right_y;
 	int	center_x;
 	int	center_y;
+	int	delta_x;
+	int	delta_y;
+	int	step_x;
+	int	step_y;
 }	t_tri;
 
 typedef struct s_texture
@@ -112,7 +131,6 @@ typedef struct s_map
 	t_ray 		rays[640];
 }	t_map;
 
-	// indented prototypes are unmodified from so_long
 // error handling
 void	struct_error(char *msg, t_map *map);
 void	texture_error(char *msg, t_map *map);
@@ -120,13 +138,9 @@ void	texture_error(char *msg, t_map *map);
 void	free_images(t_map *map);
 void	simple_error(char *msg);
 
-// player movement & status
-	void	wasd_keyhook(mlx_key_data_t keydata, void *param);
-	void	count_steps(t_map *map);
-	void	count_collectibles(t_map *map);
-	void	exit_open(t_map *map);
-	void    ft_hook(void *param);
-	void	mousehook(double xpos, double ypos, void *param);
+// player movement
+void    ft_hook(void *param);
+void	mousehook(double xpos, double ypos, void *param);
 
 // display
 	void	resize_images(t_map *map);
@@ -139,7 +153,7 @@ void	put_player(t_map *map);
 void	draw_minimap(void* param);
 void	draw_floor(void* param);
 void	display_map(t_map *map);
-void	safe_img_to_window(t_map *map, mlx_image_t *img);
+void	safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
 void	init_3d_screen(t_map *map);
 void	draw_3d_scene(t_map *map);
 

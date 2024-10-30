@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/24 11:32:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 09:53:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void	free_map_struct(t_map map)
 	bg_image = mlx_texture_to_image(map->mlx, background);
 	mlx_delete_texture(background);
 	mlx_resize_image(bg_image, WINDOW_HEIGHT, WINDOW_HEIGHT);
-	mlx_image_to_window(map->mlx, bg_image, 0, 0);
+	safe_img_to_window(map, bg_image, 0, 0);
 } */
 
 int32_t	main(int argc, char **argv)

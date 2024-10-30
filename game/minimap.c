@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/23 18:21:10 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:13:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,71 +40,6 @@ void	put_floor(t_map *map, int x, int y)
 	}
 }
 
-void	draw_line(t_map *map, int x0, int y0, int x1, int y1)
-{
-	int	dx = abs(x1 - x0);
-	int	dy = abs(y1 - y0);
-	int	sx = (x0 < x1) ? 1 : -1;
-	int	sy = (y0 < y1) ? 1 : -1;
-	int	err = dx - dy;
-	int	err2;
-
-	while (1)
-	{
-		mlx_put_pixel(map->images->mini_p, x0, y0, RED_TP);
-		if (x0 == x1 && y0 == y1)
-			break;
-		err2 = 2 * err;
-		if (err2 > -dy)
-		{
-			err -= dy;
-			x0 += sx;
-		}
-		if (err2 < dx)
-		{
-			err += dx;
-			y0 += sy;
-		}
-	}
-}
-
-void	init_triangle(t_tri *tri)
-{
-	tri->tip_x = 0;
-	tri->tip_y = 0;
-	tri->base_left_x = 0;
-	tri->base_left_y = 0;
-	tri->base_right_x = 0;
-	tri->base_right_y = 0;
-	tri->center_x = 256 / 2;
-	tri ->center_y = 256 / 2;
-}
-
-void	draw_arrow(t_map *map, float angle)
-{
-	int		length;
-	int		width;
-	t_tri	tri;
-
-	init_triangle(&tri);
-	length = 10;
-	width = 5;
-	// arrow tip
-	tri.tip_x = tri.center_x + (int)(cos(angle) * length);
-	tri.tip_y = tri.center_y + (int)(sin(angle) * length);
-
-	// arrow base points
-	tri.base_left_x = tri.center_x + (int)(cos(angle + (PI / 2)) * width / 2);
-	tri.base_left_y = tri.center_y + (int)(sin(angle + (PI / 2)) * width / 2);
-	tri.base_right_x = tri.center_x + (int)(cos(angle - (PI / 2)) * width / 2);
-	tri.base_right_y = tri.center_y + (int)(sin(angle - (PI / 2)) * width / 2);
-
-	// draw arrow
-	draw_line(map, tri.base_left_x, tri.base_left_y, tri.tip_x, tri.tip_y);
-	draw_line(map, tri.base_right_x, tri.base_right_y, tri.tip_x, tri.tip_y);
-	draw_line(map, tri.base_left_x, tri.base_left_y, tri.base_right_x, tri.base_right_y);
-	raycasting_rays(map);
-}
 
 void	put_player(t_map *map)
 {
@@ -116,7 +51,7 @@ void	put_player(t_map *map)
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	map->images->color_player = RED_TP;
 	draw_arrow(map, map->plr_angle);
-	mlx_image_to_window(map->mlx, map->images->mini_p,
+	safe_img_to_window(map, map->images->mini_p,
 		((map->plr_x - 0.5f) * MINIWIDTH) + (MINIWIDTH / 2) - offset,
 		((map->plr_y - 0.5f) * MINIHEIGHT) + (MINIHEIGHT / 2) - offset);
 }
@@ -145,7 +80,7 @@ void	draw_minimap(void *param)
 		}
 		y++;
 	}
-	mlx_image_to_window(map->mlx, map->images->minimap, 0, 0);
+	safe_img_to_window(map, map->images->minimap, 0, 0);
 }
 
 void	init_minimap(t_map *map)

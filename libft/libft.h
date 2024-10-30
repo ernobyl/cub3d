@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:22:39 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/17 13:38:48 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 10:53:29 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ char	*ft_strdup_index(const char *src, int start);
 
 int		ft_atoi(const char *str);
 long	ft_atol(const char *str);
+int		ft_abs(int n);
 
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
