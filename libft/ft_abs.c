@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:51:39 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/30 10:52:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/10/30 11:04:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_abs(int n)
 {
 	if (n < 0)
-		return -n;
+		return (-n);
 	else
-		return n;
+		return (n);
 }
