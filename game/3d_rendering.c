@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/30 10:00:13 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:58:28 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,33 @@ void cast_ray(t_map *map, int ray_index, float ray_angle)
 	ray->distance *= cos(ray_angle - map->plr_angle);
 }
 
-
-
 uint32_t apply_shading(uint32_t color, float shading_factor)
 {
-	// Extract RGBA components from the color
-	int r = (color >> 24) & 0xFF;
-	int g = (color >> 16) & 0xFF;
-	int b = (color >> 8) & 0xFF;
-	int a = color & 0xFF;
-
-	// Apply shading factor
+	int r;
+	int g;
+	int b;
+	int a;
+	
+	if (shading_factor > 1.0f)
+		shading_factor = 1.0f;
+	else if (shading_factor < 0.2f)
+		shading_factor = 0.2f;
+	r = (color >> 24) & 0xFF;
+	g = (color >> 16) & 0xFF;
+	b = (color >> 8) & 0xFF;
+	a = color & 0xFF;
 	r = (int)(r * shading_factor);
 	g = (int)(g * shading_factor);
 	b = (int)(b * shading_factor);
-
-	// Reconstruct color with shaded values
+	if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
 	return (r << 24) | (g << 16) | (b << 8) | a;
 }
+
 
 static void draw_ceiling(t_map *map, int ray_index, int wall_top)
 {

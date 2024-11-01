@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/30 09:57:08 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/01 17:50:50 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void    ft_hook(void *param)
 
 	map = (t_map *)param;
 	mlx = map->mlx;
-	speed = 1.0f;
+	speed = 0.8f;
 	rot_spd = 0.08f;
 	plr_size = 0.1f;
 	// rotation
