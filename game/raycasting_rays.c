@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/10/24 11:15:30 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:11:55 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,14 @@ static int check_hit(t_map *map, t_ray *ray)
 			ray->hit_x = map_x;
 			ray->hit_y = map_y;
 			ray->hit = 1;
+			if (fabs(ray->ray_x - map_x) < fabs(ray->ray_y - map_y))
+                ray->hit_vertical = 1;
+            else
+                ray->hit_vertical = 0;
 			return (1);
 		}
 	}
-	return 0;
+	return (0);
 }
 
 void draw_ray(t_map *map, float ray_angle, int ray_index)
@@ -87,7 +91,7 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 	int	pixel_y;
 
 	ray = &map->rays[ray_index];
-	step_size = 0.01f;
+	step_size = 0.005f;
 	max_distance = 128;
 	init_ray(map, ray, ray_angle);
 	while (!ray->hit && ray->distance < max_distance)

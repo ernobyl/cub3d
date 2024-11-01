@@ -1,7 +1,7 @@
-NO ./textures/stone_brick_64px.png
-WE ./textures/stone_brick_64px.png
-SO ./textures/stone_brick_64px.png
-EA ./textures/stone_brick_64px.png
+NO ./textures/test.png
+WE ./textures/test.png
+SO ./textures/test.png
+EA ./textures/test.png
 
 F 220,100,0
 C 225,30,0

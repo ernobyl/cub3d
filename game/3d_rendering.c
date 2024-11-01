@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/01 17:58:28 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/01 20:24:03 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ static void draw_ceiling(t_map *map, int ray_index, int wall_top)
 // 	}
 // }
 
-static void draw_textured_walls(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray, mlx_texture_t *texture)
+/* static void draw_textured_walls(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray, mlx_texture_t *texture)
 {
 	int y;
 	float texture_x;
@@ -152,43 +152,53 @@ static void draw_textured_walls(t_map *map, int ray_index, int wall_top, int wal
 	int texel;
 	uint32_t color;
 
-	if (texture == NULL)
+	if (texture == NULL) {
 		printf("Error: draw_textured_walls: texture is NULL.\n");
-	// Calculate texture X coordinate based on whether it's a vertical or horizontal hit
-	if (ray->hit_vertical) // For vertical walls
-		texture_x = ray->ray_y - floor(ray->ray_y);
-	else // For horizontal walls
-		texture_x = ray->ray_x - floor(ray->ray_x);
+		return;
+	}
 
-	// Scale texture_x to match the texture width
+	// Calculate texture X coordinate based on whether it's a vertical or horizontal hit
+	if (ray->hit_vertical) {
+		// For vertical walls, map texture_x based on the Y coordinate
+		texture_x = ray->ray_y - floor(ray->ray_y);
+	} else {
+		// For horizontal walls, map texture_x based on the X coordinate
+		texture_x = ray->ray_x - floor(ray->ray_x);
+	}
+
+	// Ensure texture_x is within bounds of texture width
 	texture_x *= texture->width;
+	if (texture_x < 0) texture_x = 0;
+	if (texture_x >= texture->width) texture_x = texture->width - 1;
 
 	// Calculate step size to sample the texture along the height of the wall slice
 	texture_step = (float)texture->height / (wall_bottom - wall_top);
-
 	texture_y = 0.0f;
 
 	// Loop through each pixel in the wall slice and draw the corresponding texture pixel
-	y = wall_top;
-	while (y < wall_bottom)
-	{
+	for (y = wall_top; y < wall_bottom; y++) {
+		// Calculate texture Y coordinate
+		int texel_y = (int)texture_y % texture->height;
+
 		// Get the current texel (pixel) from the texture
-		texel = (int)texture_y * texture->width + (int)texture_x;
-		
+		texel = texel_y * texture->width + (int)texture_x;
+
 		// Fetch the color from the texture
 		color = ((uint32_t *)texture->pixels)[texel];
 
 		// Apply shading to the texture color based on distance
-		color = apply_shading(color, 1.0f / (ray->distance * 0.5f));
+		float shading_factor = 1.0f / (ray->distance * 0.5f);
+		shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);  // Clamp to avoid over-darkening or over-brightening
+		color = apply_shading(color, shading_factor);
 
 		// Draw the textured pixel
 		mlx_put_pixel(map->images->screen, ray_index, y, color);
 
 		// Move to the next pixel in the wall slice
 		texture_y += texture_step;
-		y++;
 	}
-}
+} */
+
 
 
 
@@ -206,37 +216,37 @@ static void draw_floors(t_map *map, int ray_index, int wall_bottom)
 
 static void draw_ray_slice(t_map *map, t_ray *ray, int ray_index)
 {
-	float perpendicular_distance;
-	int wall_height;
-	int wall_top;
-	int wall_bottom;
-	float shading_factor;
-	//uint32_t wall_color;
+    float	perpendicular_distance;
+    int 	wall_height;
+	int		wall_top;
+	int		wall_bottom;
+    float	shading_factor;
 
-	if (map->textures->wall_no == NULL)
-	{
-		printf("Error: draw_ray_slice: texture is NULL.\n");
-		exit(1);
-	}
+    perpendicular_distance = ray->distance * fabs(cos(ray->angle - map->plr_angle));
+    if (perpendicular_distance < 0.1f)
+        perpendicular_distance = 0.1f;
+    wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
+    wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
+    wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
 
-	perpendicular_distance = ray->distance * cos(ray->angle - map->plr_angle);
-	if (perpendicular_distance < 0.1f)
-		perpendicular_distance = 0.1f;
-	wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
-	wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
-	wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
-	if (wall_top < 0)
-		wall_top = 0;
-	if (wall_bottom > SCREEN_HEIGHT)
-		wall_bottom = SCREEN_HEIGHT;
-	shading_factor = 1.0f / (perpendicular_distance * 0.5f);
-	shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
-	//wall_color = apply_shading(RED, shading_factor);
-	draw_ceiling(map, ray_index, wall_top);
-	draw_floors(map, ray_index, wall_bottom);
-	//draw_walls(map, ray_index, wall_top, wall_bottom, wall_color);
-	draw_textured_walls(map, ray_index, wall_top, wall_bottom, ray, map->textures->wall_no);
+    if (wall_top < 0)
+        wall_top = 0;
+    if (wall_bottom > SCREEN_HEIGHT)
+        wall_bottom = SCREEN_HEIGHT;
+    shading_factor = 1.0f / (perpendicular_distance * 0.5f);
+    shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
+    if (ray->ray_dir_x > 0 && fabs(ray->ray_dir_x) > fabs(ray->ray_dir_y))
+        draw_textured_wall_east(map, ray_index, wall_top, wall_bottom, ray);
+    else if (ray->ray_dir_x < 0 && fabs(ray->ray_dir_x) > fabs(ray->ray_dir_y))
+        draw_textured_wall_west(map, ray_index, wall_top, wall_bottom, ray);
+	else if (ray->ray_dir_y > 0 && fabs(ray->ray_dir_y) > fabs(ray->ray_dir_x))
+        draw_textured_wall_south(map, ray_index, wall_top, wall_bottom, ray);
+	else 
+        draw_textured_wall_north(map, ray_index, wall_top, wall_bottom, ray);
+    draw_ceiling(map, ray_index, wall_top);
+    draw_floors(map, ray_index, wall_bottom);
 }
+
 
 void draw_3d_scene(t_map *map)
 {

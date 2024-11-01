@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/30 10:31:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/01 19:44:54 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ typedef struct s_ray
     int 	hit_y;
     int 	hit;
 	int		hit_vertical;
+	int		orientation;
 } t_ray;
 
 typedef struct s_map
@@ -143,19 +144,24 @@ void    ft_hook(void *param);
 void	mousehook(double xpos, double ypos, void *param);
 
 // display
-	void	resize_images(t_map *map);
-void	load_textures(t_map *map, mlx_texture_t **texture, char *path);
-void	load_images(t_map *map, t_texture *textures);
-void	init_minimap(t_map *map);
-void	init_miniplayer(t_map *map);
-void	draw_arrow(t_map *map, float angle);
-void	put_player(t_map *map);
-void	draw_minimap(void* param);
-void	draw_floor(void* param);
-void	display_map(t_map *map);
-void	safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
-void	init_3d_screen(t_map *map);
-void	draw_3d_scene(t_map *map);
+void		resize_images(t_map *map);
+void		load_textures(t_map *map, mlx_texture_t **texture, char *path);
+void		load_images(t_map *map, t_texture *textures);
+void		init_minimap(t_map *map);
+void		init_miniplayer(t_map *map);
+void		draw_arrow(t_map *map, float angle);
+void		put_player(t_map *map);
+void		draw_minimap(void* param);
+void		draw_floor(void* param);
+void		display_map(t_map *map);
+void		safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
+void		init_3d_screen(t_map *map);
+void		draw_3d_scene(t_map *map);
+void 		draw_textured_wall_north(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
+void 		draw_textured_wall_south(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
+void		draw_textured_wall_east(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
+void		draw_textured_wall_west(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
+uint32_t	apply_shading(uint32_t color, float shading_factor);
 
 // Raycasting rays
 void draw_ray(t_map *map, float ray_angle, int ray_index);
