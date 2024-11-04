@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/30 10:13:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:11:15 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	put_floor(t_map *map, int x, int y)
 		}
 	}
 }
-
 
 void	put_player(t_map *map)
 {
@@ -85,11 +84,7 @@ void	draw_minimap(void *param)
 
 void	init_minimap(t_map *map)
 {
-	// if (!map->images)
-	// 	struct_error("Calloc Image failed\n", map);
 	map->images->color_miniwall = WHITE_TP;
-	//map->images->mini_w = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 	map->images->color_minifloor = BLACK_TP;
-	//map->images->mini_f = mlx_new_image(map->mlx, MINIWIDTH - 1, MINIHEIGHT - 1);
 	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
 }

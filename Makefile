@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/01 18:18:12 by msilfver         ###   ########.fr        #
+#    Updated: 2024/11/04 12:07:48 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,11 +20,14 @@ HEADERS	:= -I $(LIBMLX)/include
 LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
 SRCS	:= main.c \
 			errors/error_handling.c \
+			errors/free_utils.c \
 			map_parsing/map_information.c \
 			map_parsing/read_map.c \
 			map_parsing/valid_map.c \
+			map_parsing/map_color_specs.c \
+			map_parsing/parsing_utils.c \
+			map_parsing/map_wall_checks.c \
 			game/minimap.c \
-			game/movement.c \
 			game/display_images.c \
 			game/hook.c \
 			game/load_images.c \

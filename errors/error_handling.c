@@ -6,30 +6,26 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:23:58 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/24 11:28:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/04 11:13:16 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// void	free_textures(t_texture *textures)
-// {
-// 	mlx_delete_texture(textures->wall);
-// 	mlx_delete_texture(textures->floor);
-// }
 
 static void	debug_map(t_map *map)
 {
 	printf("Invalid map element at x: %i y: %i\n", map->x + 1, map->y + 1);
 }
 
-void	free_images(t_map *map)
+void	texture_error(char *msg, t_map *map)
 {
-	if (map->images->w_img)
-		mlx_delete_image(map->mlx, map->images->w_img);
-	if (map->images->f_img)
-		mlx_delete_image(map->mlx, map->images->f_img);
-	free(map->images);
+	free_textures(map);
+	if (map->arr)
+		ft_free(map->arr);
+	if (map->images)
+		free_images(map);
+	ft_putstr_fd(msg, 2);
+	exit(EXIT_FAILURE);
 }
 
 void	struct_error(char *msg, t_map *map)
@@ -44,25 +40,6 @@ void	struct_error(char *msg, t_map *map)
 		free_images(map);
 	if (map->mlx)
 		mlx_terminate(map->mlx);
-	ft_putstr_fd(msg, 2);
-	exit(EXIT_FAILURE);
-}
-
-void	texture_error(char *msg, t_map *map)
-{
-	if (map->arr)
-		ft_free(map->arr);
-	if (map->textures->wall_no)
-		mlx_delete_texture(map->textures->wall_no);
-	if (map->textures->wall_so)
-		mlx_delete_texture(map->textures->wall_so);
-	if (map->textures->wall_we)
-		mlx_delete_texture(map->textures->wall_we);
-	if (map->textures->wall_ea)
-		mlx_delete_texture(map->textures->wall_ea);
-	free(map->textures);
-	if (map->images)
-		free_images(map);
 	ft_putstr_fd(msg, 2);
 	exit(EXIT_FAILURE);
 }

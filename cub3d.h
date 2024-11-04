@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/01 19:44:54 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:09:40 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,6 @@ typedef struct s_texture
 typedef struct s_image
 {
 	mlx_image_t	*mini_p;
-	mlx_image_t	*mini_w;
-	mlx_image_t	*mini_f;
-	mlx_image_t	*w_img;
-	mlx_image_t	*f_img;
 	mlx_image_t *screen;
 	mlx_image_t	*minimap;
 	uint32_t	color_miniwall;
@@ -122,6 +118,7 @@ typedef struct s_map
 	int			x;
 	int			max_y;
 	int			max_x;
+	int			duplicate;
 	float		plr_y;
 	float		plr_x;
 	float		plr_angle;
@@ -135,9 +132,9 @@ typedef struct s_map
 // error handling
 void	struct_error(char *msg, t_map *map);
 void	texture_error(char *msg, t_map *map);
-//void	free_textures(t_texture *textures);
 void	free_images(t_map *map);
 void	simple_error(char *msg);
+void	free_textures(t_map *map);
 
 // player movement
 void    ft_hook(void *param);
@@ -148,11 +145,9 @@ void		resize_images(t_map *map);
 void		load_textures(t_map *map, mlx_texture_t **texture, char *path);
 void		load_images(t_map *map, t_texture *textures);
 void		init_minimap(t_map *map);
-void		init_miniplayer(t_map *map);
 void		draw_arrow(t_map *map, float angle);
 void		put_player(t_map *map);
 void		draw_minimap(void* param);
-void		draw_floor(void* param);
 void		display_map(t_map *map);
 void		safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
 void		init_3d_screen(t_map *map);
@@ -166,6 +161,16 @@ uint32_t	apply_shading(uint32_t color, float shading_factor);
 // Raycasting rays
 void draw_ray(t_map *map, float ray_angle, int ray_index);
 void raycasting_rays(t_map *map);
+
+// map parsing utilities
+int		check_line(char *str);
+void	alloc_images(t_map *map);
+void	init_plr_angle(t_map *map, char direction);
+
+// map wall checks
+void	first_line(t_map *map);
+void	middle_map(t_map *map, int len);
+void	last_line(t_map *map);
 
 // map handling
 void	read_map(t_map *map);

@@ -3,72 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   valid_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/02 14:30:25 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/04 12:01:08 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	last_line(t_map *map)
-{
-	if (map->arr[map->y][map->x] == '0')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'N')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'S')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'W')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'E')
-		struct_error("Error\nmap not walled\n", map);
-}
-
-static void	first_line(t_map *map)
-{
-	if (map->arr[map->y][map->x] == '0')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'N')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'S')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'W')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == 'E')
-		struct_error("Error\nmap not walled\n", map);
-}
-
-static void	middle_map(t_map *map, int len)
-{
-	if ((map->arr[map->y][map->x] == ' ' || map->arr[map->y][map->x] == '\t')
-		&& map->arr[map->y][map->x + 1] == '0')
-		struct_error("Error\nmap not walled\n", map);
-	if ((map->arr[map->y][map->x] == ' ' || map->arr[map->y][map->x] == '\t')
-		&& map->arr[map->y][map->x - 1] == '0')
-		struct_error("Error\nmap not walled\n", map);
-	if (map->arr[map->y][map->x] == '0'
-		&& (map->x >= (int)ft_strlen(map->arr[map->y + 1])))
-		struct_error("Error\nmap not walled\n", map);
-	if (map->x == 0 || map->x == len - 1)
-	{
-		if (map->arr[map->y][map->x] == '0')
-			struct_error("Error\nmap not walled\n", map);
-		if (map->arr[map->y][map->x] == 'N')
-			struct_error("Error\nmap not walled\n", map);
-		if (map->arr[map->y][map->x] == 'S')
-			struct_error("Error\nmap not walled\n", map);
-		if (map->arr[map->y][map->x] == 'W')
-			struct_error("Error\nmap not walled\n", map);
-		if (map->arr[map->y][map->x] == 'E')
-			struct_error("Error\nmap not walled\n", map);
-	}
-}
-
 static void	is_walled(t_map *map)
 {
 	int	len;
+
 	map->y = 0;
 	while (map->y <= map->max_y)
 	{
@@ -160,20 +107,10 @@ static void	valid_path(t_map *p)
 
 void	is_rectangle(t_map *map)
 {
-/* 	if (map->str[ft_strlen(map->str) - 1] == '\n'
-		|| map->str[ft_strlen_c(map->str, '\n') + 1] == '\n'
-		|| map->str[0] == '\n')
-		struct_error("Error\nmap has empty line1\n", map); */
 	map->arr = ft_split(map->str, '\n');
 	if (!map->arr)
 		struct_error("Error\nmap has empty line\n", map);
 	map->y = 0;
-/* 	while (map->arr[map->y])
-	{
-		if ((int)ft_strlen(map->arr[map->y]) - 1 != map->max_x)
-			struct_error("Error\nmap not rectangular\n", map);
-		map->y++;
-	} */
 	is_walled(map);
 	valid_path(map);
 	ft_free(map->arr);
