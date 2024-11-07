@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 12:09:40 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/07 15:51:29 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define MINIHEIGHT 4
 # define SCREEN_WIDTH 640
 # define SCREEN_HEIGHT 480
-# define FOV 90
+# define FOV 60
 # define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
 # define WHITE 0xFFFFFFFF
@@ -103,10 +103,15 @@ typedef struct s_ray
     float 	ray_y;
 	float 	ray_dir_x;
 	float	ray_dir_y;
+	float	prev_distance;
     int 	hit_x;
     int 	hit_y;
     int 	hit;
 	int		hit_vertical;
+	int		hit_n;
+	int		hit_s;
+	int		hit_w;
+	int		hit_e;
 	int		orientation;
 } t_ray;
 
@@ -126,7 +131,7 @@ typedef struct s_map
 	char		**arr;
 	t_image		*images;
 	t_texture	*textures;
-	t_ray 		rays[640];
+	t_ray 		rays[642];
 }	t_map;
 
 // error handling
