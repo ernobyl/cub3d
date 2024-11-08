@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/08 13:24:42 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:20:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,47 +67,52 @@ void	reset_direction(t_ray *ray)
 
 void	check_direction(t_map *map, t_ray *ray)
 {
-	// float	x_scanner;
-	// float	y_scanner;
-	// float	scan_step;
+	float	x_scan_l;
+	float	x_scan_r;
+	float	y_scan_no;
+	float	y_scan_so;
+	//float	tolerance;
 
-	// x_scanner = floorf(ray->hit_x);
-	// y_scanner = floorf(ray->hit_y);
-	// scan_step = 0.1f;
+	x_scan_l = ray->hit_x - floorf(ray->hit_x);
+	x_scan_r = fabs(ray->hit_x - ceilf(ray->hit_x));
+	y_scan_no = ray->hit_y - floorf(ray->hit_y);
+	y_scan_so = fabs(ray->hit_y - ceilf(ray->hit_y));
+	
+	//tolerance = 0.01f;
 	if (map->plr_y > ray->hit_y)
 	{
 		if (map->plr_x > ray->hit_x)
 		{
-			if (map->arr[(int)ray->hit_y][(int)ray->hit_x + 1] == '0')
-				ray->hit_w = 1;
-			else
+			if (x_scan_l < y_scan_no)
 				ray->hit_n = 1;
+			else
+				ray->hit_w = 1;
 		}
 		else if (map->plr_x < ray->hit_x)
 		{
-			if (map->arr[(int)ray->hit_y][(int)ray->hit_x - 1] == '0')
-				ray->hit_e = 1;
-			else
+			if (x_scan_r < y_scan_no)
 				ray->hit_n = 1;
+			else
+				ray->hit_e = 1;
 		}
 		else if (map->plr_x == ray->hit_x)
-			ray->hit_n = 1;
+		 	ray->hit_n = 1;
 	}
 	else if (map->plr_y < ray->hit_y)
 	{
 		if (map->plr_x < ray->hit_x)
 		{
-			if (map->arr[(int)ray->hit_y][(int)ray->hit_x - 1] == '0')
-				ray->hit_e = 1;
-			else
+			if (x_scan_r < y_scan_so)
 				ray->hit_s = 1;
+			else
+				ray->hit_e = 1;
 		}
 		else if (map->plr_x > ray->hit_x)
 		{
-			if (map->arr[(int)ray->hit_y][(int)ray->hit_x + 1] == '0')
-				ray->hit_w = 1;
-			else
+			if (x_scan_l < y_scan_so)
 				ray->hit_s = 1;
+			else
+				ray->hit_w = 1;
 		}
 		else if (map->plr_x == ray->hit_x)
 			ray->hit_s = 1;
