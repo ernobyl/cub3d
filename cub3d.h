@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/07 15:51:29 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:54:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ typedef struct s_ray
 	float 	ray_dir_x;
 	float	ray_dir_y;
 	float	prev_distance;
-    int 	hit_x;
-    int 	hit_y;
+    float 	hit_x;
+    float 	hit_y;
     int 	hit;
 	int		hit_vertical;
 	int		hit_n;
@@ -131,7 +131,7 @@ typedef struct s_map
 	char		**arr;
 	t_image		*images;
 	t_texture	*textures;
-	t_ray 		rays[642];
+	t_ray 		rays[640];
 }	t_map;
 
 // error handling

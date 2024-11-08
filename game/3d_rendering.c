@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/07 15:38:26 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/08 11:55:03 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ static void draw_ray_slice(t_map *map, t_ray *ray, int ray_index)
         wall_bottom = SCREEN_HEIGHT;
     shading_factor = 1.0f / (perpendicular_distance * 0.5f);
     shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
-	printf("Direction: %i, %i, %i, %i\n", ray->hit_e, ray->hit_w, ray->hit_s, ray->hit_n);
+	//printf("Direction: %i, %i, %i, %i\n", ray->hit_e, ray->hit_w, ray->hit_s, ray->hit_n);
     if (ray->hit_e == 1)
         draw_textured_wall_east(map, ray_index, wall_top, wall_bottom, ray);
     else if (ray->hit_w == 1)
@@ -254,7 +254,7 @@ void draw_3d_scene(t_map *map)
 	int	ray_index;
 	t_ray *ray;
 	
-	ray_index = 1;
+	ray_index = 0;
 	//printf("ceiling color in draw_3d_scene: 0x%08X\n", map->images->color_ceiling);
 	//printf("floor color in draw_3d_scene: 0x%08X\n", map->images->color_floor);
 	while (ray_index < SCREEN_WIDTH)

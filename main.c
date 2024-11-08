@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/30 09:53:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 10:56:39 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int32_t	main(int argc, char **argv)
 	mlx_loop_hook(map.mlx, ft_hook, &map);
 	draw_minimap(&map);
 	put_player(&map);
+	printf("plr x: %f\n", map.plr_x);
+	printf("plr y: %f\n", map.plr_y);
 	//mlx_loop_hook(map.mlx, put_player, &map);
 	mlx_cursor_hook(map.mlx, &mousehook, &map);
 	mlx_loop(map.mlx);
