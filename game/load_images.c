@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 14:10:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/10/24 11:37:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 22:16:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@
 
 void	load_textures(t_map *map, mlx_texture_t **texture, char *path)
 {
+	(void)map;
 	*texture = mlx_load_png(path);
 	if (*texture == NULL)
-		texture_error("Error\ntexture load failed\n", map);
+		printf("Error\ntexture load failed\n");
 	//load_images(map, textures);
 }
 

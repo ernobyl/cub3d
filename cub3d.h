@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/08 11:54:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 21:50:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ void 		draw_textured_wall_south(t_map *map, int ray_index, int wall_top, int wal
 void		draw_textured_wall_east(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
 void		draw_textured_wall_west(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
 uint32_t	apply_shading(uint32_t color, float shading_factor);
+void		set_default_colors(t_map *map);
 
 // Raycasting rays
 void draw_ray(t_map *map, float ray_angle, int ray_index);

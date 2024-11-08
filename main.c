@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/08 10:56:39 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 22:18:09 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,6 @@ int32_t	main(int argc, char **argv)
 	//set_background(&map, &bg_image);
 	//display_map(&map);
 	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
-	if (map.textures->wall_no == NULL)
-    {
-        printf("Error: before init_minimap: texture is NULL.\n");
-        exit(1);
-    }
 	init_minimap(&map);
 	printf("ceiling color after init_minimap: 0x%08X\n", map.images->color_ceiling);
 	printf("floor color after init_minimap: 0x%08X\n", map.images->color_floor);

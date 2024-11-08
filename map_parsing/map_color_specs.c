@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 11:57:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/08 22:33:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 
 int	map_set_texture(t_map *map, int i)
 {
-	if (ft_strncmp(map->str + i, "NO", 2) == 0)
+	if (ft_strncmp(map->str + i, "NO ", 3) == 0)
 		i = set_texture_wall(map, &map->textures->wall_no, i);
-	if (ft_strncmp(map->str + i, "SO", 2) == 0)
+	if (ft_strncmp(map->str + i, "SO ", 3) == 0)
 		i = set_texture_wall(map, &map->textures->wall_so, i);
-	if (ft_strncmp(map->str + i, "WE", 2) == 0)
+	if (ft_strncmp(map->str + i, "WE ", 3) == 0)
 		i = set_texture_wall(map, &map->textures->wall_we, i);
-	if (ft_strncmp(map->str + i, "EA", 2) == 0)
+	if (ft_strncmp(map->str + i, "EA ", 3) == 0)
 		i = set_texture_wall(map, &map->textures->wall_ea, i);
 	return (i);
 }
@@ -78,10 +78,10 @@ int	read_color_info_lines(t_map *map, int i)
 {
 	while (map->str[i])
 	{
-		if (ft_strncmp(map->str + i, "NO", 2) == 0
-			|| ft_strncmp(map->str + i, "SO", 2) == 0
-			|| ft_strncmp(map->str + i, "WE", 2) == 0
-			|| ft_strncmp(map->str + i, "EA", 2) == 0)
+		if (ft_strncmp(map->str + i, "NO ", 3) == 0
+			|| ft_strncmp(map->str + i, "SO ", 3) == 0
+			|| ft_strncmp(map->str + i, "WE ", 3) == 0
+			|| ft_strncmp(map->str + i, "EA ", 3) == 0)
 			i = map_set_texture(map, i);
 		else if (map->str[i] == 'F')
 		{
@@ -108,6 +108,7 @@ int	map_color_specs(t_map *map)
 	int			i;
 
 	alloc_images(map);
+	set_default_colors(map);
 	i = 0;
 	i = read_color_info_lines(map, i);
 	return (i);
