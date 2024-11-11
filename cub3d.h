@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/11 12:59:03 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:08:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 # define BUFFERSIZE 25
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
-# define MINIWIDTH 4
-# define MINIHEIGHT 4
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
+# define MINIWIDTH 8
+# define MINIHEIGHT 8
+# define SCREEN_WIDTH 1280
+# define SCREEN_HEIGHT 960
 # define FOV 60
 # define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
@@ -38,6 +38,8 @@
 # define YELLOW 0xFFFF00FF
 # define BLUE 0x0000FFFF
 # define GREEN 0x00FF00FF
+# define SKY_BLUE 0x87CEEBFF
+# define GRASS_GREEN 0x64BD64FF
 # define WHITE_TP 0xFFFFFF80
 # define BLACK_TP 0x00000080
 # define RED_TP 0xFF000080
@@ -131,7 +133,7 @@ typedef struct s_map
 	char		**arr;
 	t_image		*images;
 	t_texture	*textures;
-	t_ray 		rays[640];
+	t_ray 		rays[SCREEN_WIDTH];
 }	t_map;
 
 // error handling

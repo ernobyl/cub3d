@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/11 13:22:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/11 14:57:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	check_direction(t_map *map, t_ray *ray)
 	float	y_scan_so;
 	float	tolerance;
 
-	tolerance = 0.0005f;
+	tolerance = 0.005f;
 	x_scan_l = ray->hit_x - floorf(ray->hit_x);
 	x_scan_r = fabs(ray->hit_x - ceilf(ray->hit_x));
 	y_scan_no = ray->hit_y - floorf(ray->hit_y);
@@ -83,7 +83,7 @@ void	check_direction(t_map *map, t_ray *ray)
 		if (map->plr_x > ray->hit_x)
 		{
 			y_scan_no += tolerance;
-			if (x_scan_l < y_scan_no)
+			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_no)
 				ray->hit_n = 1;
 			else
 				ray->hit_w = 1;
@@ -91,7 +91,7 @@ void	check_direction(t_map *map, t_ray *ray)
 		else if (map->plr_x < ray->hit_x)
 		{
 			y_scan_no += tolerance;
-			if (x_scan_r < y_scan_no)
+			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_no)
 				ray->hit_n = 1;
 			else
 				ray->hit_e = 1;
@@ -104,7 +104,7 @@ void	check_direction(t_map *map, t_ray *ray)
 		if (map->plr_x < ray->hit_x)
 		{
 			y_scan_so -= tolerance;
-			if (x_scan_r < y_scan_so)
+			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_so)
 				ray->hit_s = 1;
 			else
 				ray->hit_e = 1;
@@ -112,7 +112,7 @@ void	check_direction(t_map *map, t_ray *ray)
 		else if (map->plr_x > ray->hit_x)
 		{
 			y_scan_no -= tolerance;
-			if (x_scan_l < y_scan_so)
+			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_so)
 				ray->hit_s = 1;
 			else
 				ray->hit_w = 1;
@@ -156,8 +156,8 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 	t_ray *ray;
 	float step_size;
 	int max_distance;
-	//int pixel_x;
-	//int	pixel_y;
+	// int pixel_x;
+	// int	pixel_y;
 
 	ray = &map->rays[ray_index];
 	step_size = 0.004f;
@@ -187,7 +187,7 @@ void raycasting_rays(t_map *map)
 	float ray_angle;
 	//float prev_distance;
 
-	num_rays = 640;
+	num_rays = SCREEN_WIDTH;
 	//prev_distance = 0.0f;
 	fov = PI / 3; // PI / 3 would be 60 deg, PI / 2 is 90 deg
 	angle_step = fov / num_rays;
