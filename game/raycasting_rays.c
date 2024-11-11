@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/11 14:57:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/11 18:23:22 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	check_direction(t_map *map, t_ray *ray)
 	{
 		if (map->plr_x < ray->hit_x)
 		{
-			y_scan_so -= tolerance;
+			y_scan_so += tolerance;
 			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_so)
 				ray->hit_s = 1;
 			else
@@ -111,7 +111,7 @@ void	check_direction(t_map *map, t_ray *ray)
 		}
 		else if (map->plr_x > ray->hit_x)
 		{
-			y_scan_no -= tolerance;
+			y_scan_no += tolerance;
 			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_so)
 				ray->hit_s = 1;
 			else
