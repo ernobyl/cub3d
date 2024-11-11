@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/08 22:18:09 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/11 15:22:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void	free_map_struct(t_map map)
 		free(map.str);
 	if (map.arr)
 		ft_free(map.arr);
-	//free_images(&map);
+	free_textures(&map);
+	free_images(&map);
 }
 /* void	set_background(t_map *map, mlx_image_t *bg_image)
 {
@@ -110,6 +111,6 @@ int32_t	main(int argc, char **argv)
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);
-	//zero_map_struct(&map);
+	zero_map_struct(&map);
 	return (0);
 }
