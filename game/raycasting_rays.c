@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/11 18:23:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:20:57 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,77 +56,6 @@ static int check_diagonal(t_map *map, int map_x, int map_y, t_ray *ray)
 		(map->arr[map_y + 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
 		return (1);
 	return (0);
-}
-void	reset_direction(t_ray *ray)
-{
-	ray->hit_n = 0;
-	ray->hit_s = 0;
-	ray->hit_e = 0;
-	ray->hit_w = 0;
-}
-
-void	check_direction(t_map *map, t_ray *ray)
-{
-	float	x_scan_l;
-	float	x_scan_r;
-	float	y_scan_no;
-	float	y_scan_so;
-	float	tolerance;
-
-	tolerance = 0.005f;
-	x_scan_l = ray->hit_x - floorf(ray->hit_x);
-	x_scan_r = fabs(ray->hit_x - ceilf(ray->hit_x));
-	y_scan_no = ray->hit_y - floorf(ray->hit_y);
-	y_scan_so = fabs(ray->hit_y - ceilf(ray->hit_y));
-	if (map->plr_y > ray->hit_y)
-	{
-		if (map->plr_x > ray->hit_x)
-		{
-			y_scan_no += tolerance;
-			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_no)
-				ray->hit_n = 1;
-			else
-				ray->hit_w = 1;
-		}
-		else if (map->plr_x < ray->hit_x)
-		{
-			y_scan_no += tolerance;
-			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_no)
-				ray->hit_n = 1;
-			else
-				ray->hit_e = 1;
-		}
-		else if (map->plr_x == ray->hit_x)
-		 	ray->hit_n = 1;
-	}
-	else if (map->plr_y < ray->hit_y)
-	{
-		if (map->plr_x < ray->hit_x)
-		{
-			y_scan_so += tolerance;
-			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_so)
-				ray->hit_s = 1;
-			else
-				ray->hit_e = 1;
-		}
-		else if (map->plr_x > ray->hit_x)
-		{
-			y_scan_no += tolerance;
-			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_so)
-				ray->hit_s = 1;
-			else
-				ray->hit_w = 1;
-		}
-		else if (map->plr_x == ray->hit_x)
-			ray->hit_s = 1;
-	}
-	else if (map->plr_y == ray->hit_y)
-	{
-		if (map->plr_x < ray->hit_x)
-			ray->hit_e = 1;
-		else if (map->plr_x > ray->hit_x)
-			ray->hit_w = 1;
-	}
 }
 
 static int check_hit(t_map *map, t_ray *ray)

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/11 15:22:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:37:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,6 @@ int32_t	main(int argc, char **argv)
 	if (map.fd == -1)
 		struct_error("Error\nfile open error\n", &map);
 	assign_map(&map);
-	printf("ceiling color after assign_map: 0x%08X\n", map.images->color_ceiling);
-	printf("floor color after assign_map: 0x%08X\n", map.images->color_floor);
-	for (int i = 0; map.arr[i]; i++)
-		printf("%s\n", map.arr[i]);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	map.mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d", true);
 	if (!map.mlx)
@@ -95,22 +91,16 @@ int32_t	main(int argc, char **argv)
 	//display_map(&map);
 	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
 	init_minimap(&map);
-	printf("ceiling color after init_minimap: 0x%08X\n", map.images->color_ceiling);
-	printf("floor color after init_minimap: 0x%08X\n", map.images->color_floor);
 	init_3d_screen(&map);
 	//init_miniplayer(&map);
-	printf("plr x: %f\n", map.plr_x);
-	printf("plr y: %f\n", map.plr_y);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
 	draw_minimap(&map);
 	put_player(&map);
-	printf("plr x: %f\n", map.plr_x);
-	printf("plr y: %f\n", map.plr_y);
 	//mlx_loop_hook(map.mlx, put_player, &map);
 	mlx_cursor_hook(map.mlx, &mousehook, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);
-	zero_map_struct(&map);
+	//zero_map_struct(&map);
 	return (0);
 }

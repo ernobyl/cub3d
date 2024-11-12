@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/11 15:08:36 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/12 10:32:10 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,8 +167,10 @@ uint32_t	apply_shading(uint32_t color, float shading_factor);
 void		set_default_colors(t_map *map);
 
 // Raycasting rays
-void draw_ray(t_map *map, float ray_angle, int ray_index);
-void raycasting_rays(t_map *map);
+void	draw_ray(t_map *map, float ray_angle, int ray_index);
+void	raycasting_rays(t_map *map);
+void	reset_direction(t_ray *ray);
+void	check_direction(t_map *map, t_ray *ray);
 
 // map parsing utilities
 int		check_line(char *str);
