@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/12 10:20:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/19 13:52:24 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,14 @@ static int check_hit(t_map *map, t_ray *ray)
 	int map_x;
 	int map_y;
 
-	map_x = (int)floor(ray->ray_x);
-	map_y = (int)floor(ray->ray_y);
+	if (ray->ray_dir_x < 0)
+    	map_x = (int)floorf(ray->ray_x - EPSILON);
+	else
+    	map_x = (int)floorf(ray->ray_x + EPSILON);
+	if (ray->ray_dir_y < 0)
+    	map_y = (int)floorf(ray->ray_y - EPSILON);
+	else
+    	map_y = (int)floorf(ray->ray_y + EPSILON);
 	reset_direction(ray);
 	if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
 	{
@@ -89,7 +95,7 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 	// int	pixel_y;
 
 	ray = &map->rays[ray_index];
-	step_size = 0.004f;
+	step_size = 0.006f;
 	max_distance = 64;
 	init_ray(map, ray, ray_angle);
 	while (!ray->hit && ray->distance < max_distance)
