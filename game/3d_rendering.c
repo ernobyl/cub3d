@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/11 14:36:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:32:07 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ uint32_t apply_shading(uint32_t color, float shading_factor)
 }
 
 
-static void draw_ceiling(t_map *map, int ray_index, int wall_top)
+/* static void draw_ceiling(t_map *map, int ray_index, int wall_top)
 {
 	int	y;
 
@@ -129,7 +129,7 @@ static void draw_ceiling(t_map *map, int ray_index, int wall_top)
 		mlx_put_pixel(map->images->screen, ray_index, y, map->images->color_ceiling);
 		y++;
 	}
-}
+} */
 
 static void draw_walls(t_map *map, int ray_index, int wall_top, int wall_bottom)
 {
@@ -254,7 +254,7 @@ static void draw_ray_slice(t_map *map, t_ray *ray, int ray_index)
         draw_textured_wall_north(map, ray_index, wall_top, wall_bottom, ray);
 	else
 		draw_walls(map, ray_index, wall_top, wall_bottom);
-    draw_ceiling(map, ray_index, wall_top);
+    //draw_ceiling(map, ray_index, wall_top);
     draw_floors(map, ray_index, wall_bottom);
 }
 

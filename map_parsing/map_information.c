@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 11:52:26 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:31:47 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,9 @@ void	set_map_limits(t_map *map)
 	y = 0;
 	x = map_color_specs(map);
 	temp = ft_strdup(map->str + x);
-	map->str = temp;
+	free(map->str);
+	map->str = ft_strdup(temp);
+	free(temp);
 	x = 0;
 	read_map_lines(map, x, y, len);
 	if (map->max_x < 2 || map->max_y < 2)

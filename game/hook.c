@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/11 14:28:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:33:56 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void set_background(t_map *map)
+{
+	mlx_texture_t *background_texture;
+	uint32_t color;
+	int x;
+	int y;
+	int texture_x;
+	int texture_y;
+
+	background_texture = mlx_load_png("./textures/night.png");
+	if (!background_texture)
+	{
+		printf("Error: Failed to load background texture\n");
+		return;
+	}
+	y = 0;
+	while (y < SCREEN_HEIGHT)
+	{
+		x = 0;
+		while (x < SCREEN_WIDTH)
+		{
+			texture_x = x % background_texture->width;
+			texture_y = y % background_texture->height;
+			color = ((uint32_t *)background_texture->pixels)[texture_y * background_texture->width + texture_x];
+			mlx_put_pixel(map->images->screen, x, y, color);
+			x++;
+		}
+		y++;
+	}
+	mlx_delete_texture(background_texture);
+}
 
 void    ft_hook(void *param)
 {
@@ -83,7 +115,7 @@ void    ft_hook(void *param)
 		//printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
 	}
 	// strafe left
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
+	if (mlx_is_key_do/home/msilfver/projects/cub3d_tmp/textures/concrete.png /home/msilfver/projects/cub3d_tmp/textures/night.png /home/msilfver/projects/cub3d_tmp/textures/stars.pngwn(mlx, MLX_KEY_A))
 	{
 			map->plr_x -= (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
 			map->plr_y -= (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
@@ -130,6 +162,7 @@ void    ft_hook(void *param)
 	safe_img_to_window(map, map->images->mini_p, 
 		(map->plr_x * MINIWIDTH) - 256 / 2, 
 		(map->plr_y * MINIHEIGHT) - 256 / 2);
+	set_background(map);
 	draw_3d_scene(map);
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
