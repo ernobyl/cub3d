@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/19 15:33:56 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:25:53 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void    ft_hook(void *param)
 
 	map = (t_map *)param;
 	mlx = map->mlx;
-	speed = 0.8f;
-	rot_spd = 0.08f;
+	speed = 1.5f;
+	rot_spd = 0.1f;
 	plr_size = 0.1f;
 	// rotation
 	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
@@ -115,7 +115,7 @@ void    ft_hook(void *param)
 		//printf("Player position - x: %f, y: %f\n", map->plr_x, map->plr_y);
 	}
 	// strafe left
-	if (mlx_is_key_do/home/msilfver/projects/cub3d_tmp/textures/concrete.png /home/msilfver/projects/cub3d_tmp/textures/night.png /home/msilfver/projects/cub3d_tmp/textures/stars.pngwn(mlx, MLX_KEY_A))
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
 			map->plr_x -= (cos(map->plr_angle + PI / 2) * speed / MINIWIDTH);
 			map->plr_y -= (sin(map->plr_angle + PI / 2) * speed / MINIHEIGHT);
