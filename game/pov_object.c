@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:54:24 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 15:50:53 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:18:49 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,16 @@ static void	init_sprites(t_map *map)
 
 void	create_pov_object(t_map *map)
 {
+	int	center_x;
+	int	center_y;
+	
 	map->sprites = ft_calloc(1, sizeof(t_pov));
 	init_sprites(map);
+	center_x = (SCREEN_WIDTH / 2) - 64;
+	center_y = SCREEN_HEIGHT - 128;
+	safe_img_to_window(map, map->sprites->pov_frame1, center_x, center_y);
+	safe_img_to_window(map, map->sprites->pov_frame2, center_x, center_y);
+	safe_img_to_window(map, map->sprites->pov_frame3, center_x, center_y);
 }
 
 static int	frame_status(t_map *map)
@@ -59,15 +67,8 @@ static int	frame_status(t_map *map)
 
 void	animate_pov_obj(t_map *map)
 {
-	int	center_x;
-	int	center_y;
 	int	status;
 	
-	center_x = (SCREEN_WIDTH / 2) - 64;
-	center_y = SCREEN_HEIGHT - 128;
-	safe_img_to_window(map, map->sprites->pov_frame1, center_x, center_y);
-	safe_img_to_window(map, map->sprites->pov_frame2, center_x, center_y);
-	safe_img_to_window(map, map->sprites->pov_frame3, center_x, center_y);
 	status = frame_status(map);
 	if (status == 1)
 	{
