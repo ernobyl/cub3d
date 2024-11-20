@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:18:05 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 20:28:49 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:54:58 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	texture_to_slice_no(t_map *map, t_tex *t, int wall_bottom, t_ray *ray)
 {
 	uint32_t		color;
 	mlx_texture_t	*texture;
-	
+
 	texture = map->textures->wall_no;
 	while (t->y < wall_bottom)
 	{
@@ -34,7 +34,7 @@ void	texture_to_slice_so(t_map *map, t_tex *t, int wall_bottom, t_ray *ray)
 {
 	uint32_t		color;
 	mlx_texture_t	*texture;
-	
+
 	texture = map->textures->wall_so;
 	while (t->y < wall_bottom)
 	{
@@ -52,7 +52,7 @@ void	texture_to_slice_ea(t_map *map, t_tex *t, int wall_bottom, t_ray *ray)
 {
 	uint32_t		color;
 	mlx_texture_t	*texture;
-	
+
 	texture = map->textures->wall_ea;
 	while (t->y < wall_bottom)
 	{
@@ -70,7 +70,7 @@ void	texture_to_slice_we(t_map *map, t_tex *t, int wall_bottom, t_ray *ray)
 {
 	uint32_t		color;
 	mlx_texture_t	*texture;
-	
+
 	texture = map->textures->wall_we;
 	while (t->y < wall_bottom)
 	{

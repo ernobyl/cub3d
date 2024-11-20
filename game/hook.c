@@ -6,49 +6,45 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/20 21:49:10 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 22:15:15 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void set_background(t_map *map)
+void	set_background(t_map *map)
 {
-	mlx_texture_t *background_texture;
-	uint32_t color;
-	int x;
-	int y;
-	int texture_x;
-	int texture_y;
+	mlx_texture_t	*bg_texture;
+	uint32_t		color;
+	int				texture_x;
+	int				texture_y;
 
-	background_texture = mlx_load_png("./textures/night.png");
-	if (!background_texture)
+	bg_texture = mlx_load_png("./textures/night.png");
+	if (!bg_texture)
+		return ;
+	map->y = 0;
+	while (map->y < SCREEN_HEIGHT)
 	{
-		printf("Error: Failed to load background texture\n");
-		return;
-	}
-	y = 0;
-	while (y < SCREEN_HEIGHT)
-	{
-		x = 0;
-		while (x < SCREEN_WIDTH)
+		map->x = 0;
+		while (map->x < SCREEN_WIDTH)
 		{
-			texture_x = x % background_texture->width;
-			texture_y = y % background_texture->height;
-			color = ((uint32_t *)background_texture->pixels)[texture_y * background_texture->width + texture_x];
-			mlx_put_pixel(map->images->screen, x, y, color);
-			x++;
+			texture_x = map->x % bg_texture->width;
+			texture_y = map->y % bg_texture->height;
+			color = ((uint32_t *)bg_texture->pixels)[texture_y
+				* bg_texture->width + texture_x];
+			mlx_put_pixel(map->images->screen, map->x, map->y, color);
+			map->x++;
 		}
-		y++;
+		map->y++;
 	}
-	mlx_delete_texture(background_texture);
+	mlx_delete_texture(bg_texture);
 }
 
-void    ft_hook(void *param)
+void	ft_hook(void *param)
 {
-	t_map   *map;
-	float   speed;
-	float   rot_spd;
+	t_map	*map;
+	float	speed;
+	float	rot_spd;
 	float	plr_size;
 
 	map = (t_map *)param;
@@ -63,8 +59,8 @@ void    ft_hook(void *param)
 	mlx_delete_image(map->mlx, map->images->mini_p);
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
 	draw_arrow(map, map->plr_angle);
-	safe_img_to_window(map, map->images->mini_p, 
-		(map->plr_x * MINIWIDTH) - 256 / 2, 
+	safe_img_to_window(map, map->images->mini_p,
+		(map->plr_x * MINIWIDTH) - 256 / 2,
 		(map->plr_y * MINIHEIGHT) - 256 / 2);
 	set_background(map);
 	draw_3d_scene(map);
@@ -73,13 +69,13 @@ void    ft_hook(void *param)
 		mlx_close_window(map->mlx);
 }
 
-void mousehook(double xpos, double ypos, void *param)
+void	mousehook(double xpos, double ypos, void *param)
 {
-	t_map *map;
-	static double last_x = 0.0;
-	double sensitivity;
-	double delta_x;
-	
+	t_map			*map;
+	static double	last_x = 0.0;
+	double			sensitivity;
+	double			delta_x;
+
 	(void)ypos;
 	map = (t_map *)param;
 	sensitivity = 0.005;
@@ -93,5 +89,3 @@ void mousehook(double xpos, double ypos, void *param)
 	if (map->plr_angle >= 2 * PI)
 		map->plr_angle -= 2 * PI;
 }
-
-

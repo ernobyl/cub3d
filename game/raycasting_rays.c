@@ -6,13 +6,13 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/19 13:52:24 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:13:26 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void init_ray(t_map *map, t_ray *ray, float ray_angle)
+static void	init_ray(t_map *map, t_ray *ray, float ray_angle)
 {
 	ray->ray_x = map->plr_x;
 	ray->ray_y = map->plr_y;
@@ -26,73 +26,47 @@ static void init_ray(t_map *map, t_ray *ray, float ray_angle)
 	ray->hit_vertical = 0;
 }
 
-static void update_ray_position(t_ray *ray, float step_size)
+static void	update_ray_position(t_ray *ray, float step_size)
 {
 	ray->ray_x += cos(ray->angle) * step_size;
 	ray->ray_y += sin(ray->angle) * step_size;
 	ray->distance += step_size;
 }
 
-static int check_diagonal(t_map *map, int map_x, int map_y, t_ray *ray)
+int	check_diagonal(t_map *map, int x, int y, t_ray *ray)
 {
-	// Down Right
-	if (map_x > 0 && map_y > 0 && ((int)map->plr_x < map_x) &&
-		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y - 1][map_x] == '1') &&
-		(map->arr[map_y - 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y > 0)
+	if (x > 0 && y > 0 && ((int)map->plr_x < x)
+		&& (map->arr[y][x - 1] == '1')
+		&& (map->arr[y - 1][x] == '1')
+		&& (map->arr[y - 1][x - 1] == '0')
+		&& ray->ray_dir_x > 0 && ray->ray_dir_y > 0)
 		return (1);
-	// Down Left
-	if (map_x < map->max_x - 1 && map_y > 0 && ((int)map->plr_x > map_x) &&
-		(map->arr[map_y - 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y - 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y > 0)
+	if (x < map->max_x - 1 && y > 0 && ((int)map->plr_x > x)
+		&& (map->arr[y - 1][x] == '1')
+		&& (map->arr[y][x + 1] == '1')
+		&& (map->arr[y - 1][x + 1] == '0')
+		&& ray->ray_dir_x < 0 && ray->ray_dir_y > 0)
 		return (1);
-	// Up Left
-	if (map_x < map->max_x - 1 && map_y < map->max_y - 1 && ((int)map->plr_x > map_x) &&
-		(map->arr[map_y + 1][map_x] == '1') && (map->arr[map_y][map_x + 1] == '1') &&
-		(map->arr[map_y + 1][map_x + 1] == '0') && ray->ray_dir_x < 0 && ray->ray_dir_y < 0)
+	if (x < map->max_x - 1 && y < map->max_y - 1
+		&& ((int)map->plr_x > x)
+		&& (map->arr[y + 1][x] == '1')
+		&& (map->arr[y][x + 1] == '1')
+		&& (map->arr[y + 1][x + 1] == '0')
+		&& ray->ray_dir_x < 0 && ray->ray_dir_y < 0)
 		return (1);
-	// Up Right
-	if (map_x > 0 && map_y < map->max_y - 1 && ((int)map->plr_x < map_x) &&
-		(map->arr[map_y][map_x - 1] == '1') && (map->arr[map_y + 1][map_x] == '1') &&
-		(map->arr[map_y + 1][map_x - 1] == '0') && ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
+	if (x > 0 && y < map->max_y - 1 && ((int)map->plr_x < x)
+		&& (map->arr[y][x - 1] == '1') && (map->arr[y + 1][x] == '1')
+		&& (map->arr[y + 1][x - 1] == '0')
+		&& ray->ray_dir_x > 0 && ray->ray_dir_y < 0)
 		return (1);
 	return (0);
 }
 
-static int check_hit(t_map *map, t_ray *ray)
+void	draw_ray(t_map *map, float ray_angle, int ray_index)
 {
-	int map_x;
-	int map_y;
-
-	if (ray->ray_dir_x < 0)
-    	map_x = (int)floorf(ray->ray_x - EPSILON);
-	else
-    	map_x = (int)floorf(ray->ray_x + EPSILON);
-	if (ray->ray_dir_y < 0)
-    	map_y = (int)floorf(ray->ray_y - EPSILON);
-	else
-    	map_y = (int)floorf(ray->ray_y + EPSILON);
-	reset_direction(ray);
-	if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
-	{
-		if (map->arr[map_y][map_x] == '1' || check_diagonal(map, map_x, map_y, ray))
-		{
-			ray->hit_x = ray->ray_x;
-			ray->hit_y = ray->ray_y;
-			ray->hit = 1;
-			check_direction(map, ray);
-			return (1);
-		}
-	}
-	return (0);
-}
-
-void draw_ray(t_map *map, float ray_angle, int ray_index)
-{
-	t_ray *ray;
-	float step_size;
-	int max_distance;
-	// int pixel_x;
-	// int	pixel_y;
+	t_ray	*ray;
+	float	step_size;
+	int		max_distance;
 
 	ray = &map->rays[ray_index];
 	step_size = 0.006f;
@@ -102,40 +76,27 @@ void draw_ray(t_map *map, float ray_angle, int ray_index)
 	{
 		update_ray_position(ray, step_size);
 		if (check_hit(map, ray))
-			break;
-		// pixel_x = (int)((ray->ray_x - map->plr_x) * MINIWIDTH + 128);
-		// pixel_y = (int)((ray->ray_y - map->plr_y) * MINIHEIGHT + 128);
-		// if (pixel_x >= 0 && pixel_x < 256 && pixel_y >= 0 && pixel_y < 256)
-		// 	mlx_put_pixel(map->images->mini_p, pixel_x, pixel_y, YELLOW_TP);
-		// else
-		// 	break;
+			break ;
 	}
 }
 
-void raycasting_rays(t_map *map)
+void	raycasting_rays(t_map *map)
 {
-	int num_rays;
-	float fov;
-	float angle_step;
-	float start_angle;
-	int	i;
-	float ray_angle;
-	//float prev_distance;
+	int		num_rays;
+	float	fov;
+	float	angle_step;
+	float	start_angle;
+	float	ray_angle;
 
 	num_rays = SCREEN_WIDTH;
-	//prev_distance = 0.0f;
-	fov = PI / 3; // PI / 3 would be 60 deg, PI / 2 is 90 deg
+	fov = PI / 3;
 	angle_step = fov / num_rays;
 	start_angle = map->plr_angle - fov / 2;
-	i = 0;
-	while (i < num_rays)
+	map->ray_index = 0;
+	while (map->ray_index < num_rays)
 	{
-		// if (i > 0)
-		// 	map->rays->prev_distance = prev_distance;
-		ray_angle = start_angle + i * angle_step;
-		draw_ray(map, ray_angle, i);
-		//prev_distance = map->rays->distance;
-		i++;
+		ray_angle = start_angle + map->ray_index * angle_step;
+		draw_ray(map, ray_angle, map->ray_index);
+		map->ray_index++;
 	}
 }
-

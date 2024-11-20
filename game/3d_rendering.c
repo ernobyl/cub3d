@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 19:48:51 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:58:59 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,43 +95,43 @@ int	check_for_textures(t_map *map, mlx_texture_t *texture)
 
 static void draw_ray_slice(t_map *map, t_ray *ray)
 {
-    float	perpendicular_distance;
-    int 	wall_height;
+	float	perpendicular_distance;
+	int 	wall_height;
 	int		wall_top;
 	int		wall_bottom;
-    float	shading_factor;
+	float	shading_factor;
 
-    perpendicular_distance = ray->distance * fabs(cos(ray->angle - map->plr_angle));
-    if (perpendicular_distance < 0.1f)
-        perpendicular_distance = 0.1f;
-    wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
-    wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
-    wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
-    if (wall_top < 0)
-        wall_top = 0;
-    if (wall_bottom > SCREEN_HEIGHT)
-        wall_bottom = SCREEN_HEIGHT;
-    shading_factor = 1.0f / (perpendicular_distance * 0.5f);
-    shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
-    if (ray->hit_e == 1 && check_for_textures(map, map->textures->wall_ea) == 0)
-        draw_textured_wall_east(map, wall_top, wall_bottom, ray);
-    else if (ray->hit_w == 1 && check_for_textures(map, map->textures->wall_we) == 0)
-        draw_textured_wall_west(map, wall_top, wall_bottom, ray);
+	perpendicular_distance = ray->distance * fabs(cos(ray->angle - map->plr_angle));
+	if (perpendicular_distance < 0.1f)
+		perpendicular_distance = 0.1f;
+	wall_height = (int)(SCREEN_HEIGHT / perpendicular_distance);
+	wall_top = (SCREEN_HEIGHT / 2) - (wall_height / 2);
+	wall_bottom = (SCREEN_HEIGHT / 2) + (wall_height / 2);
+	if (wall_top < 0)
+		wall_top = 0;
+	if (wall_bottom > SCREEN_HEIGHT)
+		wall_bottom = SCREEN_HEIGHT;
+	shading_factor = 1.0f / (perpendicular_distance * 0.5f);
+	shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
+	if (ray->hit_e == 1 && check_for_textures(map, map->textures->wall_ea) == 0)
+		draw_textured_wall_east(map, wall_top, wall_bottom, ray);
+	else if (ray->hit_w == 1 && check_for_textures(map, map->textures->wall_we) == 0)
+		draw_textured_wall_west(map, wall_top, wall_bottom, ray);
 	else if (ray->hit_s == 1 && check_for_textures(map, map->textures->wall_so) == 0)
-        draw_textured_wall_south(map, wall_top, wall_bottom, ray);
+		draw_textured_wall_south(map, wall_top, wall_bottom, ray);
 	else if (ray->hit_n == 1 && check_for_textures(map, map->textures->wall_no) == 0)
-        draw_textured_wall_north(map, wall_top, wall_bottom, ray);
+		draw_textured_wall_north(map, wall_top, wall_bottom, ray);
 	else
 		draw_walls(map, wall_top, wall_bottom);
-    //draw_ceiling(map, ray_index, wall_top);
-    draw_floors(map, wall_bottom);
+	//draw_ceiling(map, ray_index, wall_top);
+	draw_floors(map, wall_bottom);
 }
 
 
 void draw_3d_scene(t_map *map)
 {
 	t_ray *ray;
-	
+
 	map->ray_index = 0;
 	while (map->ray_index < SCREEN_WIDTH)
 	{

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:17:06 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/11 15:02:47 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:15:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_line(t_map *map, t_point start, t_point end)
 	{
 		mlx_put_pixel(map->images->mini_p, start.x, start.y, YELLOW);
 		if (start.x == end.x && start.y == end.y)
-			break;
+			break ;
 		err2 = 2 * line.err;
 		if (err2 > -line.dy)
 		{
@@ -56,10 +56,14 @@ void	set_triangle_points(t_tri *tri, float angle, int length, int width)
 {
 	tri->tip_x = tri->center_x + (int)(cos(angle) * length);
 	tri->tip_y = tri->center_y + (int)(sin(angle) * length);
-	tri->base_left_x = tri->center_x + (int)(cos(angle + (PI / 2)) * (width / 2));
-	tri->base_left_y = tri->center_y + (int)(sin(angle + (PI / 2)) * (width / 2));
-	tri->base_right_x = tri->center_x + (int)(cos(angle - (PI / 2)) * (width / 2));
-	tri->base_right_y = tri->center_y + (int)(sin(angle - (PI / 2)) * (width / 2));
+	tri->base_left_x
+		= tri->center_x + (int)(cos(angle + (PI / 2)) * (width / 2));
+	tri->base_left_y
+		= tri->center_y + (int)(sin(angle + (PI / 2)) * (width / 2));
+	tri->base_right_x
+		= tri->center_x + (int)(cos(angle - (PI / 2)) * (width / 2));
+	tri->base_right_y
+		= tri->center_y + (int)(sin(angle - (PI / 2)) * (width / 2));
 }
 
 void	init_triangle(t_tri *tri)
@@ -83,8 +87,8 @@ void	draw_arrow(t_map *map, float angle)
 	int		width;
 
 	init_triangle(&tri);
-	length = 10;
-	width = 5;
+	length = 12;
+	width = 8;
 	set_triangle_points(&tri, angle, length, width);
 	start.x = tri.base_left_x;
 	start.y = tri.base_left_y;

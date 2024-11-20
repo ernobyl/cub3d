@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/19 15:11:38 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:11:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,60 +22,60 @@ void	reset_direction(t_ray *ray)
 
 void	looking_north(t_map *map, t_ray *ray, float tolerance)
 {
-	float	x_scan_l;
-	float	x_scan_r;
-	float	y_scan_no;
+	float	x_l;
+	float	x_r;
+	float	y_n;
 
-	x_scan_l = ray->hit_x - floorf(ray->hit_x);
-	x_scan_r = fabs(ray->hit_x - ceilf(ray->hit_x));
-	y_scan_no = ray->hit_y - floorf(ray->hit_y);
+	x_l = ray->hit_x - floorf(ray->hit_x);
+	x_r = fabs(ray->hit_x - ceilf(ray->hit_x));
+	y_n = ray->hit_y - floorf(ray->hit_y);
 	if (map->plr_x > ray->hit_x)
-		{
-			y_scan_no += tolerance;
-			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_no)
-				ray->hit_n = 1;
-			else
-				ray->hit_w = 1;
-		}
+	{
+		y_n += tolerance;
+		if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_l < y_n)
+			ray->hit_n = 1;
+		else
+			ray->hit_w = 1;
+	}
 	else if (map->plr_x < ray->hit_x)
-		{
-			y_scan_no += tolerance;
-			if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_no)
-				ray->hit_n = 1;
-			else
-				ray->hit_e = 1;
-		}
+	{
+		y_n += tolerance;
+		if (map->arr[(int)ray->hit_y + 1][(int)ray->hit_x] != '1' && x_r < y_n)
+			ray->hit_n = 1;
+		else
+			ray->hit_e = 1;
+	}
 	else if (map->plr_x == ray->hit_x)
-		 	ray->hit_n = 1;
+		ray->hit_n = 1;
 }
 
 void	looking_south(t_map *map, t_ray *ray, float tolerance)
 {
-	float	x_scan_l;
-	float	x_scan_r;
-	float	y_scan_so;
+	float	x_l;
+	float	x_r;
+	float	y_s;
 
-	x_scan_l = ray->hit_x - floorf(ray->hit_x);
-	x_scan_r = fabs(ray->hit_x - ceilf(ray->hit_x));
-	y_scan_so = fabs(ray->hit_y - ceilf(ray->hit_y));
+	x_l = ray->hit_x - floorf(ray->hit_x);
+	x_r = fabs(ray->hit_x - ceilf(ray->hit_x));
+	y_s = fabs(ray->hit_y - ceilf(ray->hit_y));
 	if (map->plr_x < ray->hit_x)
-		{
-			y_scan_so += tolerance;
-			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_r < y_scan_so)
-				ray->hit_s = 1;
-			else
-				ray->hit_e = 1;
-		}
-	else if (map->plr_x > ray->hit_x)
-		{
-			y_scan_so += tolerance;
-			if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_scan_l < y_scan_so)
-				ray->hit_s = 1;
-			else
-				ray->hit_w = 1;
-		}
-	else if (map->plr_x == ray->hit_x)
+	{
+		y_s += tolerance;
+		if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_r < y_s)
 			ray->hit_s = 1;
+		else
+			ray->hit_e = 1;
+	}
+	else if (map->plr_x > ray->hit_x)
+	{
+		y_s += tolerance;
+		if (map->arr[(int)ray->hit_y - 1][(int)ray->hit_x] != '1' && x_l < y_s)
+			ray->hit_s = 1;
+		else
+			ray->hit_w = 1;
+	}
+	else if (map->plr_x == ray->hit_x)
+		ray->hit_s = 1;
 }
 
 void	check_direction(t_map *map, t_ray *ray)
@@ -91,4 +91,33 @@ void	check_direction(t_map *map, t_ray *ray)
 		else if (map->plr_x > ray->hit_x)
 			ray->hit_w = 1;
 	}
+}
+
+int	check_hit(t_map *map, t_ray *ray)
+{
+	int	map_x;
+	int	map_y;
+
+	if (ray->ray_dir_x < 0)
+		map_x = (int)floorf(ray->ray_x - EPSILON);
+	else
+		map_x = (int)floorf(ray->ray_x + EPSILON);
+	if (ray->ray_dir_y < 0)
+		map_y = (int)floorf(ray->ray_y - EPSILON);
+	else
+		map_y = (int)floorf(ray->ray_y + EPSILON);
+	reset_direction(ray);
+	if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y <= map->max_y)
+	{
+		if (map->arr[map_y][map_x] == '1'
+			|| check_diagonal(map, map_x, map_y, ray))
+		{
+			ray->hit_x = ray->ray_x;
+			ray->hit_y = ray->ray_y;
+			ray->hit = 1;
+			check_direction(map, ray);
+			return (1);
+		}
+	}
+	return (0);
 }

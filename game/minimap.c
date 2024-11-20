@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 11:11:15 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 22:47:59 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,35 @@
 void	put_wall(t_map	*map, int x, int y)
 {
 	uint32_t	color;
-	
+	int			i;
+	int			j;
+
 	color = map->images->color_miniwall;
-	for (uint32_t i = 0; i < MINIWIDTH; ++i)
+	i = -1;
+	while (++i < MINIWIDTH)
 	{
-		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
-		{
-			mlx_put_pixel(map->images->minimap, x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
-		}
+		j = -1;
+		while (++j < MINIHEIGHT)
+			mlx_put_pixel(map->images->minimap,
+				x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
 	}
 }
 
 void	put_floor(t_map *map, int x, int y)
 {
 	uint32_t	color;
-	
+	int			i;
+	int			j;
+
 	color = map->images->color_minifloor;
-	for (uint32_t i = 0; i < MINIWIDTH; ++i)
+	i = -1;
+	while (++i < MINIWIDTH)
 	{
-		for (uint32_t j = 0; j < MINIHEIGHT; ++j)
+		j = -1;
+		while (++j < MINIHEIGHT)
 		{
-			mlx_put_pixel(map->images->minimap, x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
+			mlx_put_pixel(map->images->minimap,
+				x * MINIWIDTH + i, y * MINIHEIGHT + j, color);
 		}
 	}
 }
@@ -86,5 +94,6 @@ void	init_minimap(t_map *map)
 {
 	map->images->color_miniwall = WHITE_TP;
 	map->images->color_minifloor = BLACK_TP;
-	map->images->minimap = mlx_new_image(map->mlx, map->max_x * MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
+	map->images->minimap = mlx_new_image(map->mlx, map->max_x
+			* MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 21:48:35 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 23:13:50 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,14 +169,11 @@ void	player_strafe_left(t_map *map, float speed, float plr_size);
 void	player_strafe_right(t_map *map, float speed, float plr_size);
 
 // display
-//void		resize_images(t_map *map);
 void		load_textures(t_map *map, mlx_texture_t **texture, char *path);
-//void		load_images(t_map *map, t_texture *textures);
 void		init_minimap(t_map *map);
 void		draw_arrow(t_map *map, float angle);
 void		put_player(t_map *map);
 void		draw_minimap(void* param);
-//void		display_map(t_map *map);
 void		safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
 void		init_3d_screen(t_map *map);
 void		draw_3d_scene(t_map *map);
@@ -196,6 +193,8 @@ void		set_default_colors(t_map *map);
 void	draw_ray(t_map *map, float ray_angle, int ray_index);
 void	raycasting_rays(t_map *map);
 void	reset_direction(t_ray *ray);
+int		check_hit(t_map *map, t_ray *ray);
+int		check_diagonal(t_map *map, int x, int y, t_ray *ray);
 void	check_direction(t_map *map, t_ray *ray);
 
 // map parsing utilities
