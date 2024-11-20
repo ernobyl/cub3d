@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/20 20:26:29 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/20 21:31:03 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS	:= main.c \
 			game/minimap.c \
 			game/display_images.c \
 			game/hook.c \
+			game/player_movement.c \
 			game/load_images.c \
 			game/raycasting_rays.c \
 			game/3d_rendering.c \

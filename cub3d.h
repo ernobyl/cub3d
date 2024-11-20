@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 20:28:37 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 21:48:35 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,11 @@ void	free_textures(t_map *map);
 // player movement
 void    ft_hook(void *param);
 void	mousehook(double xpos, double ypos, void *param);
+void	player_rotation(t_map *map, float rot_spd);
+void	player_forward(t_map *map, float speed, float plr_size);
+void	player_backward(t_map *map, float speed, float plr_size);
+void	player_strafe_left(t_map *map, float speed, float plr_size);
+void	player_strafe_right(t_map *map, float speed, float plr_size);
 
 // display
 //void		resize_images(t_map *map);
