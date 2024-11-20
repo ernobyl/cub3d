@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/12 10:19:42 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/20 14:27:09 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS	:= main.c \
 			game/draw_arrow.c \
 			game/defaults.c \
 			game/wall_direction.c \
+			game/pov_object.c \
 			utils/safe_funcs.c \
 
 

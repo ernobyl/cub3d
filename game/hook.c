@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/19 16:25:53 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:43:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void    ft_hook(void *param)
 		(map->plr_y * MINIHEIGHT) - 256 / 2);
 	set_background(map);
 	draw_3d_scene(map);
+	animate_pov_obj(map);
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/19 15:54:41 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:41:12 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	zero_map_struct(t_map *map)
 	map->str = NULL;
 	map->arr = NULL;
 	map->images = NULL;
+	map->textures = NULL;
+	map->sprites = NULL;
 	map->rays->angle = 0;
 	map->rays->distance = 0;
 	map->rays->hit_x = 0;
@@ -84,7 +86,7 @@ int32_t	main(int argc, char **argv)
 		struct_error("Error\nfile open error\n", &map);
 	assign_map(&map);
 	mlx_set_setting(MLX_STRETCH_IMAGE, true);
-	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_setting(MLX_FULLSCREEN, false);
 	map.mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
@@ -93,6 +95,7 @@ int32_t	main(int argc, char **argv)
 	mlx_set_cursor_mode(map.mlx, MLX_MOUSE_HIDDEN);
 	init_minimap(&map);
 	init_3d_screen(&map);
+	create_pov_object(&map);
 	//init_miniplayer(&map);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
 	draw_minimap(&map);

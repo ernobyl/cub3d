@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/19 13:39:08 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 14:44:18 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@
 # include <math.h>
 # include "libft/libft.h"
 # include "MLX42/MLX42.h"
+# include "pov_object.h"
 
 # define BUFFERSIZE 25
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define MINIWIDTH 8
 # define MINIHEIGHT 8
-# define SCREEN_WIDTH 1280
-# define SCREEN_HEIGHT 960
+# define SCREEN_WIDTH 1280 / 2
+# define SCREEN_HEIGHT 960 / 2
 # define FOV 60
 # define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
@@ -46,6 +47,7 @@
 # define RED_TP 0xFF000080
 # define YELLOW_TP 0xFFFF0080
 
+typedef struct s_pov	t_pov;
 typedef struct s_point
 {
 	int x;
@@ -134,6 +136,7 @@ typedef struct s_map
 	char		**arr;
 	t_image		*images;
 	t_texture	*textures;
+	t_pov		*sprites;
 	t_ray 		rays[SCREEN_WIDTH];
 }	t_map;
 
@@ -192,5 +195,9 @@ void	is_rectangle(t_map *map);
 void	is_valid_character(t_map *map);
 void	traverse_path(char **arr, t_map *cur, int y, int x);
 int		map_color_specs(t_map *map);
+
+// sprites
+void	create_pov_object(t_map *map);
+void	animate_pov_obj(t_map *map);
 
 #endif

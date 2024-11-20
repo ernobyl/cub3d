@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/19 15:32:07 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:03:48 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ uint32_t apply_shading(uint32_t color, float shading_factor)
 	int b;
 	int a;
 	
-	if (shading_factor > 1.0f)
-		shading_factor = 1.0f;
+	if (shading_factor > 1.3f)
+		shading_factor = 1.3f;
 	else if (shading_factor < 0.2f)
 		shading_factor = 0.2f;
 	r = (color >> 24) & 0xFF;

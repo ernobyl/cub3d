@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/01 18:16:08 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/19 15:24:02 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 16:05:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void draw_textured_wall_north(t_map *map, int ray_index, int wall_top, int wall_
         color = ((uint32_t *)texture->pixels)[texel];
 
         // Apply shading based on distance
-        color = apply_shading(color, 1.0f / (ray->distance * 0.5f));
+        color = apply_shading(color, 1.0f / (ray->distance * 1.3f));
 
         // Draw the pixel on the screen
         mlx_put_pixel(map->images->screen, ray_index, y, color);
@@ -107,7 +107,7 @@ void draw_textured_wall_south(t_map *map, int ray_index, int wall_top, int wall_
         color = ((uint32_t *)texture->pixels)[texel];
 
         // Apply shading based on distance
-        color = apply_shading(color, 1.0f / (ray->distance * 0.5f));
+        color = apply_shading(color, 1.0f / (ray->distance * 1.3f));
 
         // Draw the pixel on the screen
         mlx_put_pixel(map->images->screen, ray_index, y, color);
@@ -160,7 +160,7 @@ void draw_textured_wall_east(t_map *map, int ray_index, int wall_top, int wall_b
         color = ((uint32_t *)texture->pixels)[texel];
 
         // Apply shading based on distance
-        color = apply_shading(color, 1.0f / (ray->distance * 0.5f));
+        color = apply_shading(color, 1.0f / (ray->distance * 1.3f));
 
         // Draw the pixel on the screen
         mlx_put_pixel(map->images->screen, ray_index, y, color);
@@ -213,7 +213,7 @@ void draw_textured_wall_west(t_map *map, int ray_index, int wall_top, int wall_b
         color = ((uint32_t *)texture->pixels)[texel];
 
         // Apply shading based on distance
-        color = apply_shading(color, 1.0f / (ray->distance * 0.5f));
+        color = apply_shading(color, 1.0f / (ray->distance * 1.3f));
 
         // Draw the pixel on the screen
         mlx_put_pixel(map->images->screen, ray_index, y, color);
