@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 16:03:48 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 19:24:43 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,77 +18,6 @@ void	init_3d_screen(t_map *map)
 	if (!map->images->screen)
 		struct_error("Failed to allocate screen image\n", map);
 	safe_img_to_window(map, map->images->screen, 0, 0);
-}
-
-void cast_ray(t_map *map, int ray_index, float ray_angle)
-{
-	t_ray *ray = &map->rays[ray_index];  // Access the specific ray in the array
-	ray->ray_x = map->plr_x;
-	ray->ray_y = map->plr_y;
-	float step_size = 0.05f;
-	ray->distance = 0.0f;
-	ray->hit = 0;
-
-	float ray_dir_x = cos(ray_angle);
-	float ray_dir_y = sin(ray_angle);
-
-	// Calculate initial steps and grid lines for both vertical and horizontal walls
-	int step_x = ray_dir_x > 0 ? 1 : -1;
-	int step_y = ray_dir_y > 0 ? 1 : -1;
-
-	float delta_dist_x = fabs(1 / ray_dir_x);  // Distance to next vertical grid line
-	float delta_dist_y = fabs(1 / ray_dir_y);  // Distance to next horizontal grid line
-
-	float side_dist_x;
-	float side_dist_y;
-
-	int map_x = (int)map->plr_x;
-	int map_y = (int)map->plr_y;
-
-	// Calculate the distance to the first intersection
-	if (ray_dir_x < 0)
-		side_dist_x = (map->plr_x - map_x) * delta_dist_x;
-	else
-		side_dist_x = (map_x + 1.0 - map->plr_x) * delta_dist_x;
-
-	if (ray_dir_y < 0)
-		side_dist_y = (map->plr_y - map_y) * delta_dist_y;
-	else
-		side_dist_y = (map_y + 1.0 - map->plr_y) * delta_dist_y;
-
-	while (!ray->hit && ray->distance < MAX_RENDER_DISTANCE)
-	{
-		// Determine whether to move in the X or Y direction
-		if (side_dist_x < side_dist_y)
-		{
-			side_dist_x += delta_dist_x;
-			map_x += step_x;
-			ray->hit_vertical = 1;  // The ray hit a vertical wall
-		}
-		else
-		{
-			side_dist_y += delta_dist_y;
-			map_y += step_y;
-			ray->hit_vertical = 0;  // The ray hit a horizontal wall
-		}
-
-		ray->distance += step_size;
-
-		if (map_x >= 0 && map_x < map->max_x && map_y >= 0 && map_y < map->max_y)
-		{
-			if (map->arr[map_y][map_x] == '1')
-			{
-				ray->hit = 1;  // Wall hit
-			}
-		}
-		else
-		{
-			break;
-		}
-	}
-
-	// Store the perpendicular distance to avoid fisheye effect
-	ray->distance *= cos(ray_angle - map->plr_angle);
 }
 
 uint32_t apply_shading(uint32_t color, float shading_factor)
