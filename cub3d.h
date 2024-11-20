@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 14:44:18 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/20 20:28:37 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,18 @@ typedef struct s_ray
 	int		hit_w;
 	int		hit_e;
 	int		orientation;
-} t_ray;
+} 			t_ray;
+
+typedef struct s_tex
+{
+    float	texture_x;
+    float	texture_y_start;
+    float	texture_step;
+    float	texture_y;
+    int 	texel_y;
+    int 	texel;
+	int		y;
+}			t_tex;
 
 typedef struct s_map
 {
@@ -138,7 +149,8 @@ typedef struct s_map
 	t_texture	*textures;
 	t_pov		*sprites;
 	t_ray 		rays[SCREEN_WIDTH];
-}	t_map;
+	int			ray_index;
+}				t_map;
 
 // error handling
 void	struct_error(char *msg, t_map *map);
@@ -152,21 +164,26 @@ void    ft_hook(void *param);
 void	mousehook(double xpos, double ypos, void *param);
 
 // display
-void		resize_images(t_map *map);
+//void		resize_images(t_map *map);
 void		load_textures(t_map *map, mlx_texture_t **texture, char *path);
-void		load_images(t_map *map, t_texture *textures);
+//void		load_images(t_map *map, t_texture *textures);
 void		init_minimap(t_map *map);
 void		draw_arrow(t_map *map, float angle);
 void		put_player(t_map *map);
 void		draw_minimap(void* param);
-void		display_map(t_map *map);
+//void		display_map(t_map *map);
 void		safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
 void		init_3d_screen(t_map *map);
 void		draw_3d_scene(t_map *map);
-void 		draw_textured_wall_north(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
-void 		draw_textured_wall_south(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
-void		draw_textured_wall_east(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
-void		draw_textured_wall_west(t_map *map, int ray_index, int wall_top, int wall_bottom, t_ray *ray);
+
+void 		draw_textured_wall_north(t_map *map, int wall_top, int wall_bottom, t_ray *ray);
+void 		draw_textured_wall_south(t_map *map, int wall_top, int wall_bottom, t_ray *ray);
+void		draw_textured_wall_east(t_map *map, int wall_top, int wall_bottom, t_ray *ray);
+void		draw_textured_wall_west(t_map *map, int wall_top, int wall_bottom, t_ray *ray);
+void		texture_to_slice_no(t_map *map, t_tex *t, int wall_bottom, t_ray *ray);
+void		texture_to_slice_so(t_map *map, t_tex *t, int wall_bottom, t_ray *ray);
+void		texture_to_slice_ea(t_map *map, t_tex *t, int wall_bottom, t_ray *ray);
+void		texture_to_slice_we(t_map *map, t_tex *t, int wall_bottom, t_ray *ray);
 uint32_t	apply_shading(uint32_t color, float shading_factor);
 void		set_default_colors(t_map *map);
 
