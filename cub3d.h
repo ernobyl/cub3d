@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 23:13:50 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:43:31 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "libft/libft.h"
 # include "MLX42/MLX42.h"
 # include "pov_object.h"
+# include <time.h>
 
 # define BUFFERSIZE 25
 # define WINDOW_WIDTH 1280
@@ -30,6 +31,8 @@
 # define MINIHEIGHT 8
 # define SCREEN_WIDTH 1280 / 2
 # define SCREEN_HEIGHT 960 / 2
+# define MW 25
+# define MH 15
 # define FOV 60
 # define MAX_RENDER_DISTANCE 320
 # define PI 3.141592f
@@ -46,6 +49,7 @@
 # define BLACK_TP 0x00000080
 # define RED_TP 0xFF000080
 # define YELLOW_TP 0xFFFF0080
+# define YEL_NON_VIS 0xFFFF0000
 
 typedef struct s_pov	t_pov;
 typedef struct s_point
@@ -131,6 +135,13 @@ typedef struct s_tex
 	int		y;
 }			t_tex;
 
+typedef struct s_gen
+{
+	int		player_x;
+	int		player_y;
+	char	player_direction;
+}	t_gen;
+
 typedef struct s_map
 {
 	int			fd;
@@ -158,6 +169,7 @@ void	texture_error(char *msg, t_map *map);
 void	free_images(t_map *map);
 void	simple_error(char *msg);
 void	free_textures(t_map *map);
+void	zero_map_struct(t_map *map);
 
 // player movement
 void    ft_hook(void *param);
@@ -216,6 +228,8 @@ void	is_rectangle(t_map *map);
 void	is_valid_character(t_map *map);
 void	traverse_path(char **arr, t_map *cur, int y, int x);
 int		map_color_specs(t_map *map);
+void	generator_map(void);
+char	*run_map_gen(char *argv);
 
 // sprites
 void	create_pov_object(t_map *map);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 11:11:01 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 12:17:55 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	inspect_map(t_map *map)
 {
@@ -39,12 +39,21 @@ static void	free_map_struct(t_map map)
 	free_images(&map);
 }
 
+void	extra_features(t_map *map)
+{
+	mlx_set_cursor_mode(map->mlx, MLX_MOUSE_HIDDEN);
+	init_minimap(map);
+	create_pov_object(map);
+	draw_minimap(map);
+}
+
 int32_t	main(int argc, char **argv)
 {
 	t_map	map;
 
 	if (argc != 2)
 		simple_error("Error\ninvalid argument count\n");
+	argv[1] = run_map_gen(argv[1]);
 	zero_map_struct(&map);
 	valid_extension(argv[1]);
 	map.fd = open(argv[1], O_RDONLY);
@@ -56,8 +65,10 @@ int32_t	main(int argc, char **argv)
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
 	init_3d_screen(&map);
+	extra_features(&map);
 	mlx_loop_hook(map.mlx, ft_hook, &map);
 	put_player(&map);
+	mlx_cursor_hook(map.mlx, &mousehook, &map);
 	mlx_loop(map.mlx);
 	free_map_struct(map);
 	mlx_terminate(map.mlx);

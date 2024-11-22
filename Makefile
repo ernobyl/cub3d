@@ -6,46 +6,62 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/20 21:31:03 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/22 12:24:00 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME	:= cub3d
-CC		:= cc
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
-LIBMLX	:= ./MLX42/
+NAME    := cub3d
+CC      := cc
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+LIBMLX  := ./MLX42/
 
-HEADERS	:= -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
-SRCS	:= main.c \
-			errors/error_handling.c \
-			errors/free_utils.c \
-			map_parsing/map_information.c \
-			map_parsing/read_map.c \
-			map_parsing/valid_map.c \
-			map_parsing/map_color_specs.c \
-			map_parsing/parsing_utils.c \
-			map_parsing/map_wall_checks.c \
-			game/minimap.c \
-			game/display_images.c \
-			game/hook.c \
-			game/player_movement.c \
-			game/load_images.c \
-			game/raycasting_rays.c \
-			game/3d_rendering.c \
-			game/texture_to_slice_loops.c \
-			game/draw_walls.c \
-			game/draw_arrow.c \
-			game/defaults.c \
-			game/wall_direction.c \
-			game/pov_object.c \
-			utils/safe_funcs.c \
+HEADERS := -I $(LIBMLX)/include
+LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
+SHARED_SRCS := errors/error_handling.c \
+                errors/free_utils.c \
+                map_parsing/map_information.c \
+                map_parsing/read_map.c \
+                map_parsing/valid_map.c \
+                map_parsing/map_color_specs.c \
+                map_parsing/parsing_utils.c \
+                map_parsing/map_wall_checks.c \
+                game/minimap.c \
+                game/display_images.c \
+                game/player_movement.c \
+                game/load_images.c \
+                game/raycasting_rays.c \
+                game/3d_rendering.c \
+                game/texture_to_slice_loops.c \
+                game/draw_walls.c \
+                game/defaults.c \
+                game/wall_direction.c \
+                game/pov_object.c \
+                utils/safe_funcs.c \
 
+BASIC_SRCS  := main.c \
+                game/hook.c \
+                game/draw_arrow.c \
 
-OBJS	:= ${SRCS:.c=.o}
+BONUS_SRCS  := bonus/main_bonus.c \
+                bonus/hook_bonus.c \
+                bonus/draw_arrow_bonus.c \
+				generator_map/map_generator.c \
+				generator_map/run_map_gen.c \
+
+SRCS := $(SHARED_SRCS) $(BASIC_SRCS)
+
+ifeq ($(BONUS), 1)
+SRCS := $(SHARED_SRCS) $(BONUS_SRCS)
+endif
+
+OBJS := ${SRCS:.c=.o}
 
 all: libmlx $(NAME)
+
+bonus: libmlx
+	@echo "Building with bonus features..."
+	@$(MAKE) BONUS=1 $(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
@@ -61,6 +77,8 @@ $(NAME): $(OBJS)
 clean:
 	@echo "Cleaning object files..."
 	@rm -rf $(OBJS)
+	@rm -rf bonus/*.o
+	@rm -rf generator_map/*.o
 	@rm -rf $(LIBMLX)/build
 	@make clean -C libft
 
@@ -71,4 +89,7 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx
+rebonus: clean
+	@$(MAKE) BONUS=1 all
+
+.PHONY: all clean fclean re libmlx bonus rebonus

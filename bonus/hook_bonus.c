@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/22 11:12:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:14:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	ft_hook(void *param)
 	raycasting_rays(map);
 	set_background(map);
 	draw_3d_scene(map);
+	animate_pov_obj(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(map->mlx);
 }

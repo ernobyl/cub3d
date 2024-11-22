@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_arrow.c                                       :+:      :+:    :+:   */
+/*   draw_arrow_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:17:06 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 11:15:55 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 10:18:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_line(t_map *map, t_point start, t_point end)
 	init_line(&line, &start, &end);
 	while (1)
 	{
-		mlx_put_pixel(map->images->mini_p, start.x, start.y, YEL_NON_VIS);
+		mlx_put_pixel(map->images->mini_p, start.x, start.y, YELLOW);
 		if (start.x == end.x && start.y == end.y)
 			break ;
 		err2 = 2 * line.err;
