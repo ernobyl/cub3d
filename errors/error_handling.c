@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 13:23:58 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 22:08:19 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:18:38 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ void	struct_error(char *msg, t_map *map)
 		free(map->str);
 	if (map->arr)
 		ft_free(map->arr);
+	if (map->textures)
+		free_textures(map);
+	if (map->sprites)
+		free_sprites(map);
 	if (map->images)
 		free_images(map);
 	if (map->mlx)

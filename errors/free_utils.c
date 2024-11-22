@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:07:47 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 11:12:23 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:42:45 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ void	free_images(t_map *map)
 	if (map->images->screen)
 		mlx_delete_image(map->mlx, map->images->screen);
 	free(map->images);
+	if (map->sprites)
+	{
+		if (map->sprites->pov_frame1)
+			mlx_delete_image(map->mlx, map->sprites->pov_frame1);
+		if (map->sprites->pov_frame2)
+			mlx_delete_image(map->mlx, map->sprites->pov_frame2);
+		if (map->sprites->pov_frame3)
+			mlx_delete_image(map->mlx, map->sprites->pov_frame3);
+		free(map->sprites);
+	}
 }
 
 void	free_textures(t_map *map)
@@ -34,4 +44,14 @@ void	free_textures(t_map *map)
 	if (map->textures->wall_ea)
 		mlx_delete_texture(map->textures->wall_ea);
 	free(map->textures);
+}
+
+void	free_sprites(t_map *map)
+{
+	if (map->sprites->sprite_frame_1)
+		mlx_delete_texture(map->sprites->sprite_frame_1);
+	if (map->sprites->sprite_frame_2)
+		mlx_delete_texture(map->sprites->sprite_frame_2);
+	if (map->sprites->sprite_frame_3)
+		mlx_delete_texture(map->sprites->sprite_frame_3);
 }

@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:42:21 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 12:43:07 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 19:08:32 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ void	generate_map(char map[MH][MW])
 				map[i][j] = elements[rand() % 2];
 		}
 	}
-	p.player_x = rand() % (MW - 2) + 2;
-	p.player_y = rand() % (MH - 2) + 2;
+	p.player_x = rand() % (MW - 2) + 1;
+	p.player_y = rand() % (MH - 2) + 3;
 	p.player_direction = directions[rand() % 4];
 	map[p.player_y][p.player_x] = p.player_direction;
 }
@@ -123,8 +123,9 @@ void	print_map(char map[MH][MW])
 
 void	generator_map(void)
 {
-	char map[MH][MW] = {0};
+	char	map[MH][MW];
 
+	ft_bzero(map, sizeof(map));
 	srand(time(NULL));
 	generate_map(map);
 	print_map(map);

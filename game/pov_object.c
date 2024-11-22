@@ -6,22 +6,34 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:54:24 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 22:29:00 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/22 20:46:42 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pov_object.h"
 
-static void	init_sprites(t_map *map)
+static void	load_sprite_pngs(t_map *map)
 {
 	map->sprites->sprite_frame_1 = mlx_load_png("./sprites/frame1.png");
-	// if (map->sprites->sprite_frame_1 == NULL) handle errors
+	if (map->sprites->sprite_frame_1 == NULL)
+		struct_error("Sprite loading failed.", map);
 	map->sprites->sprite_frame_2 = mlx_load_png("./sprites/frame2.png");
+	if (map->sprites->sprite_frame_2 == NULL)
+		struct_error("Sprite loading failed.", map);
 	map->sprites->sprite_frame_3 = mlx_load_png("./sprites/frame3.png");
-	map->sprites->pov_frame1 = mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_1);
-	// handle errors
-	map->sprites->pov_frame2 = mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_2);
-	map->sprites->pov_frame3 = mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_3);
+	if (map->sprites->sprite_frame_3 == NULL)
+		struct_error("Sprite loading failed.", map);
+	map->sprites->pov_frame1
+		= mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_1);
+	map->sprites->pov_frame2
+		= mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_2);
+	map->sprites->pov_frame3
+		= mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_3);
+}
+
+static void	init_sprites(t_map *map)
+{
+	load_sprite_pngs(map);
 	mlx_resize_image(map->sprites->pov_frame1, 128, 128);
 	mlx_resize_image(map->sprites->pov_frame2, 128, 128);
 	mlx_resize_image(map->sprites->pov_frame3, 128, 128);
@@ -37,7 +49,7 @@ void	create_pov_object(t_map *map)
 {
 	int	center_x;
 	int	center_y;
-	
+
 	map->sprites = ft_calloc(1, sizeof(t_pov));
 	init_sprites(map);
 	center_x = (SCREEN_WIDTH / 2) - 64;
@@ -68,7 +80,7 @@ static int	frame_status(t_map *map)
 void	animate_pov_obj(t_map *map)
 {
 	int	status;
-	
+
 	status = frame_status(map);
 	if (status == 1)
 	{
