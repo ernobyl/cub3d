@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/20 23:13:26 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:57:34 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void	init_ray(t_map *map, t_ray *ray, float ray_angle)
 	ray->ray_dir_x = cos(ray->angle);
 	ray->ray_dir_y = sin(ray->angle);
 	ray->hit_vertical = 0;
+	ray->perpendicular_distance = 0.0f;
 }
 
 static void	update_ray_position(t_ray *ray, float step_size)

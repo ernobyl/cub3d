@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hook.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/22 11:12:14 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:47:03 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	set_background(t_map *map)
-{
-	mlx_texture_t	*bg_texture;
-	uint32_t		color;
-	int				texture_x;
-	int				texture_y;
-
-	bg_texture = mlx_load_png("./textures/night.png");
-	if (!bg_texture)
-		return ;
-	map->y = 0;
-	while (map->y < SCREEN_HEIGHT)
-	{
-		map->x = 0;
-		while (map->x < SCREEN_WIDTH)
-		{
-			texture_x = map->x % bg_texture->width;
-			texture_y = map->y % bg_texture->height;
-			color = ((uint32_t *)bg_texture->pixels)[texture_y
-				* bg_texture->width + texture_x];
-			mlx_put_pixel(map->images->screen, map->x, map->y, color);
-			map->x++;
-		}
-		map->y++;
-	}
-	mlx_delete_texture(bg_texture);
-}
 
 void	refresh_mini_p(t_map *map)
 {
@@ -68,7 +40,6 @@ void	ft_hook(void *param)
 	player_strafe_right(map, speed, plr_size);
 	refresh_mini_p(map);
 	raycasting_rays(map);
-	set_background(map);
 	draw_3d_scene(map);
 	if (mlx_is_key_down(map->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(map->mlx);

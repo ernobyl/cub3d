@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_color_specs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/08 22:33:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/24 16:50:51 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

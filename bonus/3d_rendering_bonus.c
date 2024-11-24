@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   3d_rendering.c                                     :+:      :+:    :+:   */
+/*   3d_rendering_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/24 17:29:02 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:19:13 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	draw_ray_slice(t_map *map, t_ray *ray)
 	shading_factor = 1.0f / (ray->perpendicular_distance * 0.5f);
 	shading_factor = fmaxf(fminf(shading_factor, 1.0f), 0.2f);
 	draw_walls(map, wall_top, wall_bottom, ray);
-	draw_ceiling(map, map->ray_index, wall_top);
 	draw_floors(map, wall_bottom);
 }
 

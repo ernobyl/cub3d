@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/22 20:40:55 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/24 17:18:18 by msilfver         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SHARED_SRCS := errors/error_handling.c \
                 game/player_movement.c \
                 game/load_images.c \
                 game/raycasting_rays.c \
-                game/3d_rendering.c \
                 game/texture_to_slice_loops.c \
                 game/draw_walls.c \
                 game/defaults.c \
@@ -42,10 +41,14 @@ SHARED_SRCS := errors/error_handling.c \
 BASIC_SRCS  := main.c \
                 game/hook.c \
                 game/draw_arrow.c \
+                game/3d_rendering.c \
+                game/3d_rendering_draw.c \
 
 BONUS_SRCS  := bonus/main_bonus.c \
                 bonus/hook_bonus.c \
                 bonus/draw_arrow_bonus.c \
+                bonus/3d_rendering_bonus.c \
+                bonus/3d_rendering_draw_bonus.c \
 				generator_map/map_generator.c \
 				generator_map/run_map_gen.c \
 

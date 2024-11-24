@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 19:23:11 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:27:54 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_ray
 	float	prev_distance;
 	float	hit_x;
 	float	hit_y;
+	float	perpendicular_distance;
 	int		hit;
 	int		hit_vertical;
 	int		hit_n;
@@ -163,6 +164,9 @@ void		draw_minimap(void *param);
 void		safe_img_to_window(t_map *map, mlx_image_t *img, int x, int y);
 void		init_3d_screen(t_map *map);
 void		draw_3d_scene(t_map *map);
+void		draw_floors(t_map *map, int wall_bottom);
+void		draw_walls(t_map *map, int wall_top, int wall_bottom, t_ray *ray);
+void		draw_ceiling(t_map *map, int ray_index, int wall_top);
 
 void		draw_textured_wall_north(t_map *map, int wall_top,
 				int wall_bottom, t_ray *ray);
