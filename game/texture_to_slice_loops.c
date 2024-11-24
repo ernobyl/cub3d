@@ -3,14 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   texture_to_slice_loops.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:18:05 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 21:54:58 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/24 17:47:12 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+uint32_t	apply_shading(uint32_t color, float shading_factor)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+
+	if (shading_factor > 1.3f)
+		shading_factor = 1.3f;
+	else if (shading_factor < 0.2f)
+		shading_factor = 0.2f;
+	r = (color >> 24) & 0xFF;
+	g = (color >> 16) & 0xFF;
+	b = (color >> 8) & 0xFF;
+	a = color & 0xFF;
+	r = (int)(r * shading_factor);
+	g = (int)(g * shading_factor);
+	b = (int)(b * shading_factor);
+	if (r > 255)
+		r = 255;
+	if (g > 255)
+		g = 255;
+	if (b > 255)
+		b = 255;
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
 
 void	texture_to_slice_no(t_map *map, t_tex *t, int wall_bottom, t_ray *ray)
 {
