@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 12:00:38 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 12:01:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:20:52 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	middle_map(t_map *map, int len)
 		&& map->arr[map->y][map->x - 1] == '0')
 		struct_error("Error\nmap not walled\n", map);
 	if (map->arr[map->y][map->x] == '0'
-		&& (map->x >= (int)ft_strlen(map->arr[map->y + 1])))
+		&& (map->x >= (int)ft_strlen(map->arr[map->y + 1])
+		|| map->x >= (int)ft_strlen(map->arr[map->y - 1])))
 		struct_error("Error\nmap not walled\n", map);
 	if (map->x == 0 || map->x == len - 1)
 	{

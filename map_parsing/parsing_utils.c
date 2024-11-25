@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:49:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 11:51:52 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/25 13:51:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	check_line(char *str)
 	while (str[i])
 	{
 		if (str[i] == '1')
+			return (1);
+		else if (str[i] == '\n')
 			return (1);
 		i++;
 	}
