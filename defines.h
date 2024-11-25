@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 18:31:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 18:32:30 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/25 16:04:14 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define DEFINES_H
 
 # define BUFFERSIZE 25
-# define WINDOW_WIDTH 1280
-# define WINDOW_HEIGHT 720
 # define MINIWIDTH 8
 # define MINIHEIGHT 8
 # define SCREEN_WIDTH 640
