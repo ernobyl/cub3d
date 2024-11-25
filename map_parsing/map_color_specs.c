@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_color_specs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/24 16:50:51 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/25 14:59:46 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
 		i++;
 	b = ft_atoi(line + i);
 	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
-	{
 		*color = (r << 24) | (g << 16) | (b << 8) | 255;
-	}
 	else
 		struct_error("Invalid color values\n", map);
 }
