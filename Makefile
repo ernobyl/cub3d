@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/24 17:18:18 by msilfver         ###   ########.fr        #
+#    Updated: 2024/11/25 15:58:48 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME    := cub3d
 CC      := cc
-CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast #-g
 LIBMLX  := ./MLX42/
 
 HEADERS := -I $(LIBMLX)/include
-LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -L"/Users/emichels/.brew/opt/glfw/lib/" -pthread -lm -Llibft -lft
+LIBS    := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm -Llibft -lft
 SHARED_SRCS := errors/error_handling.c \
                 errors/free_utils.c \
                 map_parsing/map_information.c \
