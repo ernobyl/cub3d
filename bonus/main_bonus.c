@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/25 16:11:57 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 13:11:00 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int32_t	main(int argc, char **argv)
 	if (map.fd == -1)
 		struct_error("Error\nfile open error\n", &map);
 	assign_map(&map);
-	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_setting(MLX_STRETCH_IMAGE, true);
 	map.mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3d", true);
 	if (!map.mlx)
 		struct_error((char *)mlx_strerror(mlx_errno), &map);
