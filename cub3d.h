@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/24 17:27:54 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:52:58 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_ray
 	int		hit_w;
 	int		hit_e;
 	int		orientation;
+	int		ray_index;
 }			t_ray;
 
 typedef struct s_tex
@@ -186,6 +187,7 @@ void		texture_to_slice_we(t_map *map, t_tex *t,
 				int wall_bottom, t_ray *ray);
 uint32_t	apply_shading(uint32_t color, float shading_factor);
 void		set_default_colors(t_map *map);
+void		safe_check(int index, t_ray *rays);
 
 // Raycasting rays
 void		draw_ray(t_map *map, float ray_angle, int ray_index);

@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:02:44 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/24 17:23:14 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:51:40 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	check_for_textures(t_map *map, mlx_texture_t *texture)
 
 void	draw_walls(t_map *map, int wall_top, int wall_bottom, t_ray *ray)
 {
+	safe_check(ray->ray_index, map->rays);
 	if (ray->hit_e == 1
 		&& check_for_textures(map, map->textures->wall_ea) == 0)
 		draw_textured_wall_east(map, wall_top, wall_bottom, ray);

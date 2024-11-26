@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 15:36:11 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/24 16:57:34 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:50:54 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	draw_ray(t_map *map, float ray_angle, int ray_index)
 	step_size = 0.006f;
 	max_distance = 64;
 	init_ray(map, ray, ray_angle);
+	ray->ray_index = ray_index;
 	while (!ray->hit && ray->distance < max_distance)
 	{
 		update_ray_position(ray, step_size);

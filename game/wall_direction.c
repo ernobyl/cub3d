@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_direction.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 10:18:45 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/20 23:11:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 12:01:15 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
