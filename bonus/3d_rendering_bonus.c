@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   3d_rendering_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 13:26:09 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/24 17:46:04 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:20:17 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	init_3d_screen(t_map *map)
 {
 	map->images->screen = mlx_new_image(map->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!map->images->screen)
-		struct_error("Failed to allocate screen image\n", map);
+		struct_error("Error\nFailed to allocate screen image\n", map);
 	safe_img_to_window(map, map->images->screen, 0, 0);
 }
 

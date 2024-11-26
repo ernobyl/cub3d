@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/25 14:59:46 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:21:29 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
 	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 		*color = (r << 24) | (g << 16) | (b << 8) | 255;
 	else
-		struct_error("Invalid color values\n", map);
+		struct_error("Error\nInvalid color values\n", map);
 }
 
 int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)

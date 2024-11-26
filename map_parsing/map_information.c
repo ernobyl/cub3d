@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/25 13:28:50 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:27:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	tabs_to_spaces(t_map *map)
 	}
 	new = ft_calloc(i + (tabs * 3) + 1, sizeof(char));
 	if (!new)
-		struct_error("Calloc error\n", map);
+		struct_error("Error\nCalloc error\n", map);
 	new = replace_tabs(map, new);
 	map->str = new;
 }
@@ -91,8 +91,12 @@ void	set_map_limits(t_map *map)
 	y = 0;
 	x = map_color_specs(map);
 	temp = ft_strdup(map->str + x);
+	if (temp == NULL)
+		struct_error("Error\nstrdup failed\n", map);
 	free(map->str);
 	map->str = ft_strdup(temp);
+	if (map->str == NULL)
+		struct_error("Error\nstrdup failed\n", map);
 	free(temp);
 	x = 0;
 	read_map_lines(map, x, y, len);

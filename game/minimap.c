@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:39:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 11:16:53 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:04:41 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	put_player(t_map *map)
 	map->plr_y += 0.5f;
 	offset = 256 / 2;
 	map->images->mini_p = mlx_new_image(map->mlx, 256, 256);
+	if (map->images->mini_p == NULL)
+		struct_error("Error\nFailed to load image\n", map);
 	map->images->color_player = RED_TP;
 	draw_arrow(map, map->plr_angle);
 	safe_img_to_window(map, map->images->mini_p,
@@ -96,4 +98,6 @@ void	init_minimap(t_map *map)
 	map->images->color_minifloor = BLACK_TP;
 	map->images->minimap = mlx_new_image(map->mlx, map->max_x
 			* MINIWIDTH * 2, map->max_y * MINIHEIGHT * 2);
+	if (map->images->minimap == NULL)
+		struct_error("Error\nFailed to load image\n", map);
 }

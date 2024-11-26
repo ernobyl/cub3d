@@ -6,7 +6,7 @@
 #    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/25 15:58:48 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/26 10:17:11 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,6 @@ SHARED_SRCS := errors/error_handling.c \
                 map_parsing/parsing_utils.c \
                 map_parsing/map_wall_checks.c \
                 game/minimap.c \
-                game/display_images.c \
                 game/player_movement.c \
                 game/load_images.c \
                 game/raycasting_rays.c \

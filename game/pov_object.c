@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 12:54:24 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 20:46:42 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:24:02 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	load_sprite_pngs(t_map *map)
 {
 	map->sprites->sprite_frame_1 = mlx_load_png("./sprites/frame1.png");
 	if (map->sprites->sprite_frame_1 == NULL)
-		struct_error("Sprite loading failed.", map);
+		struct_error("Error\nSprite loading failed.\n", map);
 	map->sprites->sprite_frame_2 = mlx_load_png("./sprites/frame2.png");
 	if (map->sprites->sprite_frame_2 == NULL)
-		struct_error("Sprite loading failed.", map);
+		struct_error("Error\nSprite loading failed.\n", map);
 	map->sprites->sprite_frame_3 = mlx_load_png("./sprites/frame3.png");
 	if (map->sprites->sprite_frame_3 == NULL)
-		struct_error("Sprite loading failed.", map);
+		struct_error("Error\nSprite loading failed.\n", map);
 	map->sprites->pov_frame1
 		= mlx_texture_to_image(map->mlx, map->sprites->sprite_frame_1);
 	map->sprites->pov_frame2
@@ -50,10 +50,21 @@ void	create_pov_object(t_map *map)
 	int	center_x;
 	int	center_y;
 
-	map->sprites = ft_calloc(1, sizeof(t_pov));
-	init_sprites(map);
 	center_x = (SCREEN_WIDTH / 2) - 64;
 	center_y = SCREEN_HEIGHT - 128;
+	map->sprites = ft_calloc(1, sizeof(t_pov));
+	if (map->sprites == NULL)
+		struct_error("Error\nCalloc error\n", map);
+	map->sprites->pov_frame1 = mlx_new_image(map->mlx, center_x, center_y);
+	if (map->sprites->pov_frame1 == NULL)
+		struct_error("Error\nFailed to load image pov_frame1\n", map);
+	map->sprites->pov_frame2 = mlx_new_image(map->mlx, center_x, center_y);
+	if (map->sprites->pov_frame2 == NULL)
+		struct_error("Error\nFailed to load image pov_frame2\n", map);
+	map->sprites->pov_frame3 = mlx_new_image(map->mlx, center_x, center_y);
+	if (map->sprites->pov_frame3 == NULL)
+		struct_error("Error\nFailed to load image pov_frame3\n", map);
+	init_sprites(map);
 	safe_img_to_window(map, map->sprites->pov_frame1, center_x, center_y);
 	safe_img_to_window(map, map->sprites->pov_frame2, center_x, center_y);
 	safe_img_to_window(map, map->sprites->pov_frame3, center_x, center_y);
