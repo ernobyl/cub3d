@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defaults.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/08 21:41:46 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 09:44:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/27 10:56:31 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ void	zero_map_struct(t_map *map)
 	map->rays->distance = 0;
 	map->rays->hit_x = 0;
 	map->rays->hit_y = 0;
+	map->element_counter = 0;
 }

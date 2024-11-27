@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/26 11:52:58 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:42:52 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "pov_object.h"
 # include <time.h>
 # include "defines.h"
+# include "limits.h"
 
 typedef struct s_pov	t_pov;
 typedef struct s_point
@@ -62,6 +63,10 @@ typedef struct s_texture
 	mlx_texture_t	*wall_so;
 	mlx_texture_t	*wall_we;
 	mlx_texture_t	*wall_ea;
+	int				no;
+	int				so;
+	int				ea;
+	int				we;
 }	t_texture;
 
 typedef struct s_image
@@ -75,6 +80,8 @@ typedef struct s_image
 	uint32_t	color_wall;
 	uint32_t	color_floor;
 	uint32_t	color_ceiling;
+	int			f_flag;
+	int			c_flag;
 }	t_image;
 
 typedef struct s_ray
@@ -136,6 +143,7 @@ typedef struct s_map
 	t_pov		*sprites;
 	t_ray		rays[SCREEN_WIDTH];
 	int			ray_index;
+	int			element_counter;
 }				t_map;
 
 // error handling
@@ -201,6 +209,7 @@ void		check_direction(t_map *map, t_ray *ray);
 int			check_line(char *str);
 void		alloc_images(t_map *map);
 void		init_plr_angle(t_map *map, char direction);
+int			atoi_cub(const char *str);
 
 // map wall checks
 void		first_line(t_map *map);

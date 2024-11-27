@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_color_specs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/26 10:21:29 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/27 12:14:56 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,21 @@ void	map_set_color(t_map *map, char *line, int i, uint32_t *color)
 
 	while (line[i] == ' ')
 		i++;
-	r = ft_atoi(line + i);
+	r = atoi_cub(line + i);
 	while (ft_isdigit(line[i]))
 		i++;
-	while (line[i] == ',' || line[i] == ' ')
+	while (line[i] == ',')
 		i++;
-	g = ft_atoi(line + i);
+	g = atoi_cub(line + i);
 	while (ft_isdigit(line[i]))
 		i++;
-	while (line[i] == ',' || line[i] == ' ')
+	while (line[i] == ',')
 		i++;
-	b = ft_atoi(line + i);
+	b = atoi_cub(line + i);
+	while (ft_isdigit(line[i]))
+		i++;
+	if (line[i] != '\n')
+		struct_error("Error\nInvalid color values\n", map);
 	if (r >= 0 && r <= 255 && g >= 0 && g <= 255 && b >= 0 && b <= 255)
 		*color = (r << 24) | (g << 16) | (b << 8) | 255;
 	else
@@ -43,8 +47,14 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 	int		j;
 	char	*path;
 
-	while (map->str[i] != '.' && map->str[i])
+	while (map->str[i] && map->str[i] != ' ')
 		i++;
+	while (map->str[i] != '.' && map->str[i])
+	{	
+		if (map->str[i] != ' ')
+			struct_error("Error\nInvalid texture identifier\n", map);
+		i++;
+	}
 	path_start = i;
 	while (map->str[i] != '\n' && map->str[i])
 		i++;
@@ -58,38 +68,103 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 	i++;
 	return (i);
 }
-
-int	map_set_texture(t_map *map, int i)
+int	map_set_no_so(t_map *map, int i)
 {
 	if (ft_strncmp(map->str + i, "NO ", 3) == 0)
-		i = set_texture_wall(map, &map->textures->wall_no, i);
+	{	
+		if (map->textures->no)
+			struct_error("Error\nduplicate textures\n", map);
+		else
+		{
+			i = set_texture_wall(map, &map->textures->wall_no, i);
+			map->textures->no = 1;
+			map->element_counter++;
+		}
+	}
 	if (ft_strncmp(map->str + i, "SO ", 3) == 0)
-		i = set_texture_wall(map, &map->textures->wall_so, i);
-	if (ft_strncmp(map->str + i, "WE ", 3) == 0)
-		i = set_texture_wall(map, &map->textures->wall_we, i);
-	if (ft_strncmp(map->str + i, "EA ", 3) == 0)
-		i = set_texture_wall(map, &map->textures->wall_ea, i);
+	{	
+		if (map->textures->so)
+			struct_error("Error\nduplicate textures\n", map);
+		else
+		{
+			i = set_texture_wall(map, &map->textures->wall_so, i);
+			map->textures->so = 1;
+			map->element_counter++;
+		}
+	}
 	return (i);
+}
+
+int	map_set_we_ea(t_map *map, int i)
+{
+	if (ft_strncmp(map->str + i, "WE ", 3) == 0)
+	{	
+		if (map->textures->we)
+			struct_error("Error\nduplicate textures\n", map);
+		else
+		{
+			i = set_texture_wall(map, &map->textures->wall_we, i);
+			map->textures->we = 1;
+			map->element_counter++;
+		}
+	}
+	if (ft_strncmp(map->str + i, "EA ", 3) == 0)
+	{	
+		if (map->textures->ea)
+			struct_error("Error\nduplicate textures\n", map);
+		else
+		{
+			i = set_texture_wall(map, &map->textures->wall_ea, i);
+			map->textures->ea = 1;
+			map->element_counter++;
+		}
+	}
+	return (i);
+}
+int	map_set_texture(t_map *map, int i)
+{
+	if (ft_strncmp(map->str + i, "NO ", 3) == 0
+			|| ft_strncmp(map->str + i, "SO ", 3) == 0)
+		i = map_set_no_so(map, i);
+
+	else if (ft_strncmp(map->str + i, "WE ", 3) == 0
+			|| ft_strncmp(map->str + i, "EA ", 3) == 0)
+		i = map_set_we_ea(map, i);
+	return (i);
+}
+
+void	map_set_floorcolor(t_map *map, int i)
+{
+	if (map->images->f_flag == 1)
+				struct_error("Error\nMultiple floor colors\n", map);
+	map_set_color(map, map->str, i + 1, &map->images->color_floor);
+	map->images->f_flag = 1;
+	map->element_counter++;
+}
+
+void	map_set_ceilingcolor(t_map *map, int i)
+{
+	if (map->images->c_flag == 1)
+				struct_error("Error\nMultiple ceiling colors\n", map);
+	map_set_color(map, map->str, i + 1, &map->images->color_ceiling);
+	map->images->c_flag = 1;
+	map->element_counter++;
 }
 
 int	read_color_info_lines(t_map *map, int i)
 {
 	while (map->str[i])
 	{
-		if (ft_strncmp(map->str + i, "NO ", 3) == 0
-			|| ft_strncmp(map->str + i, "SO ", 3) == 0
-			|| ft_strncmp(map->str + i, "WE ", 3) == 0
-			|| ft_strncmp(map->str + i, "EA ", 3) == 0)
-			i = map_set_texture(map, i);
-		else if (map->str[i] == 'F')
+		i = map_set_texture(map, i);
+		if (map->str[i] == 'F')
 		{
-			map_set_color(map, map->str, i + 1, &map->images->color_floor);
+			map_set_floorcolor(map, i);
 			while (map->str[i] != '\n' && map->str[i])
 				i++;
 		}
 		else if (map->str[i] == 'C')
 		{
-			map_set_color(map, map->str, i + 1, &map->images->color_ceiling);
+			map_set_ceilingcolor(map, i);
 			while (map->str[i] != '\n' && map->str[i])
 				i++;
 		}
@@ -109,5 +184,8 @@ int	map_color_specs(t_map *map)
 	set_default_colors(map);
 	i = 0;
 	i = read_color_info_lines(map, i);
+	printf("element no: %i\n", map->element_counter);
+	if (map->element_counter != 6)
+		struct_error("Error\nMissing elements\n", map);
 	return (i);
 }

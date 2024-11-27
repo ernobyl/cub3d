@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
+#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/26 10:17:11 by emichels         ###   ########.fr        #
+#    Updated: 2024/11/27 12:10:03 by msilfver         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME    := cub3d
+NAME    := cub3D
 CC      := cc
-CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast #-g
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
 LIBMLX  := ./MLX42/
 
 HEADERS := -I $(LIBMLX)/include

@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:39:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/26 11:58:27 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/27 11:47:37 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,34 @@ void	safe_check(int index, t_ray *rays)
 	int	prev_index;
 	int	next_index;
 
-	prev_index = index - 2;
-	next_index = index + 2;
+	prev_index = index - 1;
+	next_index = index + 1;
 	if (prev_index < 0 || next_index >= SCREEN_WIDTH)
 		return ;
 	check_s_and_n(prev_index, next_index, index, rays);
 	check_w_and_e(prev_index, next_index, index, rays);
+}
+
+int	atoi_cub(const char *str)
+{
+	int		counter;
+	long	result;
+
+	counter = 0;
+	result = 0;
+	if (!str)
+		return (-1);
+	if (str[counter] == ' ')
+		return (-1);
+	if (str[counter] == '-')
+			return (-1);
+	while (str[counter] >= '0' && str[counter] <= '9')
+	{	
+		result = result * 10 + (str[counter++] - '0');
+		if (result >= INT_MAX)
+			return (INT_MAX);
+	}
+ 	if (str[counter] != ',' && str[counter] != '\n')
+		return (-1);
+	return (result);
 }
