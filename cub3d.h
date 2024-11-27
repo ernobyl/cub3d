@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 11:42:52 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:59:27 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ typedef struct s_image
 	mlx_image_t	*mini_p;
 	mlx_image_t	*screen;
 	mlx_image_t	*minimap;
+	mlx_image_t	*north;
+	mlx_image_t	*south;
+	mlx_image_t	*west;
+	mlx_image_t	*east;
 	uint32_t	color_miniwall;
 	uint32_t	color_minifloor;
 	uint32_t	color_player;
@@ -210,6 +214,12 @@ int			check_line(char *str);
 void		alloc_images(t_map *map);
 void		init_plr_angle(t_map *map, char direction);
 int			atoi_cub(const char *str);
+int			map_set_no_so(t_map *map, int i);
+int			map_set_we_ea(t_map *map, int i);
+int			map_set_floorcolor(t_map *map, int i);
+int			map_set_ceilingcolor(t_map *map, int i);
+void		map_set_color(t_map *map, char *line, int i, uint32_t *color);
+int			set_texture_wall(t_map *map, mlx_texture_t **texture, int i);
 
 // map wall checks
 void		first_line(t_map *map);

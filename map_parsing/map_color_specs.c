@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_color_specs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 12:14:56 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/11/27 14:58:56 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,106 +68,27 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 	i++;
 	return (i);
 }
-int	map_set_no_so(t_map *map, int i)
-{
-	if (ft_strncmp(map->str + i, "NO ", 3) == 0)
-	{	
-		if (map->textures->no)
-			struct_error("Error\nduplicate textures\n", map);
-		else
-		{
-			i = set_texture_wall(map, &map->textures->wall_no, i);
-			map->textures->no = 1;
-			map->element_counter++;
-		}
-	}
-	if (ft_strncmp(map->str + i, "SO ", 3) == 0)
-	{	
-		if (map->textures->so)
-			struct_error("Error\nduplicate textures\n", map);
-		else
-		{
-			i = set_texture_wall(map, &map->textures->wall_so, i);
-			map->textures->so = 1;
-			map->element_counter++;
-		}
-	}
-	return (i);
-}
 
-int	map_set_we_ea(t_map *map, int i)
-{
-	if (ft_strncmp(map->str + i, "WE ", 3) == 0)
-	{	
-		if (map->textures->we)
-			struct_error("Error\nduplicate textures\n", map);
-		else
-		{
-			i = set_texture_wall(map, &map->textures->wall_we, i);
-			map->textures->we = 1;
-			map->element_counter++;
-		}
-	}
-	if (ft_strncmp(map->str + i, "EA ", 3) == 0)
-	{	
-		if (map->textures->ea)
-			struct_error("Error\nduplicate textures\n", map);
-		else
-		{
-			i = set_texture_wall(map, &map->textures->wall_ea, i);
-			map->textures->ea = 1;
-			map->element_counter++;
-		}
-	}
-	return (i);
-}
 int	map_set_texture(t_map *map, int i)
 {
-	if (ft_strncmp(map->str + i, "NO ", 3) == 0
-			|| ft_strncmp(map->str + i, "SO ", 3) == 0)
-		i = map_set_no_so(map, i);
-
-	else if (ft_strncmp(map->str + i, "WE ", 3) == 0
-			|| ft_strncmp(map->str + i, "EA ", 3) == 0)
-		i = map_set_we_ea(map, i);
+	i = map_set_no_so(map, i);
+	i = map_set_we_ea(map, i);
 	return (i);
-}
-
-void	map_set_floorcolor(t_map *map, int i)
-{
-	if (map->images->f_flag == 1)
-				struct_error("Error\nMultiple floor colors\n", map);
-	map_set_color(map, map->str, i + 1, &map->images->color_floor);
-	map->images->f_flag = 1;
-	map->element_counter++;
-}
-
-void	map_set_ceilingcolor(t_map *map, int i)
-{
-	if (map->images->c_flag == 1)
-				struct_error("Error\nMultiple ceiling colors\n", map);
-	map_set_color(map, map->str, i + 1, &map->images->color_ceiling);
-	map->images->c_flag = 1;
-	map->element_counter++;
 }
 
 int	read_color_info_lines(t_map *map, int i)
 {
 	while (map->str[i])
 	{
-		i = map_set_texture(map, i);
-		if (map->str[i] == 'F')
-		{
-			map_set_floorcolor(map, i);
-			while (map->str[i] != '\n' && map->str[i])
-				i++;
-		}
+		if (ft_strncmp(map->str + i, "NO ", 3) == 0
+			|| ft_strncmp(map->str + i, "SO ", 3) == 0
+			|| ft_strncmp(map->str + i, "WE ", 3) == 0
+			|| ft_strncmp(map->str + i, "EA ", 3) == 0)
+			i = map_set_texture(map, i);
+		else if (map->str[i] == 'F')
+			i = map_set_floorcolor(map, i);
 		else if (map->str[i] == 'C')
-		{
-			map_set_ceilingcolor(map, i);
-			while (map->str[i] != '\n' && map->str[i])
-				i++;
-		}
+			i = map_set_ceilingcolor(map, i);
 		else if (map->str[i] == '\n')
 			i++;
 		else if (check_line(map->str + i) == 1)
@@ -184,7 +105,6 @@ int	map_color_specs(t_map *map)
 	set_default_colors(map);
 	i = 0;
 	i = read_color_info_lines(map, i);
-	printf("element no: %i\n", map->element_counter);
 	if (map->element_counter != 6)
 		struct_error("Error\nMissing elements\n", map);
 	return (i);

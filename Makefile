@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+         #
+#    By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/05 11:34:26 by emichels          #+#    #+#              #
-#    Updated: 2024/11/27 12:10:03 by msilfver         ###   ########.fr        #
+#    Updated: 2024/11/27 12:37:34 by emichels         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 NAME    := cub3D
 CC      := cc
-CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast #-g
 LIBMLX  := ./MLX42/
 
 HEADERS := -I $(LIBMLX)/include
@@ -26,6 +26,7 @@ SHARED_SRCS := errors/error_handling.c \
                 map_parsing/map_color_specs.c \
                 map_parsing/parsing_utils.c \
                 map_parsing/map_wall_checks.c \
+                map_parsing/color_spec_utils.c \
                 game/minimap.c \
                 game/player_movement.c \
                 game/load_images.c \

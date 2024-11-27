@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 13:42:21 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/22 19:08:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/27 13:33:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	generate_map(char map[MH][MW])
 		}
 	}
 	p.player_x = rand() % (MW - 2) + 1;
-	p.player_y = rand() % (MH - 2) + 3;
+	p.player_y = rand() % (13 - 9 + 1) + 9;
 	p.player_direction = directions[rand() % 4];
 	map[p.player_y][p.player_x] = p.player_direction;
 }
@@ -110,6 +110,10 @@ void	print_map(char map[MH][MW])
 		printf("Error opening map file.\n");
 		return ;
 	}
+	fprintf(file, "NO ./textures/test.png\n");
+	fprintf(file, "SO ./textures/test.png\n");
+	fprintf(file, "WE ./textures/test1.png\n");
+	fprintf(file, "EA ./textures/test1.png\n");
 	i = -1;
 	while (++i < MH)
 	{
