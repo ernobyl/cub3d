@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/26 10:27:36 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:26:07 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	read_map_lines(t_map *map, int x, int y, int len)
 			if (map->max_x <= len)
 				map->max_x = len;
 			if (map->str[x + 1] == '\n')
-				struct_error("Error\nmap has empty line3\n", map);
+				struct_error("Error\nmap has empty line\n", map);
 			y++;
 			len = 0;
 		}
@@ -125,7 +125,7 @@ void	is_valid_character(t_map *map)
 		if (map->duplicate > 1)
 			struct_error("Error\nduplicate start positions\n", map);
 		if (map->str[i] == ' ')
-			map->str[i] = '1';
+			handle_spaces(map, i);
 		i++;
 	}
 	if (!ft_strchr(map->str, 'N') && !ft_strchr(map->str, 'S')

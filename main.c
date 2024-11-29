@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:40:26 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/26 13:10:48 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/29 12:11:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	inspect_map(t_map *map)
 {
 	set_map_limits(map);
 	is_valid_character(map);
-	is_rectangle(map);
+	is_valid(map);
 }
 
 static void	assign_map(t_map *map)

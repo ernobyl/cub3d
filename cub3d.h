@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 14:59:27 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/29 14:26:36 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,6 @@ typedef struct s_image
 	mlx_image_t	*mini_p;
 	mlx_image_t	*screen;
 	mlx_image_t	*minimap;
-	mlx_image_t	*north;
-	mlx_image_t	*south;
-	mlx_image_t	*west;
-	mlx_image_t	*east;
 	uint32_t	color_miniwall;
 	uint32_t	color_minifloor;
 	uint32_t	color_player;
@@ -220,6 +216,7 @@ int			map_set_floorcolor(t_map *map, int i);
 int			map_set_ceilingcolor(t_map *map, int i);
 void		map_set_color(t_map *map, char *line, int i, uint32_t *color);
 int			set_texture_wall(t_map *map, mlx_texture_t **texture, int i);
+void		handle_spaces(t_map *map, int i);
 
 // map wall checks
 void		first_line(t_map *map);
@@ -231,7 +228,7 @@ void		read_map(t_map *map);
 void		valid_extension(char *str);
 void		tabs_to_spaces(t_map *map);
 void		set_map_limits(t_map *map);
-void		is_rectangle(t_map *map);
+void		is_valid(t_map *map);
 void		is_valid_character(t_map *map);
 void		traverse_path(char **arr, t_map *cur, int y, int x);
 int			map_color_specs(t_map *map);

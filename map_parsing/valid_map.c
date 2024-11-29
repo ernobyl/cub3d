@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/04 12:01:08 by emichels         ###   ########.fr       */
+/*   Updated: 2024/11/29 11:16:09 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	valid_path(t_map *p)
 	traverse_path(p->arr, p, p->y, p->x);
 }
 
-void	is_rectangle(t_map *map)
+void	is_valid(t_map *map)
 {
 	map->arr = ft_split(map->str, '\n');
 	if (!map->arr)
