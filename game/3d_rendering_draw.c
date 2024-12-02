@@ -6,7 +6,7 @@
 /*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:02:44 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/26 11:51:40 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:21:56 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ void	draw_ceiling(t_map *map, int ray_index, int wall_top)
 	{
 		mlx_put_pixel(map->images->screen, ray_index,
 			y, map->images->color_ceiling);
-		y++;
-	}
-}
-
-void	draw_plain_walls(t_map *map, int wall_top, int wall_bottom)
-{
-	int	y;
-
-	y = wall_top;
-	while (y < wall_bottom)
-	{
-		mlx_put_pixel(map->images->screen, map->ray_index,
-			y, map->images->color_wall);
 		y++;
 	}
 }
@@ -75,6 +62,4 @@ void	draw_walls(t_map *map, int wall_top, int wall_bottom, t_ray *ray)
 	else if (ray->hit_n == 1
 		&& check_for_textures(map, map->textures->wall_no) == 0)
 		draw_textured_wall_north(map, wall_top, wall_bottom, ray);
-	else
-		draw_plain_walls(map, wall_top, wall_bottom);
 }

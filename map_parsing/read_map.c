@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/12/02 15:45:54 by emichels         ###   ########.fr       */
+=======
+/*   Updated: 2024/12/02 16:30:03 by msilfver         ###   ########.fr       */
+>>>>>>> c9b79128d7cc19298e4713fb2dea4c23b8b7a25f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +53,21 @@ int	correct_path(char *str, int i)
 	return (0);
 }
 
-void valid_extension(char *str)
+void	valid_extension(char *str)
 {
-    char *ext;
-    size_t len;
-    size_t ext_len;
+	char	*ext;
+	size_t	len;
+	size_t	ext_len;
 
 	ext = ".cub";
 	len = ft_strlen(str);
 	ext_len = ft_strlen(ext);
-    if (len < ext_len)
-        simple_error("Error\ninvalid map format/name\n");
-    if (ft_strncmp(str + len - ext_len, ext, ext_len) != 0)
-        simple_error("Error\ninvalid map format/name\n");
-    if (is_directory(str) == -1 || correct_path(str, len - 4) == -1)
-        simple_error("Error\nInvalid file or path\n");
+	if (len < ext_len)
+		simple_error("Error\ninvalid map format/name\n");
+	if (ft_strncmp(str + len - ext_len, ext, ext_len) != 0)
+		simple_error("Error\ninvalid map format/name\n");
+	if (is_directory(str) == -1 || correct_path(str, len - 4) == -1)
+		simple_error("Error\nInvalid file or path\n");
 }
 
 static char	*copy_from_file(int fd, char *buf, char *tmp, char *map_str)

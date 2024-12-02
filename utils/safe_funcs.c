@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:39:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 13:49:22 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:31:11 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,14 @@ int	atoi_cub(const char *str)
 	if (str[counter] == ' ')
 		return (-1);
 	if (str[counter] == '-')
-		return (-1);
+			return (-1);
 	while (str[counter] >= '0' && str[counter] <= '9')
 	{	
 		result = result * 10 + (str[counter++] - '0');
 		if (result >= INT_MAX)
 			return (INT_MAX);
 	}
-	if (str[counter] != ',' && str[counter] != '\n')
+ 	if (str[counter] != ',' && str[counter] != '\n')
 		return (-1);
 	return (result);
 }
