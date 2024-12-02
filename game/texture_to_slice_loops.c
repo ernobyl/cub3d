@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:18:05 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 15:02:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:32:05 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ uint32_t	apply_shading(uint32_t color, float shading_factor)
 		shading_factor = 1.3f;
 	else if (shading_factor < 0.2f)
 		shading_factor = 0.2f;
-	r = (color >> 24) & 0xFF;
-	g = (color >> 16) & 0xFF;
-	b = (color >> 8) & 0xFF;
-	a = color & 0xFF;
+	a = (color >> 24) & 0xFF;
+	b = (color >> 16) & 0xFF;
+	g = (color >> 8) & 0xFF;
+	r = color & 0xFF;
 	r = (int)(r * shading_factor);
 	g = (int)(g * shading_factor);
 	b = (int)(b * shading_factor);
