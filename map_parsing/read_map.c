@@ -3,14 +3,51 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/09/23 12:07:20 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:26:02 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	is_directory(char *path)
+{
+	int	fd;
+	int	buffer[1];
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	if (read(fd, buffer, 1) < 0)
+	{
+		close(fd);
+		return (-1);
+	}
+	close(fd);
+	return (0);
+}
+
+int	correct_path(char *str, int i)
+{
+	int	j;
+
+	j = i;
+	if (i == 0)
+		return (-1);
+	while (str[j] && j > 0)
+	{
+		if (str[j] == '/' )
+		{
+			if (j == i - 1)
+				return (-1);
+			break ;
+		}
+		j--;
+	}
+	return (0);
+}
 
 void	valid_extension(char *str)
 {
@@ -20,6 +57,8 @@ void	valid_extension(char *str)
 
 	i = 0;
 	ext = ".cub";
+	if (is_directory(str) == -1)
+		simple_error("Can't access file/folder\n");
 	while (str[i++])
 	{
 		if (str[i] == '.')
@@ -28,6 +67,8 @@ void	valid_extension(char *str)
 			simple_error("Error\ninvalid map format/name\n");
 	}
 	k = 0;
+	if (correct_path(str, i) == -1)
+		simple_error("Error\nInvalid file or path\n");
 	while (str[i])
 	{
 		if (str[i] != ext[k] || k == i)

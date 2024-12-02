@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/29 14:26:07 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 11:39:43 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

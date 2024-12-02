@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_spec_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 12:33:34 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 14:56:23 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 12:14:28 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	map_set_we_ea(t_map *map, int i)
 int	map_set_floorcolor(t_map *map, int i)
 {
 	if (map->images->f_flag == 1)
-				struct_error("Error\nMultiple floor colors\n", map);
+		struct_error("Error\nMultiple floor colors\n", map);
 	map_set_color(map, map->str, i + 1, &map->images->color_floor);
 	map->images->f_flag = 1;
 	map->element_counter++;
