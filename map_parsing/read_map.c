@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:31:16 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 12:26:02 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/12/02 15:41:33 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,33 +49,21 @@ int	correct_path(char *str, int i)
 	return (0);
 }
 
-void	valid_extension(char *str)
+void valid_extension(char *str)
 {
-	int		i;
-	int		k;
-	char	*ext;
+    char *ext;
+    size_t len;
+    size_t ext_len;
 
-	i = 0;
 	ext = ".cub";
-	if (is_directory(str) == -1)
-		simple_error("Can't access file/folder\n");
-	while (str[i++])
-	{
-		if (str[i] == '.')
-			break ;
-		else if (str[i + 1] == '\0')
-			simple_error("Error\ninvalid map format/name\n");
-	}
-	k = 0;
-	if (correct_path(str, i) == -1)
-		simple_error("Error\nInvalid file or path\n");
-	while (str[i])
-	{
-		if (str[i] != ext[k] || k == i)
-			simple_error("Error\ninvalid map format/name\n");
-		i++;
-		k++;
-	}
+	len = ft_strlen(str);
+	ext_len = ft_strlen(ext);
+    if (len < ext_len)
+        simple_error("Error\ninvalid map format/name\n");
+    if (ft_strncmp(str + len - ext_len, ext, ext_len) != 0)
+        simple_error("Error\ninvalid map format/name\n");
+    if (is_directory(str) == -1 || correct_path(str, len - 4) == -1)
+        simple_error("Error\nInvalid file or path\n");
 }
 
 static char	*copy_from_file(int fd, char *buf, char *tmp, char *map_str)
