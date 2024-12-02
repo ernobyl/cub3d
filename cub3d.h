@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 14:08:40 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/29 14:26:36 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:07:20 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,6 @@ int			map_set_floorcolor(t_map *map, int i);
 int			map_set_ceilingcolor(t_map *map, int i);
 void		map_set_color(t_map *map, char *line, int i, uint32_t *color);
 int			set_texture_wall(t_map *map, mlx_texture_t **texture, int i);
-void		handle_spaces(t_map *map, int i);
 
 // map wall checks
 void		first_line(t_map *map);

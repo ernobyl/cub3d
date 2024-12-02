@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:49:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/29 14:25:56 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:06:59 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,28 +48,4 @@ void	init_plr_angle(t_map *map, char direction)
 		map->plr_angle = PI;
 	else if (direction == 'E')
 		map->plr_angle = 0.0f;
-}
-
-void	handle_spaces(t_map *map, int i)
-{
-	int	wall;
-	int	cur;
-
-	cur = i;
-	wall = 0;
-	while (map->str[i] != '\n')
-	{
-		if (map->str[i] == '1')
-			wall = 1;
-		i++;
-	}
-	while (map->str[--i] != '\n')
-	{
-		if (map->str[i] == '1')
-			wall = 1;
-	}
-	if (wall)
-		map->str[cur] = '1';
-	else
-		struct_error("Error\nmap has empty line\n", map);
 }

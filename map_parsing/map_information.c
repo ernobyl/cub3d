@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_information.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 11:39:43 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/12/02 13:07:03 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,10 @@ void	set_map_limits(t_map *map)
 	free(map->str);
 	map->str = ft_strdup(temp);
 	if (map->str == NULL)
+	{
+		free(temp);
 		struct_error("Error\nstrdup failed\n", map);
+	}
 	free(temp);
 	x = 0;
 	read_map_lines(map, x, y, len);
@@ -125,7 +128,7 @@ void	is_valid_character(t_map *map)
 		if (map->duplicate > 1)
 			struct_error("Error\nduplicate start positions\n", map);
 		if (map->str[i] == ' ')
-			handle_spaces(map, i);
+			map->str[i] = '1';
 		i++;
 	}
 	if (!ft_strchr(map->str, 'N') && !ft_strchr(map->str, 'S')
