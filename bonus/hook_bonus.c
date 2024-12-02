@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 14:26:02 by msilfver          #+#    #+#             */
-/*   Updated: 2024/11/22 10:14:54 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 17:26:22 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static uint32_t	convert_colors(uint32_t color)
+{
+	int	r;
+	int	g;
+	int	b;
+	int	a;
+
+	r = color & 0xFF;
+	g = (color >> 8) & 0xFF;
+	b = (color >> 16) & 0xFF;
+	a = (color >> 24) & 0xFF;
+	color = (b << 24) | (g << 16) | (r << 8) | a;
+	return (color);
+}
 
 void	set_background(t_map *map)
 {
@@ -32,6 +47,7 @@ void	set_background(t_map *map)
 			texture_y = map->y % bg_texture->height;
 			color = ((uint32_t *)bg_texture->pixels)[texture_y
 				* bg_texture->width + texture_x];
+			color = convert_colors(color);
 			mlx_put_pixel(map->images->screen, map->x, map->y, color);
 			map->x++;
 		}
