@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_to_slice_loops.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:18:05 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/27 15:02:43 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/02 16:29:29 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
