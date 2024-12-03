@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   safe_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:39:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/03 15:06:25 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:25:48 by msilfver         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ int	atoi_cub(const char *str)
 
 	counter = 0;
 	result = 0;
-	if (!str || str[counter] == '\n')
+	if (!str || str[counter] == '\n'
+		|| str[counter] == ' ' || str[counter] == '-')
 		return (-1);
-	if (str[counter] == ' ')
-		return (-1);
-	if (str[counter] == '-')
-		return (-1);
+	if (str[counter] == '0')
+	{
+		if (str[++counter] != '\n' && str[counter] != ',')
+				return (-1);
+		return (0);
+	}
 	while (str[counter] >= '0' && str[counter] <= '9')
 	{
 		if (!ft_isdigit(str[counter]))
