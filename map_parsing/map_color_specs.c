@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:47:41 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/03 14:34:32 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:32:54 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	set_texture_wall(t_map *map, mlx_texture_t **texture, int i)
 	while (map->str[i] && map->str[i] != ' ')
 		i++;
 	while (map->str[i] != '.' && map->str[i])
-	{	
+	{
 		if (map->str[i] != ' ')
 			struct_error("Error\nInvalid texture identifier\n", map);
 		i++;

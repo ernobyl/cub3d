@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/15 15:18:10 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 13:07:03 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:21:10 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ void	is_valid_character(t_map *map)
 		}
 		if (map->duplicate > 1)
 			struct_error("Error\nduplicate start positions\n", map);
-		if (map->str[i] == ' ')
-			map->str[i] = '1';
 		i++;
 	}
 	if (!ft_strchr(map->str, 'N') && !ft_strchr(map->str, 'S')

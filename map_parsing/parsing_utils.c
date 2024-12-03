@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/04 11:49:33 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 13:06:59 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:27:30 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,32 @@ void	init_plr_angle(t_map *map, char direction)
 		map->plr_angle = PI;
 	else if (direction == 'E')
 		map->plr_angle = 0.0f;
+}
+
+void	handle_spaces(t_map *map)
+{
+	map->y = 0;
+	while (map->y <= map->max_y)
+	{
+		map->x = 0;
+		while (map->arr[map->y][map->x])
+		{
+			if (map->arr[map->y][map->x] == 'x')
+			{
+				if ((map->y - 1 >= 0 && map->arr[map->y - 1][map->x] != 'x'
+					&& map->arr[map->y - 1][map->x] != '1')
+					|| (map->y + 1 <= map->max_y
+					&& map->arr[map->y + 1][map->x] != 'x'
+					&& map->arr[map->y + 1][map->x] != '1')
+					|| (map->x - 1 >= 0 && map->arr[map->y][map->x - 1] != 'x'
+					&& map->arr[map->y][map->x - 1] != '1')
+					|| (map->arr[map->y][map->x + 1]
+					&& map->arr[map->y][map->x + 1] != 'x'
+					&& map->arr[map->y][map->x + 1] != '1'))
+					struct_error("Error\nmap not walled\n", map);
+			}
+			map->x++;
+		}
+		map->y++;
+	}
 }

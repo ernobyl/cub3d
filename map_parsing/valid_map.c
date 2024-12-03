@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 12:51:12 by emichels          #+#    #+#             */
-/*   Updated: 2024/11/29 11:16:09 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:27:51 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	search_unfilled(char **map_arr, t_map *cur)
 void	traverse_path(char **arr, t_map *cur, int y, int x)
 {
 	if (y < 1 || x < 1 || y > cur->max_y || x > cur->max_x
-		|| arr[y][x] == 'x' || arr[y][x] == '1')
+		|| arr[y][x] == 'x' || arr[y][x] == '1' || arr[y][x] == ' ')
 		return ;
 	arr[y][x] = 'x';
 	traverse_path(arr, cur, y, x - 1);
@@ -113,6 +113,7 @@ void	is_valid(t_map *map)
 	map->y = 0;
 	is_walled(map);
 	valid_path(map);
+	handle_spaces(map);
 	ft_free(map->arr);
 	map->arr = NULL;
 }

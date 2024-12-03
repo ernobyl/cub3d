@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color_spec_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: msilfver <msilfver@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 12:33:34 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/02 12:14:28 by msilfver         ###   ########.fr       */
+/*   Updated: 2024/12/03 22:32:39 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	map_set_no_so(t_map *map, int i)
 {
 	if (ft_strncmp(map->str + i, "NO ", 3) == 0)
-	{	
+	{
 		if (map->textures->no)
 			struct_error("Error\nduplicate textures\n", map);
 		else
@@ -26,7 +26,7 @@ int	map_set_no_so(t_map *map, int i)
 		}
 	}
 	if (ft_strncmp(map->str + i, "SO ", 3) == 0)
-	{	
+	{
 		if (map->textures->so)
 			struct_error("Error\nduplicate textures\n", map);
 		else
@@ -42,7 +42,7 @@ int	map_set_no_so(t_map *map, int i)
 int	map_set_we_ea(t_map *map, int i)
 {
 	if (ft_strncmp(map->str + i, "WE ", 3) == 0)
-	{	
+	{
 		if (map->textures->we)
 			struct_error("Error\nduplicate textures\n", map);
 		else
@@ -53,7 +53,7 @@ int	map_set_we_ea(t_map *map, int i)
 		}
 	}
 	if (ft_strncmp(map->str + i, "EA ", 3) == 0)
-	{	
+	{
 		if (map->textures->ea)
 			struct_error("Error\nduplicate textures\n", map);
 		else
