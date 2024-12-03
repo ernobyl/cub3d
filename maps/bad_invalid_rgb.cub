@@ -4,7 +4,10 @@ SO ./textures/test2.png
 EA ./textures/test3.png
 
 F 50,50,50
-C 225,30,-20
+
+
+
+C 0,50, 
 
 1111111111111
 1001000000001
