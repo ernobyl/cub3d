@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:39:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/03 14:11:29 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:06:25 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ int	atoi_cub(const char *str)
 		return (-1);
 	if (str[counter] == '-')
 		return (-1);
-	if (!ft_isdigit(str[counter]))
-		return (-1);
 	while (str[counter] >= '0' && str[counter] <= '9')
-	{	
+	{
+		if (!ft_isdigit(str[counter]))
+			return (-1);
 		result = result * 10 + (str[counter++] - '0');
 		if (result >= INT_MAX)
 			return (INT_MAX);
