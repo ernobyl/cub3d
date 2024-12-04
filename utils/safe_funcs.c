@@ -6,7 +6,7 @@
 /*   By: emichels <emichels@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 09:39:03 by emichels          #+#    #+#             */
-/*   Updated: 2024/12/03 22:33:39 by emichels         ###   ########.fr       */
+/*   Updated: 2024/12/04 14:58:41 by emichels         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	safe_check(int index, t_ray *rays)
 	int	prev_index;
 	int	next_index;
 
-	prev_index = index - 1;
-	next_index = index + 1;
+	prev_index = index - 6;
+	next_index = index + 6;
 	if (prev_index < 0 || next_index >= SCREEN_WIDTH)
 		return ;
 	check_s_and_n(prev_index, next_index, index, rays);
